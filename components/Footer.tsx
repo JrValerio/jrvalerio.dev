@@ -1,0 +1,1 @@
+// Componente Footer com redes

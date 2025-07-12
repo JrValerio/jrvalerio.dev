@@ -1,1 +1,1 @@
-{ "name": "jrvalerio-dev", "version": "1.0.0" }
+{ "name": "jrvalerio-dev", "version": "1.0.0", "scripts": { "dev": "next dev", "build": "next build", "start": "next start" } }
