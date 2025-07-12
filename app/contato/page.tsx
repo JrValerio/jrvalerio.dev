@@ -1,1 +1,1 @@
-// Página Contato com formulário ou links
+export default function Contato() { return <div>Contato</div>; }

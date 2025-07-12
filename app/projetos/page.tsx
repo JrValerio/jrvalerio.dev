@@ -1,1 +1,1 @@
-// Página Projetos com 5 cards
+export default function Projetos() { return <div>Projetos em destaque</div>; }

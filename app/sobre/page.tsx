@@ -1,1 +1,1 @@
-// Página Sobre com bio
+export default function Sobre() { return <div>Sobre Amaro Júnior</div>; }

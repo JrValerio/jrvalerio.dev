@@ -1,1 +1,1 @@
-// Componente Footer com redes
+export default function Footer() { return <footer>Footer</footer>; }
