@@ -1,0 +1,149 @@
+{
+  "header": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "welcome": "Welcome to my portfolio!",
+  "button": {
+    "seeMore": "See more",
+    "print": "Print / Save PDF"
+  },
+  "profile": "Professional Profile",
+  "education": "Education",
+  "skills": "Skills",
+  "experience": "Professional Experience",
+  "projectsSection": "Relevant Projects",
+  "name": "Amaro V S Júnior",
+  "role": "Full Stack Developer specialized in Front End",
+  "location": "Atibaia, São Paulo, Brazil",
+  "phone": "Phone: +55 11 96075 7716",
+  "linkedin": "LinkedIn",
+  "github": "GitHub",
+  "educations": [
+    {
+      "title": "Rocketseat ONE (In progress)",
+      "date": "September/2024 - Present",
+      "desc": "Full Stack course covering React.js, Node.js, JavaScript, TypeScript, DevOps, and AI. Focused on building complete applications, DevOps tools and practical AI usage.",
+      "link": "https://www.rocketseat.com.br/"
+    },
+    {
+      "title": "Kenzie Academy Brazil",
+      "date": "September/2023 - September/2024",
+      "desc": "Full Stack course focusing on React.js, Node.js, PostgreSQL, Python. Over 2000h of hands-on training from front-end to back-end software development.",
+      "link": "https://kenzie.com.br/"
+    },
+    {
+      "title": "UNIASSELVI - Systems Analysis and Development (In progress)",
+      "date": "July/2024 - December/2026",
+      "desc": "Focus on software development fundamentals, software engineering, databases, and agile methodologies.",
+      "link": "https://portal.uniasselvi.com.br/"
+    }
+  ],
+  "experiences": [
+    {
+      "title": "Freelance Web Developer",
+      "date": "July/2024 - Present",
+      "bullets": [
+        "Developed web solutions using React, JavaScript, and TailwindCSS to create modern and dynamic interfaces.",
+        "Created responsive interfaces, ensuring accessibility and smooth user experience across devices.",
+        "Used Git for version control in collaborative projects, ensuring consistency and traceability.",
+        "Built projects such as an e-commerce platform and a task management system.",
+        "Experience working remotely and effective communication with clients for requirements gathering."
+      ]
+    },
+    {
+      "title": "Singular Serviços de Saúde Ltda",
+      "date": "Payroll Analyst - Aug/2012 to Jul/2017",
+      "bullets": [
+        "Managed payroll and automated processes, resulting in greater operational efficiency.",
+        "Oversaw benefits and compliance with labor laws, ensuring employee satisfaction.",
+        "Communication with stakeholders and improvements in internal departmental processes."
+      ]
+    },
+    {
+      "title": "WM Assistência Contábil",
+      "date": "Payroll Assistant - Feb/2010 to Apr/2011",
+      "bullets": [
+        "Handled admission, dismissal, and vacation calculations, focusing on process optimization.",
+        "Improved analytical and process management skills."
+      ]
+    }
+  ],
+  "projects": "Relevant Projects",
+  "projectsSectionArr": [
+    {
+      "title": "Kenzie Hub",
+      "desc": "Portfolio platform for developers, allowing you to add and manage technologies being learned, focused on showcasing professional growth.",
+      "stack": "Technologies: React, Context API, TypeScript.",
+      "link": "https://kenzie-hub-seven-blue.vercel.app/"
+    },
+    {
+      "title": "Control Finance",
+      "desc": "Personal finance management app, enabling you to register income and expenses, view total balance and filter transactions by category.",
+      "stack": "Technologies: React, Tailwind CSS.",
+      "link": "https://control-finance-react-tail-wind.vercel.app/"
+    }
+  ],
+  "skillsArr": [
+    "Front-End: React, HTML, CSS, JavaScript, TailwindCSS, Styled Components, API integration",
+    "Back-End: Node.js, Express, PostgreSQL, Python, Django REST Framework",
+    "Tools: Git, GitHub, Vercel, Figma, Docker",
+    "Others: Responsive design, Hooks, OOP, TDD, Scrum, Kanban, DevOps"
+  ],
+  "certs": "Certifications",
+  "certificationsArr": [
+    "NLW Rocketseat - Intermediate Full-stack: Certificate in back-end application development with Node.js, applying REST API concepts using TypeScript, Fastify, DrizzleORM, PostgreSQL, Docker, and Zod. Also includes certificate in modern front-end app development with ReactJS.",
+    "Kenzie Academy - Graduation Certificate: 2000 hours in Full-Stack Programming covering HTML, CSS, React.js, TypeScript, Node.js, PostgreSQL, Python, focused on developing complete and scalable applications.",
+    "Kenzie Academy - Graduation Certificate: 1000 hours in Front-End Programming with HTML, CSS, React.js, TypeScript, with a strong emphasis on modern development practices and creating responsive, intuitive UIs."
+  ],
+  "idioms": "Languages",
+  "idiomsArr": [
+    "Portuguese: Native",
+    "English: Intermediate (in progress, focused on reading and conversation fluency)",
+    "Spanish: Advanced (reading, writing, and verbal communication in professional environments)"
+  ],
+
+  "contact": {
+    "title": "Let's Work Together",
+    "subtitle": "Have a project in mind or just want to say hello? Fill out the form below and I'll get back to you as soon as possible.",
+    "form": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "message": "Write your message here...",
+      "button": "Send Message"
+    },
+    "infoTitle": "Contact Information",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "addressText": "Atibaia, São Paulo, Brazil"
+  },
+  
+  "about": {
+    "title": "About Me",
+    "body": "I'm Amaro Júnior (JrValerio), a Full Stack developer passionate about creating solutions that unite technology, purpose, and accessibility. I have been caring for my mother since 2012, which taught me resilience, empathy, and discipline. I have built projects like EcoVoz, EducaCristão GPT, Control Finance, Post-it Share App, and Fullstack Toybox — all with a dose of creativity, real impact, and collaboration. My career transition came from the HR/Payroll field, where I worked for over 10 years, bringing my process, organization, and empathy experience to the tech universe. In software development, I found my purpose: to create inclusive technology, transform ideas into code, and connect people. I've participated in hackathons, dev marathons, completed bootcamps at Kenzie, Rocketseat, and courses at Alura. My profile is one of continuous learning and adaptation – I enjoy challenges, learning, and sharing what I know.",
+    "instagram": "Follow me on Instagram",
+    "carouselTitle": "Moments from My Journey",
+    "carouselFooter": "See more on my Instagram!",
+    "dotLabel": "Go to photo {{n}}",
+    "prev": "Previous photo",
+    "next": "Next photo"
+  },
+
+  "featured_projects": "Featured Projects",
+  "see_repo": "See repository",
+  "see_all_on_github": "See all on GitHub",
+  "demo": "Demo",
+  "loading": "Loading...",
+  "error": "Error loading projects from GitHub.",
+  "all": "All",
+  "no_description": "No description..."
+
+
+}
+  
+  

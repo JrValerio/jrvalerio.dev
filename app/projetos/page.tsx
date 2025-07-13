@@ -1,1 +1,0 @@
-export default function Projetos() { return <div>Projetos em destaque</div>; }

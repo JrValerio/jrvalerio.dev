@@ -1,1 +1,6 @@
-// PostCSS config aqui
+module.exports = {
+  plugins: {
+    '@tailwindcss/postcss': {},
+    autoprefixer: {},
+  },
+};
