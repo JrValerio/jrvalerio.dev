@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 
 const Contact: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, ready } = useTranslation("common");
+  const [mounted, setMounted] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -12,7 +13,18 @@ const Contact: React.FC = () => {
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  useEffect(() => {
+    setMounted(true);
+    if (ready) {
+      document.title = t("pageTitles.contact");
+    }
+  }, [ready]);
+
+  if (!mounted || !ready) return null;
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -30,7 +42,6 @@ const Contact: React.FC = () => {
   return (
     <main className="flex min-h-screen justify-center items-center bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 px-2">
       <section className="flex flex-col md:flex-row gap-8 w-full max-w-6xl">
-        {/* Formulário */}
         <div className="flex-1 rounded-2xl bg-gray-900/90 shadow-lg p-8">
           <h2 className="text-3xl font-bold text-blue-500 mb-1">{t("contact.title")}</h2>
           <p className="text-gray-300 mb-8 text-sm">{t("contact.subtitle")}</p>
@@ -95,7 +106,6 @@ const Contact: React.FC = () => {
           </form>
         </div>
 
-        {/* Informações */}
         <div className="flex-1 bg-gray-900/90 rounded-2xl p-8 shadow-lg flex flex-col gap-8 justify-between min-h-[350px] max-h-full">
           <div>
             <h3 className="text-blue-500 text-2xl font-bold mb-8">{t("contact.infoTitle")}</h3>

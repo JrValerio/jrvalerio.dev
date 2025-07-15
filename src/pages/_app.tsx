@@ -1,16 +1,16 @@
-import "../styles/globals.css";
+import Particles from "@tsparticles/react";
 import type { AppProps } from "next/app";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import "../i18n"; 
+import { appWithTranslation } from "next-i18next";
+import "../styles/globals.css";
+import Layout from "../components/Layout";
+import "../i18n"
 
-
-export default function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Header />
+    <Layout>
       <Component {...pageProps} />
-      <Footer />
-    </>
+    </Layout>
   );
 }
+
+export default appWithTranslation(MyApp);

@@ -7,3 +7,28 @@ body {
 color: #334155;
 }
 
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fadeInUp 1s cubic-bezier(.39,.575,.565,1) both;
+  }
+  .animate-fade-in {
+    animation: fadeIn 1s cubic-bezier(.39,.575,.565,1) both;
+  }
+  .animate-glow {
+    animation: glow 1.2s infinite alternate;
+  }
+}
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to { opacity: 1;}
+}
+@keyframes glow {
+  from { filter: drop-shadow(0 0 2px #14e5c6);}
+  to { filter: drop-shadow(0 0 16px #14e5c6);}
+}
+

@@ -1,11 +1,35 @@
-import { motion } from "framer-motion";
-import CardProjeto from "../components/CardProjeto";
+function generateSlug(repo: string): string {
+  return repo.toLowerCase().replace(/\s+/g, "-");
+}
 
-const projetos = {
+export type ProjetoCustom = {
+  descricao: string;
+  imagem: string;
+  stack: string[];
+  links: {
+    demo?: string;
+    github?: string;
+  };
+};
+
+export type Projeto = {
+  name: string;
+  repo: string;
+  slug: string;
+  custom: ProjetoCustom;
+};
+
+export type CategoriaDeProjetos = {
+  fullStack: Projeto[];
+  frontEnd: Projeto[];
+};
+
+const projetos: CategoriaDeProjetos = {
   fullStack: [
     {
       name: "Control Finance",
       repo: "Control-Finance-React-TailWind",
+      slug: generateSlug("Control-Finance-React-TailWind"),
       custom: {
         descricao: "App para controle de finanças pessoais.",
         imagem:
@@ -13,13 +37,15 @@ const projetos = {
         stack: ["React", "Tailwind", "JavaScript"],
         links: {
           demo: "https://control-finance-react-tail-wind.vercel.app/",
-          github: "https://github.com/JrValerio/Control-Finance-React-TailWind",
+          github:
+            "https://github.com/JrValerio/Control-Finance-React-TailWind",
         },
       },
     },
     {
       name: "Post-it",
       repo: "postit",
+      slug: generateSlug("postit"),
       custom: {
         descricao: "Compartilhamento de notas estilo post-it.",
         imagem:
@@ -34,6 +60,7 @@ const projetos = {
     {
       name: "Kenzie Hub",
       repo: "Kenzie-Hub",
+      slug: generateSlug("Kenzie-Hub"),
       custom: {
         descricao: "Gestão de habilidades de alunos da Kenzie.",
         imagem:
@@ -50,6 +77,7 @@ const projetos = {
     {
       name: "Hamburgueria",
       repo: "template-hamburgueria",
+      slug: generateSlug("template-hamburgueria"),
       custom: {
         descricao: "Simulação de e-commerce para hamburgueria.",
         imagem:
@@ -64,6 +92,7 @@ const projetos = {
     {
       name: "Portfolio Template",
       repo: "portfolio-template-JrValerio",
+      slug: generateSlug("portfolio-template-JrValerio"),
       custom: {
         descricao: "Template moderno de portfólio pessoal.",
         imagem:
@@ -78,6 +107,7 @@ const projetos = {
     {
       name: "News Portal",
       repo: "newsportal",
+      slug: generateSlug("newsportal"),
       custom: {
         descricao: "Portal de notícias de tecnologia com CSS Grid.",
         imagem:
@@ -92,6 +122,7 @@ const projetos = {
     {
       name: "Decodificador de Textos",
       repo: "decodificador-de-textos",
+      slug: generateSlug("decodificador-de-textos"),
       custom: {
         descricao: "Criptografador e descriptografador de mensagens.",
         imagem:
@@ -106,6 +137,7 @@ const projetos = {
     {
       name: "Fylo",
       repo: "Fylo",
+      slug: generateSlug("Fylo"),
       custom: {
         descricao: "Landing page com layout responsivo e duas colunas.",
         imagem:

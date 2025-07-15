@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaInstagram } from "react-icons/fa";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 
 const fotos = [
   "/img/01.jpg",
@@ -20,8 +20,10 @@ const fotos = [
 ];
 
 export default function Sobre() {
-  const { t } = useTranslation();
+  const { t, ready } = useTranslation("common");
+  const [mounted, setMounted] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     loop: true,
     slides: { perView: 3, spacing: 24 },
@@ -51,9 +53,7 @@ export default function Sobre() {
       function nextTimeout() {
         clearTimeout(timeout);
         if (mouseOver) return;
-        timeout = setTimeout(() => {
-          slider.next();
-        }, 2500);
+        timeout = setTimeout(() => slider.next(), 2500);
       }
       slider.on("created", () => {
         slider.container.addEventListener("mouseover", () => {
@@ -72,6 +72,15 @@ export default function Sobre() {
     }
   ]);
 
+  useEffect(() => {
+    setMounted(true);
+    if (ready) {
+      document.title = t("pageTitles.about");
+    }
+  }, [ready]);
+
+  if (!mounted || !ready) return null;
+
   return (
     <section className="min-h-[80vh] bg-gray-900 flex flex-col items-center justify-center py-8">
       <div className="max-w-3xl mx-auto px-6 py-12 rounded-2xl bg-white/5 backdrop-blur-md border border-gray-800 shadow-lg mb-10">
@@ -80,14 +89,22 @@ export default function Sobre() {
         </h1>
         <p className="text-white/90 leading-relaxed text-lg mb-6">{t("about.body")}</p>
         <div className="flex items-center gap-4 mt-6">
-          <Link href="https://www.instagram.com/jrvalerioo/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-lg text-pink-400 hover:text-pink-300">
+          <Link
+            href="https://www.instagram.com/jrvalerioo/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-lg text-pink-400 hover:text-pink-300"
+          >
             <FaInstagram className="mr-2 text-2xl" />
             {t("about.instagram")}
           </Link>
         </div>
       </div>
+
       <div className="w-full flex flex-col items-center">
-        <h2 className="text-lg font-semibold text-white mb-2">{t("about.carouselTitle")}</h2>
+        <h2 className="text-lg font-semibold text-white mb-2">
+          {t("about.carouselTitle")}
+        </h2>
         <div ref={sliderRef} className="keen-slider max-w-4xl min-h-[270px]">
           {fotos.map((foto, idx) => (
             <a
@@ -105,16 +122,22 @@ export default function Sobre() {
             </a>
           ))}
         </div>
+
         <div className="flex justify-center gap-3 mt-3">
           {fotos.map((_, idx) => (
             <button
               key={idx}
-              className={`w-3 h-3 rounded-full border-2 ${currentSlide === idx ? "bg-blue-500 border-blue-400" : "bg-gray-600 border-gray-500"}`}
+              className={`w-3 h-3 rounded-full border-2 ${
+                currentSlide === idx
+                  ? "bg-blue-500 border-blue-400"
+                  : "bg-gray-600 border-gray-500"
+              }`}
               onClick={() => instanceRef.current?.moveToIdx(idx)}
               aria-label={t("about.dotLabel", { n: idx + 1 })}
             />
           ))}
         </div>
+
         <div className="flex gap-2 mt-3">
           <button
             onClick={() => instanceRef.current?.prev()}
@@ -131,7 +154,9 @@ export default function Sobre() {
             ▶
           </button>
         </div>
-        <span className="text-xs text-gray-400 mt-3">{t("about.carouselFooter")}</span>
+        <span className="text-xs text-gray-400 mt-3">
+          {t("about.carouselFooter")}
+        </span>
       </div>
     </section>
   );

@@ -1,0 +1,170 @@
+{
+  "header": {
+    "home": "Home",
+    "about": "About Me",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "pageTitles": {
+    "home": "Home",
+    "about": "About Me",
+    "projects": "Projects",
+    "contact": "Contact",
+    "cv": "Curriculum",
+    "projectDetail": "Project"
+  },
+  "home": {
+    "hero": "Turning ideas into code, purpose into projects, and innovation into impact."
+  },
+  "welcome": "Welcome to my portfolio!",
+
+  "name": "Amaro V S Júnior",
+  "role": "Full Stack Developer Specialized in Front End",
+  "location": "Atibaia, São Paulo, Brazil",
+  "phone": "Phone: +55 11 96075 7716",
+  "linkedin": "LinkedIn",
+  "github": "GitHub",
+
+  "profile": "Professional Profile",
+  "about": {
+    "title": "About Me",
+    "body": "I'm Amaro Júnior (JrValerio), a Full Stack developer passionate about creating solutions that combine technology, purpose, and accessibility. I've been taking care of my mother since 2012, which taught me resilience, empathy, and discipline. I've built projects like EcoVoz, EducaCristão GPT, Control Finance, Post-it Share App, and Fullstack Toybox — all with a dose of creativity, real impact, and collaboration. My career transition came from the Personnel Department area, where I worked for over 10 years, bringing my experience in processes, organization, and empathy to the tech universe. In development, I found my purpose: to create inclusive technology, turn ideas into code, and connect people. I have participated in hackathons, dev marathons, completed bootcamps at Kenzie and Rocketseat, and taken courses at Alura. My profile is continuous learning and adaptation – I enjoy challenges, learning, and sharing what I know.",
+    "instagram": "Follow my Instagram",
+    "carouselTitle": "Moments from My Journey",
+    "carouselFooter": "See more on my Instagram!",
+    "dotLabel": "Go to photo {{n}}",
+    "prev": "Previous photo",
+    "next": "Next photo"
+  },
+  "education": "Education",
+  "skills": "Skills",
+  "experience": "Professional Experience",
+  "projectsSection": "Relevant Projects",
+  "projectsLabel": "Projects",
+  "certs": "Certifications",
+  "idioms": "Languages",
+
+  "educations": [
+    {
+      "title": "Rocketseat ONE (Ongoing)",
+      "date": "September/2024 - Present",
+      "desc": "Full Stack course including React.js, Node.js, JavaScript, TypeScript, DevOps, and AI. Focused on building complete applications, using DevOps tools, and applying AI.",
+      "link": "https://www.rocketseat.com.br/"
+    },
+    {
+      "title": "Kenzie Academy Brasil",
+      "date": "September/2023 - September/2024",
+      "desc": "Full Stack course focused on React.js, Node.js, PostgreSQL, and Python. Over 2000h of hands-on software development from front-end to back-end.",
+      "link": "https://kenzie.com.br/"
+    },
+    {
+      "title": "UNIASSELVI - Systems Analysis and Development (Ongoing)",
+      "date": "July/2024 - December/2026",
+      "desc": "Training in programming fundamentals, software engineering, databases, and agile methodologies.",
+      "link": "https://portal.uniasselvi.com.br/"
+    }
+  ],
+  "experiences": [
+    {
+      "title": "Freelance Web Developer",
+      "date": "July/2024 - Present",
+      "bullets": [
+        "Developed web solutions using React, JavaScript, and TailwindCSS to create modern and dynamic interfaces.",
+        "Created responsive interfaces, ensuring accessibility and a smooth user experience across various devices.",
+        "Used Git for version control in collaborative projects, ensuring consistency and traceability.",
+        "Developed projects such as an e-commerce platform and a task management system.",
+        "Experienced in remote work and effective communication with clients for requirement gathering."
+      ]
+    },
+    {
+      "title": "Singular Serviços de Saúde Ltda",
+      "date": "Personnel Department Analyst - August/2012 to July/2017",
+      "bullets": [
+        "Managed payroll and process automation, resulting in greater operational efficiency.",
+        "Supervised benefits and compliance with labor laws, ensuring employee satisfaction.",
+        "Communicated with stakeholders and improved internal department processes."
+      ]
+    },
+    {
+      "title": "WM Assistência Contábil",
+      "date": "Personnel Department Assistant - February/2010 to April/2011",
+      "bullets": [
+        "Handled admission, dismissal, and vacation calculations, focusing on process optimization.",
+        "Improved analytical and process management skills."
+      ]
+    }
+  ],
+  "projectsSectionArr": [
+    {
+      "title": "Kenzie Hub",
+      "desc": "Portfolio platform for developers that allows adding and managing technologies being learned, focused on demonstrating professional growth.",
+      "stack": "Technologies: React, Context API, TypeScript.",
+      "link": "https://kenzie-hub-seven-blue.vercel.app/"
+    },
+    {
+      "title": "Control Finance",
+      "desc": "Personal finance management application that allows recording income and expenses, viewing total balance, and filtering transactions by category.",
+      "stack": "Technologies: React, Tailwind CSS.",
+      "link": "https://control-finance-react-tail-wind.vercel.app/"
+    }
+  ],
+  "skillsArr": [
+    "Front-End: React, HTML, CSS, JavaScript, TailwindCSS, Styled Components, API integration",
+    "Back-End: Node.js, Express, PostgreSQL, Python, Django REST Framework",
+    "Tools: Git, GitHub, Vercel, Figma, Docker",
+    "Other: Responsive design, Hooks, OOP, TDD, Scrum, Kanban, DevOps"
+  ],
+  "certificationsArr": [
+    "NLW Rocketseat - Intermediate Full-stack: Certified in backend application development using Node.js, REST API concepts with TypeScript, Fastify, DrizzleORM, PostgreSQL, Docker, and Zod. Also includes frontend application development with ReactJS using modern concepts.",
+    "Kenzie Academy - Graduation Certificate: 2000 hours of Full-Stack Programming covering HTML, CSS, React.js, TypeScript, Node.js, PostgreSQL, Python, focusing on building complete and scalable applications.",
+    "Kenzie Academy - Graduation Certificate: 1000 hours in Front-End Programming with HTML, CSS, React.js, TypeScript, with strong emphasis on modern development practices and building responsive, intuitive user interfaces."
+  ],
+  "idiomsArr": [
+    "Portuguese: Native",
+    "English: Intermediate (Ongoing, focusing on reading and conversation fluency)",
+    "Spanish: Advanced (reading, writing, and verbal communication skills in professional settings)"
+  ],
+
+  "button": {
+    "seeMore": "See more",
+    "print": "Print / Save PDF"
+  },
+
+  "projects": {
+    "title": "Projects by Category",
+    "categories": {
+      "fullStack": "Full Stack",
+      "frontEnd": "Front End"
+    }
+  },
+  "featured_projects": "Featured Projects",
+  "see_repo": "See repository",
+  "see_all_on_github": "See all on GitHub",
+  "demo": "Demo",
+  "loading": "Loading...",
+  "error": "Error loading GitHub projects.",
+  "all": "All",
+  "no_description": "No description...",
+
+  "contact": {
+    "title": "Let's Work Together",
+    "subtitle": "Have a project in mind or just want to say hi? Fill out the form below and I'll get back to you as soon as possible.",
+    "form": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "message": "Write your message here...",
+      "button": "Send Message"
+    },
+    "infoTitle": "Contact Information",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "addressText": "Atibaia, São Paulo, Brazil"
+  },
+
+  "cv": {
+    "title": "Curriculum"
+  }
+}
