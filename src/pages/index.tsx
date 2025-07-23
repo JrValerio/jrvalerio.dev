@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
@@ -5,10 +6,22 @@ import Typewriter from "typewriter-effect";
 
 export default function Home() {
   const { t, ready } = useTranslation("common");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   if (!ready) return null;
 
   const HEADER_HEIGHT = 64;
-  const typewriterStrings = t("home.heroTypewriter", { returnObjects: true }) as string[];
+  const typewriterStrings = t(
+    isMobile ? "home.heroTypewriterMobile" : "home.heroTypewriterDesktop",
+    { returnObjects: true }
+  ) as string[];
 
   return (
     <>
@@ -16,12 +29,18 @@ export default function Home() {
         <title>Portfólio - Amaro Júnior (JrValerio)</title>
         <meta name="description" content={t("seo.home.description")} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Portfólio - Amaro Júnior (JrValerio)" />
+        <meta
+          property="og:title"
+          content="Portfólio - Amaro Júnior (JrValerio)"
+        />
         <meta property="og:description" content={t("seo.home.description")} />
         <meta property="og:url" content="https://jrvalerio.dev/" />
         <meta property="og:image" content="/img/perfil.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Portfólio - Amaro Júnior (JrValerio)" />
+        <meta
+          name="twitter:title"
+          content="Portfólio - Amaro Júnior (JrValerio)"
+        />
         <meta name="twitter:description" content={t("seo.home.description")} />
         <meta name="twitter:image" content="/img/perfil.png" />
         <link rel="canonical" href="https://jrvalerio.dev/" />
@@ -57,7 +76,15 @@ export default function Home() {
         "
       >
         <div className="flex-1 flex flex-col justify-center items-center px-6 md:px-0 min-h-0">
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight drop-shadow-xl mb-8 max-w-xl text-center text-gray-100 dark:text-gray-100">
+          <h1
+            className="
+              text-3xl md:text-5xl font-bold leading-tight mb-8 max-w-xl text-center
+              bg-gradient-to-r from-teal-300 via-blue-400 to-fuchsia-500
+              bg-clip-text text-transparent
+              animate-gradient-x
+              drop-shadow-xl
+            "
+          >
             <Typewriter
               options={{
                 strings: typewriterStrings,
@@ -103,7 +130,11 @@ export default function Home() {
           />
         </div>
         <div className="w-full flex flex-col items-center">
-          <h1 className="text-2xl font-bold leading-tight drop-shadow-xl mb-6 max-w-xs text-center text-gray-100">
+          <h1 className="
+            text-2xl font-bold leading-tight drop-shadow-xl mb-6 max-w-xs text-center
+            bg-gradient-to-r from-teal-300 via-blue-400 to-fuchsia-500
+            bg-clip-text text-transparent animate-gradient-x
+          ">
             <Typewriter
               options={{
                 strings: typewriterStrings,

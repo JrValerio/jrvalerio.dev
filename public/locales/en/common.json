@@ -14,14 +14,19 @@
     "projectDetail": "Project"
   },
   "home": {
-    "hero": "Turning ideas into code, purpose into projects, and innovation into real-world impact.",
-    "heroTypewriter": [
-      "Building solutions with code.",
-      "Innovation that creates impact.",
-      "Full Stack Developer driven by results.",
-      "From vision to deployment, I make it happen."
-    ]
-  },
+  "hero": "Transforming ideas into code, purpose into projects, and innovation into real-world impact.",
+  "heroTypewriterDesktop": [
+    "I turn ideas into digital reality.",
+    "Coding with purpose. Innovating with impact.",
+    "Full Stack Developer building solutions that matter.",
+    "Code with accessibility, impact, and vision in every line."
+  ],
+  "heroTypewriterMobile": [
+    "Full Stack, full energy.",
+    "Purpose-driven technology.",
+    "Impact. Style. Clean code."
+  ]
+},
   "welcome": "Welcome to my portfolio!",
 
   "name": "Amaro V S Júnior",

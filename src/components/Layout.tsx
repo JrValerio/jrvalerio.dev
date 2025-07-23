@@ -9,12 +9,11 @@ const defaultTitle = "Portfólio - Amaro Júnior (JrValerio)";
 const defaultDescription =
   "Portfólio moderno, acessível e internacionalizado de Amaro Júnior. Projetos em Next.js, React, TypeScript, Tailwind e integração com GitHub/LinkedIn.";
 const defaultURL = "https://jrvalerio.dev/";
-const defaultImage = "/img/perfil.png"; // Banner do portfólio
+const defaultImage = "/img/perfil.png";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Scroll lock no body (protege até mesmo do F5 aberto)
   useEffect(() => {
     if (menuOpen) document.body.classList.add("overflow-hidden");
     else document.body.classList.remove("overflow-hidden");
@@ -77,11 +76,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           },
         }}
       />
-      {/* Passa setMenuOpen como prop para abrir o menu */}
       <Header onMenuOpen={() => setMenuOpen(true)} />
-      {/* Overlay do menu hamburger */}
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
-      <main className="flex-1 w-full relative z-10 flex flex-col">
+      <main
+        className="flex-1 w-full relative z-10 flex flex-col"
+        id="main-content"
+        role="main"
+        tabIndex={-1}
+      >
         {children}
       </main>
       <Footer />

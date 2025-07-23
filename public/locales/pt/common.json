@@ -14,13 +14,19 @@
     "projectDetail": "Projeto"
   },
   "home": {
-    "hero": "Transformando ideias em código, propósito em projetos e inovação em impacto.",
-    "heroTypewriter": [
-      "Transformando ideias em código,",
-      "Propósito em projetos e inovação em impacto.",
-      "Desenvolvedor Full Stack focado em resultados."
-    ]
-  },
+  "hero": "Transformando ideias em código, propósito em projetos e inovação em impacto.",
+  "heroTypewriterDesktop": [
+    "Transformando ideias em código,",
+    "Propósito em projetos e inovação em impacto.",
+    "Desenvolvedor Full Stack focado em resultados.",
+    "Acessibilidade, impacto e propósito guiando cada linha de código."
+  ],
+  "heroTypewriterMobile": [
+    "Dev Full Stack em ação.",
+    "Tecnologia com propósito.",
+    "Impacto real e código limpo."
+  ]
+},
   "welcome": "Bem-vindo ao meu portfólio!",
 
   "name": "Amaro V S Júnior",

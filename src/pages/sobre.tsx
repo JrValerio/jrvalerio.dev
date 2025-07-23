@@ -24,53 +24,56 @@ export default function Sobre() {
   const [mounted, setMounted] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    loop: true,
-    slides: { perView: 3, spacing: 24 },
-    breakpoints: {
-      "(max-width: 900px)": {
-        slides: { perView: 2, spacing: 16 },
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
+    {
+      loop: true,
+      slides: { perView: 3, spacing: 24 },
+      breakpoints: {
+        "(max-width: 900px)": {
+          slides: { perView: 2, spacing: 16 },
+        },
+        "(max-width: 600px)": {
+          slides: { perView: 1.2, spacing: 10 },
+        },
       },
-      "(max-width: 600px)": {
-        slides: { perView: 1.2, spacing: 10 },
+      slideChanged(s) {
+        setCurrentSlide(s.track.details.rel);
       },
+      created(s) {
+        setCurrentSlide(s.track.details.rel);
+      },
+      renderMode: "performance",
+      dragSpeed: 0.7,
     },
-    slideChanged(s) {
-      setCurrentSlide(s.track.details.rel);
-    },
-    created(s) {
-      setCurrentSlide(s.track.details.rel);
-    },
-    renderMode: "performance",
-    dragSpeed: 0.7,
-  }, [
-    (slider) => {
-      let timeout: NodeJS.Timeout;
-      let mouseOver = false;
-      function clearNextTimeout() {
-        clearTimeout(timeout);
-      }
-      function nextTimeout() {
-        clearTimeout(timeout);
-        if (mouseOver) return;
-        timeout = setTimeout(() => slider.next(), 2500);
-      }
-      slider.on("created", () => {
-        slider.container.addEventListener("mouseover", () => {
-          mouseOver = true;
-          clearNextTimeout();
-        });
-        slider.container.addEventListener("mouseout", () => {
-          mouseOver = false;
+    [
+      (slider) => {
+        let timeout: NodeJS.Timeout;
+        let mouseOver = false;
+        function clearNextTimeout() {
+          clearTimeout(timeout);
+        }
+        function nextTimeout() {
+          clearTimeout(timeout);
+          if (mouseOver) return;
+          timeout = setTimeout(() => slider.next(), 2500);
+        }
+        slider.on("created", () => {
+          slider.container.addEventListener("mouseover", () => {
+            mouseOver = true;
+            clearNextTimeout();
+          });
+          slider.container.addEventListener("mouseout", () => {
+            mouseOver = false;
+            nextTimeout();
+          });
           nextTimeout();
         });
-        nextTimeout();
-      });
-      slider.on("dragStarted", clearNextTimeout);
-      slider.on("animationEnded", nextTimeout);
-      slider.on("updated", nextTimeout);
-    }
-  ]);
+        slider.on("dragStarted", clearNextTimeout);
+        slider.on("animationEnded", nextTimeout);
+        slider.on("updated", nextTimeout);
+      },
+    ]
+  );
 
   useEffect(() => {
     setMounted(true);
@@ -87,7 +90,9 @@ export default function Sobre() {
         <h1 className="text-3xl md:text-4xl font-bold mb-6 text-transparent bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text">
           {t("about.title")}
         </h1>
-        <p className="text-white/90 leading-relaxed text-lg mb-6">{t("about.body")}</p>
+        <p className="text-white/90 leading-relaxed text-lg mb-6">
+          {t("about.body")}
+        </p>
         <div className="flex items-center gap-4 mt-6">
           <Link
             href="https://www.instagram.com/jrvalerioo/"

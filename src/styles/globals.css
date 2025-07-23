@@ -36,3 +36,18 @@ html, body {
   from { filter: drop-shadow(0 0 2px #14e5c6);}
   to { filter: drop-shadow(0 0 16px #14e5c6);}
 }
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 4s ease-in-out infinite;
+}
+@keyframes text-glow {
+  0%, 100% { text-shadow: 0 0 4px #14e5c6, 0 0 12px #14e5c6; }
+  50% { text-shadow: 0 0 32px #3b82f6, 0 0 64px #14e5c6; }
+}
+.animate-text-glow {
+  animation: text-glow 2.5s ease-in-out infinite;
+}
