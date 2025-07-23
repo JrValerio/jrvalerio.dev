@@ -1,13 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
 import Particles from "@tsparticles/react";
+import MenuOverlay from "./MenuOverlay";
+
+const defaultTitle = "Portfólio - Amaro Júnior (JrValerio)";
+const defaultDescription =
+  "Portfólio moderno, acessível e internacionalizado de Amaro Júnior. Projetos em Next.js, React, TypeScript, Tailwind e integração com GitHub/LinkedIn.";
+const defaultURL = "https://jrvalerio.dev/";
+const defaultImage = "/img/perfil.png"; // Banner do portfólio
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Scroll lock no body (protege até mesmo do F5 aberto)
+  useEffect(() => {
+    if (menuOpen) document.body.classList.add("overflow-hidden");
+    else document.body.classList.remove("overflow-hidden");
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [menuOpen]);
+
   return (
     <div className="relative min-h-screen w-full flex flex-col bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900">
-
-      {/* Background animado global */}
+      <Head>
+        <title>{defaultTitle}</title>
+        <meta name="description" content={defaultDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={defaultTitle} />
+        <meta property="og:description" content={defaultDescription} />
+        <meta property="og:url" content={defaultURL} />
+        <meta property="og:image" content={defaultImage} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={defaultTitle} />
+        <meta name="twitter:description" content={defaultDescription} />
+        <meta name="twitter:image" content={defaultImage} />
+        <link rel="canonical" href={defaultURL} />
+      </Head>
       <Particles
         id="tsparticles-global"
         className="fixed inset-0 -z-10 pointer-events-none"
@@ -48,9 +77,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           },
         }}
       />
-      <Header />
-      {/* Main rola o conteúdo e mantém footer ao final */}
-      <main className="flex-1 w-full relative z-10 flex flex-col">{children}</main>
+      {/* Passa setMenuOpen como prop para abrir o menu */}
+      <Header onMenuOpen={() => setMenuOpen(true)} />
+      {/* Overlay do menu hamburger */}
+      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <main className="flex-1 w-full relative z-10 flex flex-col">
+        {children}
+      </main>
       <Footer />
     </div>
   );

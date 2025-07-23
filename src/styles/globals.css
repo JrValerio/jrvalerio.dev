@@ -1,13 +1,17 @@
 @import "tailwindcss";
 
-body {
+html, body {
+  height: 100%;
+  width: 100%;
   margin: 0;
+  padding: 0;
   font-family: 'Inter', system-ui, sans-serif;
-  background-color: #0f172a;
-color: #334155;
+  overflow-x: hidden;
 }
 
+/* Fundo e cor do texto agora só via Tailwind! */
 
+/* Animações utilitárias customizadas */
 @layer utilities {
   .animate-fade-in-up {
     animation: fadeInUp 1s cubic-bezier(.39,.575,.565,1) both;
@@ -19,6 +23,7 @@ color: #334155;
     animation: glow 1.2s infinite alternate;
   }
 }
+
 @keyframes fadeInUp {
   0% { opacity: 0; transform: translateY(40px);}
   100% { opacity: 1; transform: translateY(0);}
@@ -31,4 +36,3 @@ color: #334155;
   from { filter: drop-shadow(0 0 2px #14e5c6);}
   to { filter: drop-shadow(0 0 16px #14e5c6);}
 }
-

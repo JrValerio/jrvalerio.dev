@@ -14,7 +14,12 @@
     "projectDetail": "Projeto"
   },
   "home": {
-    "hero": "Transformando ideias em código, propósito em projetos e inovação em impacto."
+    "hero": "Transformando ideias em código, propósito em projetos e inovação em impacto.",
+    "heroTypewriter": [
+      "Transformando ideias em código,",
+      "Propósito em projetos e inovação em impacto.",
+      "Desenvolvedor Full Stack focado em resultados."
+    ]
   },
   "welcome": "Bem-vindo ao meu portfólio!",
 

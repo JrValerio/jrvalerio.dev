@@ -1,7 +1,7 @@
 {
   "header": {
     "home": "Home",
-    "about": "About Me",
+    "about": "About",
     "projects": "Projects",
     "contact": "Contact"
   },
@@ -10,16 +10,22 @@
     "about": "About Me",
     "projects": "Projects",
     "contact": "Contact",
-    "cv": "Curriculum",
+    "cv": "Resume",
     "projectDetail": "Project"
   },
   "home": {
-    "hero": "Turning ideas into code, purpose into projects, and innovation into impact."
+    "hero": "Turning ideas into code, purpose into projects, and innovation into real-world impact.",
+    "heroTypewriter": [
+      "Building solutions with code.",
+      "Innovation that creates impact.",
+      "Full Stack Developer driven by results.",
+      "From vision to deployment, I make it happen."
+    ]
   },
   "welcome": "Welcome to my portfolio!",
 
   "name": "Amaro V S Júnior",
-  "role": "Full Stack Developer Specialized in Front End",
+  "role": "Full Stack Developer specializing in Front End",
   "location": "Atibaia, São Paulo, Brazil",
   "phone": "Phone: +55 11 96075 7716",
   "linkedin": "LinkedIn",
@@ -28,14 +34,15 @@
   "profile": "Professional Profile",
   "about": {
     "title": "About Me",
-    "body": "I'm Amaro Júnior (JrValerio), a Full Stack developer passionate about creating solutions that combine technology, purpose, and accessibility. I've been taking care of my mother since 2012, which taught me resilience, empathy, and discipline. I've built projects like EcoVoz, EducaCristão GPT, Control Finance, Post-it Share App, and Fullstack Toybox — all with a dose of creativity, real impact, and collaboration. My career transition came from the Personnel Department area, where I worked for over 10 years, bringing my experience in processes, organization, and empathy to the tech universe. In development, I found my purpose: to create inclusive technology, turn ideas into code, and connect people. I have participated in hackathons, dev marathons, completed bootcamps at Kenzie and Rocketseat, and taken courses at Alura. My profile is continuous learning and adaptation – I enjoy challenges, learning, and sharing what I know.",
+    "body": "I'm Amaro Júnior (JrValerio), a Full Stack developer passionate about building solutions that combine technology, purpose, and accessibility. Since 2012, I've cared for my mother, teaching me resilience, empathy, and discipline. I've built projects like EcoVoz, EducaCristão GPT, Control Finance, Post-it Share App, and Fullstack Toybox — each blending creativity, real impact, and collaboration. My career change came from over 10 years in Payroll, bringing my experience in processes, organization, and empathy to tech. In development, I found my purpose: building inclusive technology, turning ideas into code, and connecting people. I've participated in hackathons, dev marathons, and completed bootcamps at Kenzie, Rocketseat, and courses at Alura. I'm committed to continuous learning and adaptation — I love challenges, learning, and sharing knowledge.",
     "instagram": "Follow my Instagram",
-    "carouselTitle": "Moments from My Journey",
+    "carouselTitle": "Highlights from My Journey",
     "carouselFooter": "See more on my Instagram!",
     "dotLabel": "Go to photo {{n}}",
     "prev": "Previous photo",
     "next": "Next photo"
   },
+  "profile": "Professional Profile",
   "education": "Education",
   "skills": "Skills",
   "experience": "Professional Experience",
@@ -46,19 +53,19 @@
 
   "educations": [
     {
-      "title": "Rocketseat ONE (Ongoing)",
+      "title": "Rocketseat ONE (In progress)",
       "date": "September/2024 - Present",
-      "desc": "Full Stack course including React.js, Node.js, JavaScript, TypeScript, DevOps, and AI. Focused on building complete applications, using DevOps tools, and applying AI.",
+      "desc": "Full Stack course covering React.js, Node.js, JavaScript, TypeScript, DevOps, and AI. Focused on full application development, DevOps tools, and AI integration.",
       "link": "https://www.rocketseat.com.br/"
     },
     {
       "title": "Kenzie Academy Brasil",
       "date": "September/2023 - September/2024",
-      "desc": "Full Stack course focused on React.js, Node.js, PostgreSQL, and Python. Over 2000h of hands-on software development from front-end to back-end.",
+      "desc": "Full Stack course focused on React.js, Node.js, PostgreSQL, Python. Over 2000 hours of practical training from front end to back end.",
       "link": "https://kenzie.com.br/"
     },
     {
-      "title": "UNIASSELVI - Systems Analysis and Development (Ongoing)",
+      "title": "UNIASSELVI - Systems Analysis and Development (In progress)",
       "date": "July/2024 - December/2026",
       "desc": "Training in programming fundamentals, software engineering, databases, and agile methodologies.",
       "link": "https://portal.uniasselvi.com.br/"
@@ -69,41 +76,41 @@
       "title": "Freelance Web Developer",
       "date": "July/2024 - Present",
       "bullets": [
-        "Developed web solutions using React, JavaScript, and TailwindCSS to create modern and dynamic interfaces.",
-        "Created responsive interfaces, ensuring accessibility and a smooth user experience across various devices.",
+        "Developed web solutions using React, JavaScript, and TailwindCSS for modern and dynamic interfaces.",
+        "Created responsive interfaces, ensuring accessibility and a seamless user experience across devices.",
         "Used Git for version control in collaborative projects, ensuring consistency and traceability.",
-        "Developed projects such as an e-commerce platform and a task management system.",
-        "Experienced in remote work and effective communication with clients for requirement gathering."
+        "Developed projects like e-commerce platforms and task management systems.",
+        "Remote work experience and effective client communication for requirements gathering."
       ]
     },
     {
       "title": "Singular Serviços de Saúde Ltda",
-      "date": "Personnel Department Analyst - August/2012 to July/2017",
+      "date": "Payroll Analyst - August/2012 to July/2017",
       "bullets": [
-        "Managed payroll and process automation, resulting in greater operational efficiency.",
-        "Supervised benefits and compliance with labor laws, ensuring employee satisfaction.",
-        "Communicated with stakeholders and improved internal department processes."
+        "Managed payroll and process automation, achieving greater operational efficiency.",
+        "Oversaw benefits and compliance with labor regulations, ensuring employee satisfaction.",
+        "Stakeholder communication and improvements to internal departmental processes."
       ]
     },
     {
       "title": "WM Assistência Contábil",
-      "date": "Personnel Department Assistant - February/2010 to April/2011",
+      "date": "Payroll Assistant - February/2010 to April/2011",
       "bullets": [
-        "Handled admission, dismissal, and vacation calculations, focusing on process optimization.",
-        "Improved analytical and process management skills."
+        "Handled hiring, termination, and vacation calculations, focusing on process optimization.",
+        "Enhanced analytical skills and process management."
       ]
     }
   ],
   "projectsSectionArr": [
     {
       "title": "Kenzie Hub",
-      "desc": "Portfolio platform for developers that allows adding and managing technologies being learned, focused on demonstrating professional growth.",
+      "desc": "Portfolio platform for developers to add and manage learning technologies, focused on showcasing professional growth.",
       "stack": "Technologies: React, Context API, TypeScript.",
       "link": "https://kenzie-hub-seven-blue.vercel.app/"
     },
     {
       "title": "Control Finance",
-      "desc": "Personal finance management application that allows recording income and expenses, viewing total balance, and filtering transactions by category.",
+      "desc": "Personal finance management app, allowing users to record incomes and expenses, view total balance, and filter transactions by category.",
       "stack": "Technologies: React, Tailwind CSS.",
       "link": "https://control-finance-react-tail-wind.vercel.app/"
     }
@@ -115,14 +122,14 @@
     "Other: Responsive design, Hooks, OOP, TDD, Scrum, Kanban, DevOps"
   ],
   "certificationsArr": [
-    "NLW Rocketseat - Intermediate Full-stack: Certified in backend application development using Node.js, REST API concepts with TypeScript, Fastify, DrizzleORM, PostgreSQL, Docker, and Zod. Also includes frontend application development with ReactJS using modern concepts.",
-    "Kenzie Academy - Graduation Certificate: 2000 hours of Full-Stack Programming covering HTML, CSS, React.js, TypeScript, Node.js, PostgreSQL, Python, focusing on building complete and scalable applications.",
-    "Kenzie Academy - Graduation Certificate: 1000 hours in Front-End Programming with HTML, CSS, React.js, TypeScript, with strong emphasis on modern development practices and building responsive, intuitive user interfaces."
+    "NLW Rocketseat - Intermediate Full-stack: Certified in back-end development with Node.js and API REST concepts, using TypeScript, Fastify, DrizzleORM, PostgreSQL, Docker, and Zod. Also includes modern front-end app development with ReactJS.",
+    "Kenzie Academy - Completion Certificate: 2000 hours in Full-Stack Programming, covering HTML, CSS, React.js, TypeScript, Node.js, PostgreSQL, Python, focusing on scalable and complete applications.",
+    "Kenzie Academy - Completion Certificate: 1000 hours in Front-End Programming with HTML, CSS, React.js, TypeScript, strong focus on modern development practices and intuitive, responsive UI creation."
   ],
   "idiomsArr": [
     "Portuguese: Native",
-    "English: Intermediate (Ongoing, focusing on reading and conversation fluency)",
-    "Spanish: Advanced (reading, writing, and verbal communication skills in professional settings)"
+    "English: Intermediate (studying, focused on reading and conversation fluency)",
+    "Spanish: Advanced (reading, writing, and verbal communication in professional settings)"
   ],
 
   "button": {
@@ -142,13 +149,13 @@
   "see_all_on_github": "See all on GitHub",
   "demo": "Demo",
   "loading": "Loading...",
-  "error": "Error loading GitHub projects.",
+  "error": "Error loading projects from GitHub.",
   "all": "All",
   "no_description": "No description...",
 
   "contact": {
     "title": "Let's Work Together",
-    "subtitle": "Have a project in mind or just want to say hi? Fill out the form below and I'll get back to you as soon as possible.",
+    "subtitle": "Have a project in mind or just want to say hi? Fill out the form below and I’ll get back to you as soon as possible.",
     "form": {
       "firstName": "First Name",
       "lastName": "Last Name",
@@ -165,6 +172,6 @@
   },
 
   "cv": {
-    "title": "Curriculum"
+    "title": "Resume"
   }
 }
