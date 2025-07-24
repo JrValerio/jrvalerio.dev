@@ -2,6 +2,7 @@
   "header": {
     "home": "Início",
     "about": "Sobre mim",
+    "techs": "Techs & Skills",
     "projects": "Projetos",
     "contact": "Contato"
   },
@@ -14,40 +15,77 @@
     "projectDetail": "Projeto"
   },
   "home": {
-  "hero": "Transformando ideias em código, propósito em projetos e inovação em impacto.",
-  "heroTypewriterDesktop": [
-    "Transformando ideias em código,",
-    "Propósito em projetos e inovação em impacto.",
-    "Desenvolvedor Full Stack focado em resultados.",
-    "Acessibilidade, impacto e propósito guiando cada linha de código."
-  ],
-  "heroTypewriterMobile": [
-    "Dev Full Stack em ação.",
-    "Tecnologia com propósito.",
-    "Impacto real e código limpo."
-  ]
-},
+    "hero": "Transformando ideias em código, propósito em projetos e inovação em impacto.",
+    "heroTypewriterDesktop": [
+      "Transformando ideias em código,",
+      "Propósito em projetos e inovação em impacto.",
+      "Desenvolvedor Full Stack focado em resultados.",
+      "Acessibilidade, impacto e propósito guiando cada linha de código."
+    ],
+    "heroTypewriterMobile": [
+      "Dev Full Stack em ação.",
+      "Tecnologia com propósito.",
+      "Impacto real e código limpo."
+    ]
+  },
   "welcome": "Bem-vindo ao meu portfólio!",
-
   "name": "Amaro V S Júnior",
   "role": "Desenvolvedor Full Stack com Especialização em Front End",
   "location": "Atibaia, São Paulo, Brasil",
   "phone": "Telefone: +55 11 96075 7716",
   "linkedin": "LinkedIn",
   "github": "GitHub",
+  "profileSectionTitle": "Perfil Profissional",
+"profile": "Desenvolvedor Full Stack focado em criar soluções modernas, acessíveis e com impacto real. Experiência em React, Node.js e TypeScript. Comprometido com entregas de qualidade, aprendizado contínuo e colaboração em projetos diversos.",
 
-  "profile": "Perfil Profissional",
   "about": {
     "title": "Sobre Mim",
-    "body": "Sou Amaro Júnior (JrValerio), desenvolvedor Full Stack apaixonado por criar soluções que unem tecnologia, propósito e acessibilidade. Cuido da minha mãe desde 2012, o que me ensinou sobre resiliência, empatia e disciplina. Venho construindo projetos como o EcoVoz, EducaCristão GPT, Control Finance, Post-it Share App e Fullstack Toybox — todos com uma dose de criatividade, impacto real e colaboração. Minha transição de carreira veio da área de Departamento Pessoal, onde atuei por mais de 10 anos, levando minha experiência em processos, organização e empatia para o universo tech. No desenvolvimento, encontrei meu propósito: criar tecnologia inclusiva, transformar ideias em código e conectar pessoas. Já participei de hackathons, maratonas dev, fiz bootcamps na Kenzie, Rocketseat e cursos na Alura. Meu perfil é de aprendizado contínuo e adaptação – gosto de desafios, de aprender e de compartilhar o que sei.",
+    "body": "Sou Amaro Valerio da Silva Júnior, 42 anos, nascido em 17/09/1981, natural de Atibaia/SP. Filho da Maria Edleusa Monção da Silva, irmão de Milca, Samuel (in memoriam), Azenate e Zaine, e tio orgulhoso de sete sobrinhos.\n\nA experiência mais profunda da minha vida tem sido o cuidado diário da minha mãe, que sofreu um AVC há 13 anos. Essa rotina envolve muito mais do que tarefas práticas: preparo alimentação especial, auxilio na mobilidade, cuido da medicação, levo a consultas, faço companhia e administro todas as pequenas adaptações que garantem conforto, segurança e dignidade a ela. Também exerci esse papel com meu pai e meu irmão antes de suas partidas, o que mudou completamente meu olhar sobre empatia, resiliência e humanidade.\n\nComecei minha trajetória na área de RH/Departamento Pessoal, mas precisei me reinventar para cuidar da família. Encontrei na tecnologia uma nova oportunidade: fiz o curso Full Stack da Kenzie Academy e hoje curso ADS na Uniasselvi. Levo comigo valores sólidos, aprendidos dentro de casa: honestidade, empatia e a missão de facilitar a vida das pessoas através do meu trabalho.\n\nHoje concilio produção em fábrica, mídia digital na Assembleia de Deus, freelas e sou analista no projeto Linkando.dev. Domino stacks modernas como React, Node.js, TypeScript, Tailwind CSS, MongoDB, Docker, API REST, Next.js, Express e CSS. Tenho orgulho de projetos como EcoVoz (acessibilidade) e Autismo Tech 2024, que mostram o poder da tecnologia em promover inclusão.\n\nFora do universo dev, sou apaixonado por academia, cuido da minha mãe com carinho, curto filmes, séries, doramas, viagens, praia, cachoeiras e um bom café. Amo música — do jazz à black music, passando por R&B, pop e blues. Entre código e cuidado, sigo acreditando que propósito, tecnologia e empatia mudam o mundo.",
     "instagram": "Siga meu Instagram",
     "carouselTitle": "Momentos da Minha Jornada",
     "carouselFooter": "Veja mais no meu Instagram!",
     "dotLabel": "Ir para a foto {{n}}",
     "prev": "Foto anterior",
-    "next": "Próxima foto"
+    "next": "Próxima foto",
+    "seeTechs": "Veja minha stack completa"
   },
-  "profile": "Perfil Profissional",
+  "techs": {
+    "title": "Techs & Skills",
+    "intro": "Confira as principais tecnologias, frameworks e ferramentas que domino e utilizo no desenvolvimento dos meus projetos:",
+    "skillsList": [
+      "HTML5", "CSS3", "SASS", "Tailwind CSS",
+      "JavaScript", "TypeScript",
+      "React", "Next.js", "Redux", "Vite", "styled-components",
+      "Node.js", "Express", "Spring Boot", "Django",
+      "PostgreSQL", "MongoDB",
+      "Docker", "Git", "GitHub", "REST API",
+      "VSCode", "Figma", "Windows"
+    ],
+    "desc": {
+      "html5": "Linguagem de marcação para estruturar páginas web.",
+      "css3": "Linguagem de estilos para design de interfaces.",
+      "javascript": "Linguagem de programação dinâmica para web.",
+      "typescript": "Superset tipado de JavaScript para aplicações escaláveis.",
+      "react": "Biblioteca JS para construção de interfaces modernas.",
+      "nextjs": "Framework React para SSR/SSG e aplicações full stack.",
+      "nodejs": "Ambiente de execução JavaScript no backend.",
+      "express": "Framework minimalista para APIs Node.js.",
+      "redux": "Gerenciamento global de estado para aplicações React.",
+      "vite": "Bundler super rápido para projetos modernos.",
+      "springboot": "Framework Java para microserviços e APIs.",
+      "django": "Framework Python para web robusta e rápida.",
+      "postgresql": "Banco de dados relacional open source avançado.",
+      "mongodb": "Banco de dados NoSQL orientado a documentos.",
+      "docker": "Containerização de aplicações e ambientes.",
+      "git": "Controle de versão distribuído.",
+      "github": "Hospedagem de repositórios Git e colaboração.",
+      "tailwindcss": "Framework CSS utilitário para interfaces responsivas.",
+      "sass": "Pré-processador CSS com recursos avançados.",
+      "styledcomponents": "CSS-in-JS para componentes React.",
+      "figma": "Ferramenta de design colaborativo UI/UX.",
+      "windows": "Sistema operacional desktop mais utilizado do mundo."
+    }
+  },
   "education": "Educação",
   "skills": "Habilidades",
   "experience": "Experiência Profissional",
@@ -55,7 +93,6 @@
   "projectsLabel": "Projetos",
   "certs": "Certificações",
   "idioms": "Idiomas",
-
   "educations": [
     {
       "title": "Rocketseat ONE (Cursando)",
@@ -136,18 +173,22 @@
     "Inglês: Intermediário (Cursando, foco em fluência em leitura e conversação)",
     "Espanhol: Avançado (habilidades de leitura, escrita e comunicação verbal em ambientes profissionais)"
   ],
-
   "button": {
     "seeMore": "Ver mais",
-    "print": "Imprimir / Salvar PDF"
+    "print": "Imprimir / Salvar PDF",
+    "downloadPdf": "Baixar PDF"
   },
-
   "projects": {
     "title": "Projetos por Categoria",
+    "metaDescription": "Principais projetos de desenvolvimento Full Stack, Front End e soluções reais. Veja cases de tecnologia, impacto social e inovação.",
     "categories": {
       "fullStack": "Full Stack",
       "frontEnd": "Front End"
-    }
+    },
+    "imgAlt": "Imagem do projeto {{name}}",
+    "stack": "Tecnologias",
+    "demo": "Demo",
+    "github": "GitHub"
   },
   "featured_projects": "Projetos em Destaque",
   "see_repo": "Ver repositório",
@@ -157,7 +198,7 @@
   "error": "Erro ao carregar projetos do GitHub.",
   "all": "Todas",
   "no_description": "Sem descrição...",
-
+  "backToProjects": "Voltar para Projetos",
   "contact": {
     "title": "Vamos Trabalhar Juntos",
     "subtitle": "Tem um projeto em mente ou quer apenas dizer olá? Preencha o formulário abaixo e entrarei em contato com você o mais breve possível.",
@@ -173,10 +214,16 @@
     "phone": "Telefone",
     "email": "Email",
     "address": "Endereço",
-    "addressText": "Atibaia, São Paulo, Brasil"
+    "addressText": "Atibaia, São Paulo, Brasil",
+    "toast": {
+      "success": "Mensagem enviada com sucesso!",
+      "error": "Erro ao enviar. Tente novamente."
+    }
   },
-
   "cv": {
     "title": "Currículo"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados."
   }
 }

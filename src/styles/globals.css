@@ -51,3 +51,7 @@ html, body {
 .animate-text-glow {
   animation: text-glow 2.5s ease-in-out infinite;
 }
+
+[data-sonner-toaster], .react-hot-toast, .react-hot-toast__toast-container {
+  z-index: 999999 !important;
+}

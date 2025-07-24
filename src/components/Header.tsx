@@ -2,20 +2,29 @@ import { useTranslation } from "react-i18next";
 import { FaGlobe, FaBars } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-import ThemeToggle from "./ThemeToggle"; // Certifique-se de ter o componente pronto!
+import ThemeToggle from "./ThemeToggle";
 
 interface HeaderProps {
   onMenuOpen: () => void;
 }
 
 export default function Header({ onMenuOpen }: HeaderProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation("common");
 
   const flags: Record<string, string> = {
     pt: "/flags/br.svg",
     en: "/flags/us.svg",
     es: "/flags/es.svg",
   };
+
+  const navLinks = [
+    { href: "/", label: t("header.home") },
+    { href: "/sobre", label: t("header.about") },
+    { href: "/techs", label: "Techs" }, // Você pode criar t("header.techs") se quiser traduzir este label
+    { href: "/projetos", label: t("header.projects") },
+    { href: "/contato", label: t("header.contact") },
+    { href: "/cv", label: "CV", className: "text-teal-400 dark:text-blue-700 font-semibold underline underline-offset-4" }
+  ];
 
   return (
     <header className="
@@ -28,28 +37,18 @@ export default function Header({ onMenuOpen }: HeaderProps) {
       backdrop-blur-md shadow-lg
       transition-colors
     ">
-      {/* Skip link para acessibilidade (SEO/UX) */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only absolute left-2 top-2 bg-teal-500 text-white rounded px-3 py-1 z-50"
       >
         Pular para conteúdo
       </a>
-
-      {/* Links à esquerda / Idiomas + ThemeToggle à direita (Desktop/Tablet) */}
       <nav
         className="hidden md:flex justify-between items-center w-full"
         aria-label="Principal"
       >
-        {/* Links */}
         <div className="flex gap-8">
-          {[
-            { href: "/", label: "Home" },
-            { href: "/sobre", label: "Sobre" },
-            { href: "/projetos", label: "Projetos" },
-            { href: "/contato", label: "Contato" },
-            { href: "/cv", label: "CV", className: "text-teal-400 dark:text-blue-700 font-semibold underline underline-offset-4" },
-          ].map(({ href, label, className }) => (
+          {navLinks.map(({ href, label, className }) => (
             <Link
               key={href}
               href={href}
@@ -68,7 +67,6 @@ export default function Header({ onMenuOpen }: HeaderProps) {
             </Link>
           ))}
         </div>
-        {/* Idiomas + ThemeToggle */}
         <div className="flex items-center gap-4">
           <FaGlobe
             className="text-gray-400 dark:text-gray-600"
@@ -86,7 +84,8 @@ export default function Header({ onMenuOpen }: HeaderProps) {
                 focus:outline-none focus:ring-2 focus:ring-teal-400 dark:focus:ring-blue-500
                 ${i18n.language === lng
                   ? "bg-teal-500 dark:bg-blue-500 text-white font-bold ring-2 ring-teal-400 dark:ring-blue-500"
-                  : "text-gray-300 dark:text-gray-700 hover:bg-gray-700 dark:hover:bg-gray-200" }
+                  : "text-gray-300 dark:text-gray-700 hover:bg-gray-700 dark:hover:bg-gray-200"
+                }
               `}
               tabIndex={0}
             >
@@ -103,8 +102,6 @@ export default function Header({ onMenuOpen }: HeaderProps) {
           <ThemeToggle />
         </div>
       </nav>
-
-      {/* Hamburger Icon (Mobile) */}
       <button
         className="flex md:hidden text-2xl p-2 hover:bg-black/30 dark:hover:bg-gray-200 rounded transition ml-auto focus:outline-none focus:ring-2 focus:ring-teal-400 dark:focus:ring-blue-500"
         onClick={onMenuOpen}

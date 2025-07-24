@@ -2,6 +2,7 @@
   "header": {
     "home": "Inicio",
     "about": "Sobre mí",
+    "techs": "Techs & Skills",
     "projects": "Proyectos",
     "contact": "Contacto"
   },
@@ -14,40 +15,77 @@
     "projectDetail": "Proyecto"
   },
   "home": {
-  "hero": "Transformo ideas en código, propósito en proyectos e innovación en impacto real.",
-  "heroTypewriterDesktop": [
-    "Convierto ideas en soluciones digitales.",
-    "Código con propósito. Innovación con impacto.",
-    "Desarrollador Full Stack creando proyectos que importan.",
-    "Accesibilidad, impacto y visión en cada línea de código."
-  ],
-  "heroTypewriterMobile": [
-    "Full Stack, máxima energía.",
-    "Tecnología con propósito.",
-    "Impacto real. Código limpio."
-  ]
-},
+    "hero": "Transformando ideas en código, propósito en proyectos e innovación en impacto.",
+    "heroTypewriterDesktop": [
+      "Transformando ideas en código,",
+      "Propósito en proyectos e innovación en impacto.",
+      "Desarrollador Full Stack enfocado en resultados.",
+      "Accesibilidad, impacto y propósito en cada línea de código."
+    ],
+    "heroTypewriterMobile": [
+      "Full Stack en acción.",
+      "Tecnología con propósito.",
+      "Impacto real y código limpio."
+    ]
+  },
   "welcome": "¡Bienvenido a mi portafolio!",
-
   "name": "Amaro V S Júnior",
   "role": "Desarrollador Full Stack especializado en Front End",
   "location": "Atibaia, São Paulo, Brasil",
   "phone": "Teléfono: +55 11 96075 7716",
   "linkedin": "LinkedIn",
   "github": "GitHub",
+  "profileSectionTitle": "Perfil Profesional",
+"profile": "Desarrollador Full Stack enfocado en crear soluciones modernas, accesibles y con impacto real. Experiencia en React, Node.js, TypeScript y DevOps. Comprometido con la entrega de calidad, el aprendizaje continuo y la colaboración en proyectos diversos.",
 
-  "profile": "Perfil Profesional",
   "about": {
     "title": "Sobre Mí",
-    "body": "Soy Amaro Júnior (JrValerio), desarrollador Full Stack apasionado por crear soluciones que unen tecnología, propósito y accesibilidad. Desde 2012 cuido de mi madre, lo que me ha enseñado sobre resiliencia, empatía y disciplina. He desarrollado proyectos como EcoVoz, EducaCristão GPT, Control Finance, Post-it Share App y Fullstack Toybox, todos con creatividad, impacto real y colaboración. Mi transición profesional vino del área de Recursos Humanos, donde trabajé más de 10 años, trayendo mi experiencia en procesos, organización y empatía al mundo tech. En el desarrollo encontré mi propósito: crear tecnología inclusiva, transformar ideas en código y conectar personas. He participado en hackathones, maratones dev y bootcamps en Kenzie, Rocketseat y cursos en Alura. Siempre aprendiendo y adaptándome: me encantan los desafíos, aprender y compartir conocimientos.",
-    "instagram": "Sígueme en Instagram",
+    "body": "Soy Amaro Valerio da Silva Júnior, 42 años, nacido el 17/09/1981, natural de Atibaia, Brasil. Hijo de Maria Edleusa Monção da Silva, hermano de Milca, Samuel (en memoria), Azenate y Zaine, y orgulloso tío de siete sobrinos.\n\nLa experiencia más profunda de mi vida ha sido el cuidado diario de mi madre, quien sufrió un ACV hace 13 años. Esta rutina va mucho más allá de las tareas prácticas: preparo comidas especiales, la ayudo con la movilidad, gestiono medicamentos, la acompaño a citas médicas, le hago compañía y administro todas las pequeñas adaptaciones que garantizan su comodidad, seguridad y dignidad. También ejercí ese papel con mi padre y mi hermano antes de que partieran, lo que cambió completamente mi mirada sobre la empatía, la resiliencia y la humanidad.\n\nComencé mi carrera en el área de RRHH/Nóminas, pero tuve que reinventarme para cuidar de la familia. Encontré en la tecnología una nueva oportunidad: realicé el curso Full Stack en Kenzie Academy y actualmente estudio Análisis y Desarrollo de Sistemas (ADS) en Uniasselvi. Llevo conmigo valores sólidos aprendidos en casa: honestidad, empatía y la misión de facilitar la vida de las personas a través de mi trabajo.\n\nHoy concilio producción en fábrica, medios digitales en la Asamblea de Dios, trabajo freelance y soy analista en el proyecto Linkando.dev. Domino stacks modernos como React, Node.js, TypeScript, Tailwind CSS, MongoDB, Docker, API REST, Next.js, Express y CSS. Me enorgullecen proyectos como EcoVoz (accesibilidad) y Autismo Tech 2024, que muestran el poder de la tecnología para promover la inclusión.\n\nFuera del mundo dev, me apasiona el gimnasio, cuido a mi madre con cariño, disfruto de películas, series, doramas, viajes, playa, cascadas y un buen café. Amo la música, desde el jazz hasta la black music, pasando por R&B, pop y blues. Entre código y cuidado, sigo creyendo que el propósito, la tecnología y la empatía cambian el mundo.",
+    "instagram": "Sigue mi Instagram",
     "carouselTitle": "Momentos de Mi Trayectoria",
     "carouselFooter": "¡Mira más en mi Instagram!",
     "dotLabel": "Ir a la foto {{n}}",
     "prev": "Foto anterior",
-    "next": "Siguiente foto"
+    "next": "Foto siguiente",
+    "seeTechs": "Ver toda mi stack"
   },
-  "profile": "Perfil Profesional",
+  "techs": {
+    "title": "Techs & Skills",
+    "intro": "Conoce las principales tecnologías, frameworks y herramientas que domino y uso en mis proyectos:",
+    "skillsList": [
+      "HTML5", "CSS3", "SASS", "Tailwind CSS",
+      "JavaScript", "TypeScript",
+      "React", "Next.js", "Redux", "Vite", "styled-components",
+      "Node.js", "Express", "Spring Boot", "Django",
+      "PostgreSQL", "MongoDB",
+      "Docker", "Git", "GitHub", "REST API",
+      "VSCode", "Figma", "Windows"
+    ],
+    "desc": {
+      "html5": "Lenguaje de marcado para estructurar páginas web.",
+      "css3": "Lenguaje de estilos para el diseño de interfaces.",
+      "javascript": "Lenguaje de programación dinámica para la web.",
+      "typescript": "Superset tipado de JavaScript para aplicaciones escalables.",
+      "react": "Librería JS para construir interfaces modernas.",
+      "nextjs": "Framework React para SSR/SSG y aplicaciones full stack.",
+      "nodejs": "Entorno de ejecución JavaScript para el backend.",
+      "express": "Framework minimalista para APIs con Node.js.",
+      "redux": "Gestión global de estado para aplicaciones React.",
+      "vite": "Bundler ultrarrápido para proyectos modernos.",
+      "springboot": "Framework Java para microservicios y APIs.",
+      "django": "Framework Python para web robusta y rápida.",
+      "postgresql": "Base de datos relacional open source avanzada.",
+      "mongodb": "Base de datos NoSQL orientada a documentos.",
+      "docker": "Contenerización de aplicaciones y entornos.",
+      "git": "Sistema de control de versiones distribuido.",
+      "github": "Alojamiento de repositorios Git y colaboración.",
+      "tailwindcss": "Framework CSS utilitario para interfaces responsivas.",
+      "sass": "Preprocesador CSS con funciones avanzadas.",
+      "styledcomponents": "CSS-in-JS para componentes React.",
+      "figma": "Herramienta de diseño colaborativo UI/UX.",
+      "windows": "El sistema operativo de escritorio más utilizado del mundo."
+    }
+  },
   "education": "Educación",
   "skills": "Habilidades",
   "experience": "Experiencia Profesional",
@@ -55,22 +93,21 @@
   "projectsLabel": "Proyectos",
   "certs": "Certificaciones",
   "idioms": "Idiomas",
-
   "educations": [
     {
-      "title": "Rocketseat ONE (En curso)",
-      "date": "Septiembre/2024 - Actualidad",
-      "desc": "Curso Full Stack que abarca React.js, Node.js, JavaScript, TypeScript, DevOps e IA. Desarrollo de aplicaciones completas, herramientas DevOps e integración de IA.",
+      "title": "Rocketseat ONE (En Curso)",
+      "date": "Septiembre/2024 - Actual",
+      "desc": "Curso Full Stack que incluye React.js, Node.js, JavaScript, TypeScript, DevOps e IA. Desarrollo de aplicaciones completas, uso de herramientas DevOps y aplicación de IA.",
       "link": "https://www.rocketseat.com.br/"
     },
     {
       "title": "Kenzie Academy Brasil",
       "date": "Septiembre/2023 - Septiembre/2024",
-      "desc": "Curso Full Stack enfocado en React.js, Node.js, PostgreSQL, Python. Más de 2000 horas de formación práctica desde el front end al back end.",
+      "desc": "Curso Full Stack enfocado en React.js, Node.js, PostgreSQL, Python. Más de 2000h de aprendizaje práctico de software, desde el front-end hasta el back-end.",
       "link": "https://kenzie.com.br/"
     },
     {
-      "title": "UNIASSELVI - Análisis y Desarrollo de Sistemas (En curso)",
+      "title": "UNIASSELVI - Análisis y Desarrollo de Sistemas (En Curso)",
       "date": "Julio/2024 - Diciembre/2026",
       "desc": "Formación en fundamentos de programación, ingeniería de software, bases de datos y metodologías ágiles.",
       "link": "https://portal.uniasselvi.com.br/"
@@ -78,30 +115,30 @@
   ],
   "experiences": [
     {
-      "title": "Desarrollador Web Freelance",
-      "date": "Julio/2024 - Actualidad",
+      "title": "Desarrollador Web Freelancer",
+      "date": "Julio/2024 - Actual",
       "bullets": [
-        "Desarrollo de soluciones web utilizando React, JavaScript y TailwindCSS para interfaces modernas y dinámicas.",
-        "Creación de interfaces responsivas, garantizando accesibilidad y experiencia de usuario fluida en diversos dispositivos.",
+        "Desarrollo de soluciones web usando React, JavaScript y TailwindCSS para crear interfaces modernas y dinámicas.",
+        "Creación de interfaces responsivas, garantizando accesibilidad y una experiencia fluida para el usuario en todos los dispositivos.",
         "Uso de Git para control de versiones en proyectos colaborativos, garantizando consistencia y trazabilidad.",
-        "Desarrollo de proyectos como plataformas de e-commerce y sistemas de gestión de tareas.",
-        "Experiencia en trabajo remoto y comunicación efectiva con clientes para levantamiento de requerimientos."
+        "Desarrollo de proyectos como plataforma de e-commerce y sistema de gestión de tareas.",
+        "Experiencia en trabajo remoto y comunicación eficaz con clientes para el levantamiento de requisitos."
       ]
     },
     {
       "title": "Singular Servicios de Salud Ltda",
       "date": "Analista de Recursos Humanos - Agosto/2012 a Julio/2017",
       "bullets": [
-        "Gestión de nómina y automatización de procesos, logrando mayor eficiencia operativa.",
-        "Supervisión de beneficios y cumplimiento de la legislación laboral, asegurando satisfacción de los colaboradores.",
+        "Gestión de nómina y automatización de procesos, resultando en una mayor eficiencia operativa.",
+        "Supervisión de beneficios y cumplimiento de la legislación laboral, garantizando la satisfacción de los empleados.",
         "Comunicación con stakeholders y mejoras en los procesos internos del departamento."
       ]
     },
     {
-      "title": "WM Asistencia Contable",
-      "date": "Auxiliar de Recursos Humanos - Febrero/2010 a Abril/2011",
+      "title": "WM Assistência Contábil",
+      "date": "Auxiliar de Nómina - Febrero/2010 a Abril/2011",
       "bullets": [
-        "Gestión de procesos de admisión, despido y cálculo de vacaciones, con foco en la optimización.",
+        "Gestión de ingresos, egresos y cálculo de vacaciones, con enfoque en la optimización de procesos.",
         "Mejora de habilidades analíticas y de gestión de procesos."
       ]
     }
@@ -115,7 +152,7 @@
     },
     {
       "title": "Control Finance",
-      "desc": "Aplicación para gestión de finanzas personales, permite registrar ingresos y gastos, ver saldo total y filtrar transacciones por categoría.",
+      "desc": "Aplicación de gestión de finanzas personales, que permite registrar ingresos y egresos, visualizar el saldo total y filtrar transacciones por categoría.",
       "stack": "Tecnologías: React, Tailwind CSS.",
       "link": "https://control-finance-react-tail-wind.vercel.app/"
     }
@@ -127,56 +164,66 @@
     "Otros: Diseño responsivo, Hooks, POO, TDD, Scrum, Kanban, DevOps"
   ],
   "certificationsArr": [
-    "NLW Rocketseat - Full-stack Intermedio: Certificación en desarrollo back-end con Node.js y APIs REST, usando TypeScript, Fastify, DrizzleORM, PostgreSQL, Docker y Zod. Incluye desarrollo front-end moderno con ReactJS.",
-    "Kenzie Academy - Certificado de Finalización: 2000 horas en Programación Full-Stack, abarcando HTML, CSS, React.js, TypeScript, Node.js, PostgreSQL, Python, enfocado en aplicaciones escalables.",
-    "Kenzie Academy - Certificado de Finalización: 1000 horas en Programación Front-End con HTML, CSS, React.js, TypeScript, con énfasis en prácticas modernas y creación de interfaces de usuario intuitivas y responsivas."
+    "NLW Rocketseat - Full-stack Intermedio: Certificación en desarrollo de aplicaciones back-end con Node.js, conceptos de API REST, utilizando TypeScript, Fastify, DrizzleORM, PostgreSQL, Docker y Zod. Incluye también desarrollo front-end con ReactJS usando conceptos modernos.",
+    "Kenzie Academy - Certificado de Finalización: 2000 horas en Programación Full-Stack, cubriendo HTML, CSS, React.js, TypeScript, Node.js, PostgreSQL, Python, enfocado en aplicaciones completas y escalables.",
+    "Kenzie Academy - Certificado de Finalización: 1000 horas en Programación Front-End con HTML, CSS, React.js, TypeScript, con fuerte énfasis en prácticas modernas de desarrollo y creación de interfaces de usuario responsivas e intuitivas."
   ],
   "idiomsArr": [
     "Portugués: Nativo",
-    "Inglés: Intermedio (en curso, enfocado en lectura y conversación)",
-    "Español: Avanzado (lectura, escritura y comunicación verbal en entornos profesionales)"
+    "Inglés: Intermedio (estudiando, enfocado en fluidez de lectura y conversación)",
+    "Español: Avanzado (habilidades de lectura, escritura y comunicación verbal en entornos profesionales)"
   ],
-
   "button": {
     "seeMore": "Ver más",
-    "print": "Imprimir / Guardar PDF"
+    "print": "Imprimir / Guardar PDF",
+    "downloadPdf": "Descargar PDF"
   },
-
   "projects": {
     "title": "Proyectos por Categoría",
+    "metaDescription": "Principales proyectos en desarrollo Full Stack, Front End y soluciones reales. Consulta casos de tecnología, impacto social e innovación.",
     "categories": {
       "fullStack": "Full Stack",
       "frontEnd": "Front End"
-    }
+    },
+    "imgAlt": "Imagen del proyecto {{name}}",
+    "stack": "Tecnologías",
+    "demo": "Demo",
+    "github": "GitHub"
   },
   "featured_projects": "Proyectos Destacados",
   "see_repo": "Ver repositorio",
-  "see_all_on_github": "Ver todos en GitHub",
+  "see_all_on_github": "Ver todo en GitHub",
   "demo": "Demo",
   "loading": "Cargando...",
   "error": "Error al cargar proyectos de GitHub.",
   "all": "Todas",
   "no_description": "Sin descripción...",
-
+  "backToProjects": "Volver a Proyectos",
   "contact": {
     "title": "Trabajemos Juntos",
-    "subtitle": "¿Tienes un proyecto en mente o solo quieres saludar? Completa el formulario abajo y te responderé lo antes posible.",
+    "subtitle": "¿Tienes un proyecto en mente o simplemente quieres saludar? Completa el formulario abajo y te responderé lo antes posible.",
     "form": {
       "firstName": "Nombre",
       "lastName": "Apellido",
-      "email": "Correo Electrónico",
-      "phone": "Número de Teléfono",
+      "email": "Correo electrónico",
+      "phone": "Número de teléfono",
       "message": "Escribe tu mensaje aquí...",
-      "button": "Enviar Mensaje"
+      "button": "Enviar mensaje"
     },
     "infoTitle": "Información de Contacto",
     "phone": "Teléfono",
-    "email": "Correo",
+    "email": "Correo electrónico",
     "address": "Dirección",
-    "addressText": "Atibaia, São Paulo, Brasil"
+    "addressText": "Atibaia, São Paulo, Brasil",
+    "toast": {
+      "success": "¡Mensaje enviado con éxito!",
+      "error": "Error al enviar el mensaje. Inténtalo de nuevo."
+    }
   },
-
   "cv": {
     "title": "Currículum"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
   }
 }

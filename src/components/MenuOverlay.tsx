@@ -10,7 +10,7 @@ interface MenuOverlayProps {
 }
 
 export default function MenuOverlay({ open, onClose }: MenuOverlayProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation("common");
   const flags: Record<string, string> = {
     pt: "/flags/br.svg",
     en: "/flags/us.svg",
@@ -24,11 +24,7 @@ export default function MenuOverlay({ open, onClose }: MenuOverlayProps) {
       bg-black/90
       dark:bg-gray-950/95 dark:text-gray-100
       backdrop-blur-2xl transition-opacity duration-300
-      ${
-        open
-          ? "opacity-100 pointer-events-auto"
-          : "opacity-0 pointer-events-none"
-      }
+      ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
       flex flex-col
     `}
     >
@@ -47,28 +43,35 @@ export default function MenuOverlay({ open, onClose }: MenuOverlayProps) {
           onClick={onClose}
           className="bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-transparent transition-all duration-300"
         >
-          Home
+          {t("header.home")}
         </Link>
         <Link
           href="/sobre"
           onClick={onClose}
           className="bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-transparent transition-all duration-300"
         >
-          Sobre
+          {t("header.about")}
+        </Link>
+        <Link
+          href="/techs"
+          onClick={onClose}
+          className="bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-transparent transition-all duration-300"
+        >
+          {t("header.techs")}
         </Link>
         <Link
           href="/projetos"
           onClick={onClose}
           className="bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-transparent transition-all duration-300"
         >
-          Projetos
+          {t("header.projects")}
         </Link>
         <Link
           href="/contato"
           onClick={onClose}
           className="bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-transparent transition-all duration-300"
         >
-          Contato
+          {t("header.contact")}
         </Link>
         <Link
           href="/cv"
