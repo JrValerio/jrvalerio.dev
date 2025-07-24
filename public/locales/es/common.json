@@ -211,7 +211,29 @@
     },
     "fylo": {
       "description": "Desafío de Frontend Mentor: Fylo landing page con diseño de dos columnas. El reto consiste en crear una landing page para Fylo con diseño de dos columnas. Los usuarios deben poder ver el layout ideal según el tamaño de la pantalla y ver los estados hover para todos los elementos interactivos."
-    }
+    },
+    "travelgram": {
+  "description": "Travelgram es una red social donde los usuarios comparten fotos y recuerdos de viajes. Con un diseño moderno y responsivo, ofrece una galería de fotos en cuadrícula y navegación intuitiva, brindando una excelente experiencia móvil."
+},
+"portfolioDev": {
+  "description": "Portfolio Dev es un sitio de portafolio responsivo que destaca proyectos y habilidades. Presenta enlaces a proyectos destacados y una sección de contacto, demostrando conocimientos en diseño responsivo y prácticas modernas de desarrollo."
+},
+"siteInstitucionalGenerico": {
+  "description": "Este proyecto es un ejemplo de sitio institucional desarrollado con enfoque en prácticas modernas de desarrollo web. Incorpora un diseño responsivo, adaptándose perfectamente a diferentes tamaños de pantalla y dispositivos. Utilizando HTML, CSS y JavaScript, el sitio presenta una interfaz intuitiva y atractiva. Destaca el uso eficaz de Media Queries y la función CSS 'clamp()' para garantizar una experiencia de usuario fluida y accesible."
+},
+"openMusic": {
+  "description": "Desafío de Kenzie Academy Brasil: Open Music. Este proyecto consiste en crear una aplicación web para explorar música y álbumes. El reto es desarrollar una interfaz intuitiva y responsiva, que incluya modo oscuro y animaciones CSS para una experiencia de usuario mejorada."
+},
+"buscadorCEP": {
+  "description": "Este proyecto es un buscador de CEP desarrollado en React JS. Permite a los usuarios ingresar un CEP y obtener información detallada sobre la dirección correspondiente."
+},
+"gitSearch": {
+  "description": "Desafío de Kenzie Academy Brasil: Git Search. Este proyecto consiste en crear una aplicación web para buscar y visualizar perfiles de GitHub, integrando la API de GitHub y permitiendo a los usuarios explorar perfiles y repositorios de forma dinámica y responsiva."
+},
+"profileCardComponent": {
+  "description": "Desafío de Frontend Mentor: Profile card component. El reto consiste en crear un componente de tarjeta de perfil responsivo, que incluya imagen de perfil, información personal e iconos de redes sociales. El objetivo es practicar habilidades de diseño e implementación de layouts utilizando HTML y CSS."
+}
+
   },
   "featured_projects": "Proyectos Destacados",
   "see_repo": "Ver repositorio",

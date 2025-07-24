@@ -211,7 +211,29 @@
     },
     "fylo": {
       "description": "Desafio do Frontend Mentor: Fylo landing page with two column layout. O desafio consiste em criar uma landing page para o Fylo com um layout de duas colunas. Os usuários devem ser capazes de visualizar o layout ideal do site, dependendo do tamanho da tela do dispositivo e devem ver os estados de hover para todos os elementos interativos na página."
-    }
+    },
+    "travelgram": {
+  "description": "Travelgram é uma rede social onde usuários compartilham fotos e memórias de viagens. Com um design moderno e responsivo, oferece uma galeria de fotos em grade e navegação intuitiva, proporcionando uma ótima experiência em dispositivos móveis."
+},
+"portfolioDev": {
+  "description": "Portfolio Dev é um site de portfólio responsivo que destaca projetos e habilidades. Apresenta links para projetos destacados e uma seção de contato, demonstrando conhecimentos em design responsivo e práticas modernas de desenvolvimento."
+},
+"siteInstitucionalGenerico": {
+  "description": "Este projeto é um exemplo de site institucional desenvolvido com foco em práticas modernas de desenvolvimento web. Ele incorpora um design responsivo, adaptando-se perfeitamente a diferentes tamanhos de tela e dispositivos. Utilizando HTML, CSS e JavaScript, o site apresenta uma interface intuitiva e atrativa. Destaca-se o uso eficaz de Media Queries e a função CSS 'clamp()' para garantir uma experiência de usuário fluida e acessível."
+},
+"openMusic": {
+  "description": "Desafio da Kenzie Academy Brasil: Open Music. Este projeto envolve a criação de uma aplicação web para a exploração de música e álbuns. O desafio é desenvolver uma interface intuitiva e responsiva, que inclui a funcionalidade de dark mode e animações CSS para uma experiência de usuário aprimorada."
+},
+"buscadorCEP": {
+  "description": "Este projeto é um buscador de CEP desenvolvido em React JS. Ele permite aos usuários inserir um CEP e obter informações detalhadas sobre o endereço correspondente."
+},
+"gitSearch": {
+  "description": "Desafio da Kenzie Academy Brasil: Git Search. Este projeto envolve a criação de uma aplicação web para buscar e visualizar perfis do GitHub, integrando com a API do GitHub, permitindo explorar perfis e repositórios de forma dinâmica e responsiva."
+},
+"profileCardComponent": {
+  "description": "Desafio do Frontend Mentor: Profile card component. O desafio consiste em criar um componente de cartão de perfil responsivo, incluindo a imagem do perfil, informações pessoais e ícones de redes sociais. O objetivo é praticar habilidades de design e implementação de layouts utilizando HTML e CSS."
+}
+
   },
   "featured_projects": "Projetos em Destaque",
   "see_repo": "Ver repositório",

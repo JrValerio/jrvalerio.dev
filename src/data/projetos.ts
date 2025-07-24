@@ -68,22 +68,6 @@ const projetos: CategoriaDeProjetos = {
         },
       },
     },
-  ],
-  frontEnd: [
-    {
-      name: "Hamburgueria",
-      repo: "template-hamburgueria",
-      slug: generateSlug("template-hamburgueria"),
-      custom: {
-        descricaoKey: "projects.hamburgueria.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/template-hamburgueria/main/src/assets/Hamburgueria%20-Page.png",
-        stack: ["React", "Axios", "SASS"],
-        links: {
-          demo: "https://template-hamburgueria.vercel.app/",
-          github: "https://github.com/JrValerio/template-hamburgueria",
-        },
-      },
-    },
     {
       name: "Portfolio Template",
       repo: "portfolio-template-JrValerio",
@@ -99,6 +83,50 @@ const projetos: CategoriaDeProjetos = {
       },
     },
     {
+      name: "Hamburgueria Kenzie",
+      repo: "template-hamburgueria",
+      slug: generateSlug("template-hamburgueria"),
+      custom: {
+        descricaoKey: "projects.hamburgueria.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/template-hamburgueria/main/src/assets/Hamburgueria%20-Page.png",
+        stack: ["React", "Axios", "SASS"],
+        links: {
+          demo: "https://template-hamburgueria.vercel.app/",
+          github: "https://github.com/JrValerio/template-hamburgueria",
+        },
+      },
+    },
+    {
+      name: "Buscador de CEP",
+      repo: "buscadorcep",
+      slug: generateSlug("buscadorcep"),
+      custom: {
+        descricaoKey: "projects.buscadorCEP.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/buscadorcep/main/Buscador%20CEP.png",
+        stack: ["React", "JavaScript", "Axios", "Styled Components"],
+        links: {
+          demo: "https://buscadorcep-3qzvzd239-amaro-juniors-projects.vercel.app/",
+          github: "https://github.com/JrValerio/buscadorcep",
+        },
+      },
+    },
+    {
+      name: "Git Search",
+      repo: "gitSearchBase",
+      slug: generateSlug("gitSearchBase"),
+      custom: {
+        descricaoKey: "projects.gitSearch.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/gitSearchBase/main/src/assets/Git%20Search.png",
+        stack: ["HTML", "CSS", "JavaScript", "API Integration"],
+        links: {
+          demo: "https://jrvalerio.github.io/gitSearchBase/index.html",
+          github: "https://github.com/JrValerio/gitSearchBase",
+        },
+      },
+    },
+  ],
+  frontEnd: [
+    {
       name: "News Portal",
       repo: "newsportal",
       slug: generateSlug("newsportal"),
@@ -111,6 +139,34 @@ const projetos: CategoriaDeProjetos = {
           github: "https://github.com/JrValerio/newsportal",
         },
       },
+    },
+    {
+      name: "Travelgram",
+      repo: "travelgram",
+      slug: generateSlug("travelgram"),
+      custom: {
+        descricaoKey: "projects.travelgram.description",
+        imagem: "https://github.com/JrValerio/travelgram/blob/main/assets/Screenshot%20Travelgram.png?raw=true",
+        stack: ["HTML5", "CSS3", "Google Fonts"],
+        links: {
+          demo: "https://jrvalerio.github.io/travelgram/",
+          github: "https://github.com/JrValerio/travelgram"
+        }
+      }
+    },
+    {
+      name: "Portfolio Dev",
+      repo: "Portfolio-Dev",
+      slug: generateSlug("Portfolio-Dev"),
+      custom: {
+        descricaoKey: "projects.portfolioDev.description",
+        imagem: "https://github.com/JrValerio/Portfolio-Dev/blob/main/assets/Screenshot%20Portifolio%20DEV.png?raw=true",
+        stack: ["HTML5", "CSS3"],
+        links: {
+          demo: "https://jrvalerio.github.io/Portfolio-Dev/",
+          github: "https://github.com/JrValerio/Portfolio-Dev"
+        }
+      }
     },
     {
       name: "Decodificador de Textos",
@@ -127,6 +183,34 @@ const projetos: CategoriaDeProjetos = {
       },
     },
     {
+      name: "Site Institucional Genérico",
+      repo: "site-institucional-generico",
+      slug: generateSlug("site-institucional-generico"),
+      custom: {
+        descricaoKey: "projects.siteInstitucionalGenerico.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/site-institucional-generico/main/src/assets/P%C3%A1gina%20Institucional%20Gen%C3%A9rica%20Preview.png",
+        stack: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+        links: {
+          demo: "https://jrvalerio.github.io/site-institucional-generico/",
+          github: "https://github.com/JrValerio/site-institucional-generico"
+        }
+      }
+    },
+    {
+      name: "Open Music",
+      repo: "open-music",
+      slug: generateSlug("open-music"),
+      custom: {
+        descricaoKey: "projects.openMusic.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/open-music/main/src/assets/img/Open%20Music.png",
+        stack: ["HTML", "CSS", "JavaScript", "Dark Mode", "Responsive Design"],
+        links: {
+          demo: "https://jrvalerio.github.io/open-music/",
+          github: "https://github.com/JrValerio/open-music"
+        }
+      }
+    },
+    {
       name: "Fylo",
       repo: "Fylo",
       slug: generateSlug("Fylo"),
@@ -140,7 +224,21 @@ const projetos: CategoriaDeProjetos = {
         },
       },
     },
-  ],
+    {
+      name: "Profile card component",
+      repo: "Profile-card-component",
+      slug: generateSlug("Profile-card-component"),
+      custom: {
+        descricaoKey: "projects.profileCardComponent.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/jrvalerio/main/Profile-card-component.jpeg",
+        stack: ["HTML", "CSS", "Styled Components", "Mobile First"],
+        links: {
+          demo: "https://jrvalerio.github.io/Profile-card-component/",
+          github: "https://github.com/JrValerio/Profile-card-component"
+        }
+      }
+    }
+  ]
 };
 
 export default projetos;

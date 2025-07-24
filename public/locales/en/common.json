@@ -211,7 +211,29 @@
     },
     "fylo": {
       "description": "Frontend Mentor Challenge: Fylo landing page with two column layout. The challenge is to create a landing page for Fylo with a two-column layout. Users should be able to view the ideal site layout depending on the device screen size and see hover states for all interactive elements on the page."
-    }
+    },
+    "travelgram": {
+  "description": "Travelgram is a social network where users share travel photos and memories. With a modern and responsive design, it offers a grid photo gallery and intuitive navigation, providing a great mobile experience."
+},
+"portfolioDev": {
+  "description": "Portfolio Dev is a responsive portfolio site highlighting projects and skills. It features links to highlighted projects and a contact section, demonstrating knowledge in responsive design and modern development practices."
+},
+"siteInstitucionalGenerico": {
+  "description": "This project is an example of an institutional website developed with a focus on modern web development practices. It features a responsive design that adapts perfectly to different screen sizes and devices. Using HTML, CSS, and JavaScript, the site presents an intuitive and attractive interface, with effective use of Media Queries and the CSS 'clamp()' function for a smooth and accessible user experience."
+},
+"openMusic": {
+  "description": "Kenzie Academy Brazil Challenge: Open Music. This project involves creating a web application for exploring music and albums. The challenge is to develop an intuitive and responsive interface, including dark mode functionality and CSS animations for an enhanced user experience."
+},
+"buscadorCEP": {
+  "description": "This project is a ZIP code search tool developed in React JS. It allows users to enter a ZIP code and get detailed information about the corresponding address."
+},
+"gitSearch": {
+  "description": "Kenzie Academy Brazil Challenge: Git Search. This project involves creating a web application to search and view GitHub profiles, integrating with the GitHub API and allowing users to dynamically and responsively explore profiles and repositories."
+},
+"profileCardComponent": {
+  "description": "Frontend Mentor Challenge: Profile card component. The challenge is to create a responsive profile card component, including the profile image, personal information, and social media icons. The goal is to practice design and layout implementation skills using HTML and CSS."
+}
+
   },
   "featured_projects": "Featured Projects",
   "see_repo": "See repository",
