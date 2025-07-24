@@ -32,12 +32,21 @@ export default function Contato() {
 
 
     try {
-      await emailjs.send(
-        "service_8acai0h",
-        "template_t85qlgh",
-        templateParams,
-        "IExP5MKS4xZ7iFanS"
-      );
+const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+const userId = process.env.NEXT_PUBLIC_EMAILJS_USER_ID;
+
+if (!serviceId || !templateId || !userId) {
+  throw new Error("EmailJS environment variables are not set.");
+}
+
+await emailjs.send(
+  serviceId as string,
+  templateId as string,
+  templateParams,
+  userId as string
+);
+
       toast.success(t("contact.toast.success", "Mensagem enviada com sucesso!"));
       if (nomeRef.current) nomeRef.current.value = "";
       if (sobrenomeRef.current) sobrenomeRef.current.value = "";

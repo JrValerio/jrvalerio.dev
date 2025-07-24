@@ -1,1 +1,24 @@
-node_modules
+# Dependências
+node_modules/
+.env
+.env.local
+.env.*.local
+
+# Build
+.next/
+out/
+dist/
+coverage/
+
+# Logs e temporários
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# VSCode configs (opcional)
+.vscode/
