@@ -2,6 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/cv": "pages/cv.js",
-  "/contato": "pages/contato.js"
+  "/sobre": "pages/sobre.js",
+  "/techs": "pages/techs.js",
+  "/cv": "pages/cv.js"
 }
