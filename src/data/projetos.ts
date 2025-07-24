@@ -52,7 +52,7 @@ const projetos: CategoriaDeProjetos = {
           "https://github.com/JrValerio/postit/blob/main/public/assets/postit.png?raw=true",
         stack: ["Node.js", "Express", "HTMX", "SQLite"],
         links: {
-          demo: "https://postit-share-app.onrender.com/",
+          demo: "https://postit-8nii.onrender.com/",
           github: "https://github.com/JrValerio/postit",
         },
       },
@@ -99,7 +99,7 @@ const projetos: CategoriaDeProjetos = {
           "https://raw.githubusercontent.com/JrValerio/portfolio-template-JrValerio/main/src/assets/portfolio-template-JrValerio.png",
         stack: ["React", "CSS", "Vercel"],
         links: {
-          demo: "https://portfolio-template-jrvalerio.vercel.app/",
+          demo: "https://portfolio-template-jr-valerio.vercel.app/",
           github: "https://github.com/JrValerio/portfolio-template-JrValerio",
         },
       },
@@ -114,7 +114,7 @@ const projetos: CategoriaDeProjetos = {
           "https://github.com/JrValerio/newsportal/blob/main/assets/Screenshot%20News%20Portal.png?raw=true",
         stack: ["HTML5", "CSS3"],
         links: {
-          demo: "https://newsportal-one.vercel.app/",
+          demo: "https://jrvalerio.github.io/newsportal/",
           github: "https://github.com/JrValerio/newsportal",
         },
       },
