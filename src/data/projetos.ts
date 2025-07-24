@@ -3,7 +3,7 @@ function generateSlug(repo: string): string {
 }
 
 export type ProjetoCustom = {
-  descricao: string;
+  descricaoKey: string;
   imagem: string;
   stack: string[];
   links: {
@@ -31,14 +31,12 @@ const projetos: CategoriaDeProjetos = {
       repo: "Control-Finance-React-TailWind",
       slug: generateSlug("Control-Finance-React-TailWind"),
       custom: {
-        descricao: "App para controle de finanças pessoais.",
-        imagem:
-          "https://raw.githubusercontent.com/JrValerio/Control-Finance-React-TailWind/main/src/assets/Control%20Finance.png",
+        descricaoKey: "projects.controlFinance.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/Control-Finance-React-TailWind/main/src/assets/Control%20Finance.png",
         stack: ["React", "Tailwind", "JavaScript"],
         links: {
           demo: "https://control-finance-react-tail-wind.vercel.app/",
-          github:
-            "https://github.com/JrValerio/Control-Finance-React-TailWind",
+          github: "https://github.com/JrValerio/Control-Finance-React-TailWind",
         },
       },
     },
@@ -47,9 +45,8 @@ const projetos: CategoriaDeProjetos = {
       repo: "postit",
       slug: generateSlug("postit"),
       custom: {
-        descricao: "Compartilhamento de notas estilo post-it.",
-        imagem:
-          "https://github.com/JrValerio/postit/blob/main/public/assets/postit.png?raw=true",
+        descricaoKey: "projects.postit.description",
+        imagem: "https://github.com/JrValerio/postit/blob/main/public/assets/postit.png?raw=true",
         stack: ["Node.js", "Express", "HTMX", "SQLite"],
         links: {
           demo: "https://postit-8nii.onrender.com/",
@@ -62,9 +59,8 @@ const projetos: CategoriaDeProjetos = {
       repo: "Kenzie-Hub",
       slug: generateSlug("Kenzie-Hub"),
       custom: {
-        descricao: "Gestão de habilidades de alunos da Kenzie.",
-        imagem:
-          "https://raw.githubusercontent.com/JrValerio/Kenzie-Hub/main/src/assets/Kenzie%20Hub.png",
+        descricaoKey: "projects.kenzieHub.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/Kenzie-Hub/main/src/assets/Kenzie%20Hub.png",
         stack: ["React", "React Hook Form", "Zod", "SASS"],
         links: {
           demo: "https://kenzie-hub-seven-blue.vercel.app/",
@@ -79,9 +75,8 @@ const projetos: CategoriaDeProjetos = {
       repo: "template-hamburgueria",
       slug: generateSlug("template-hamburgueria"),
       custom: {
-        descricao: "Simulação de e-commerce para hamburgueria.",
-        imagem:
-          "https://raw.githubusercontent.com/JrValerio/template-hamburgueria/main/src/assets/Hamburgueria%20-Page.png",
+        descricaoKey: "projects.hamburgueria.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/template-hamburgueria/main/src/assets/Hamburgueria%20-Page.png",
         stack: ["React", "Axios", "SASS"],
         links: {
           demo: "https://template-hamburgueria.vercel.app/",
@@ -94,9 +89,8 @@ const projetos: CategoriaDeProjetos = {
       repo: "portfolio-template-JrValerio",
       slug: generateSlug("portfolio-template-JrValerio"),
       custom: {
-        descricao: "Template moderno de portfólio pessoal.",
-        imagem:
-          "https://raw.githubusercontent.com/JrValerio/portfolio-template-JrValerio/main/src/assets/portfolio-template-JrValerio.png",
+        descricaoKey: "projects.portfolioTemplate.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/portfolio-template-JrValerio/main/src/assets/portfolio-template-JrValerio.png",
         stack: ["React", "CSS", "Vercel"],
         links: {
           demo: "https://portfolio-template-jr-valerio.vercel.app/",
@@ -109,9 +103,8 @@ const projetos: CategoriaDeProjetos = {
       repo: "newsportal",
       slug: generateSlug("newsportal"),
       custom: {
-        descricao: "Portal de notícias de tecnologia com CSS Grid.",
-        imagem:
-          "https://github.com/JrValerio/newsportal/blob/main/assets/Screenshot%20News%20Portal.png?raw=true",
+        descricaoKey: "projects.newsPortal.description",
+        imagem: "https://github.com/JrValerio/newsportal/blob/main/assets/Screenshot%20News%20Portal.png?raw=true",
         stack: ["HTML5", "CSS3"],
         links: {
           demo: "https://jrvalerio.github.io/newsportal/",
@@ -124,9 +117,8 @@ const projetos: CategoriaDeProjetos = {
       repo: "decodificador-de-textos",
       slug: generateSlug("decodificador-de-textos"),
       custom: {
-        descricao: "Criptografador e descriptografador de mensagens.",
-        imagem:
-          "https://raw.githubusercontent.com/JrValerio/decodificador-de-textos/main/assets/img/Decodificador%20de%20Textos.png",
+        descricaoKey: "projects.decodificadorDeTextos.description",
+        imagem: "https://raw.githubusercontent.com/JrValerio/decodificador-de-textos/main/assets/img/Decodificador%20de%20Textos.png",
         stack: ["JavaScript", "Tailwind CSS"],
         links: {
           demo: "https://decodificador-de-textos-lilac.vercel.app/",
@@ -139,9 +131,8 @@ const projetos: CategoriaDeProjetos = {
       repo: "Fylo",
       slug: generateSlug("Fylo"),
       custom: {
-        descricao: "Landing page com layout responsivo e duas colunas.",
-        imagem:
-          "https://github.com/JrValerio/jrvalerio/raw/main/desktop-preview.jpg",
+        descricaoKey: "projects.fylo.description",
+        imagem: "https://github.com/JrValerio/jrvalerio/raw/main/desktop-preview.jpg",
         stack: ["HTML", "CSS"],
         links: {
           demo: "https://jrvalerio.github.io/Fylo/",

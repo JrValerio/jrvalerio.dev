@@ -1,7 +1,7 @@
 {
   "header": {
     "home": "Home",
-    "about": "About Me",
+    "about": "About",
     "techs": "Techs & Skills",
     "projects": "Projects",
     "contact": "Contact"
@@ -20,34 +20,33 @@
       "Turning ideas into code,",
       "Purpose into projects and innovation into impact.",
       "Full Stack Developer focused on results.",
-      "Accessibility, impact and purpose guiding every line of code."
+      "Accessibility, impact, and purpose guiding every line of code."
     ],
     "heroTypewriterMobile": [
       "Full Stack Dev in action.",
       "Technology with purpose.",
-      "Real impact, clean code."
+      "Real impact and clean code."
     ]
   },
   "welcome": "Welcome to my portfolio!",
   "name": "Amaro V S Júnior",
-  "role": "Full Stack Developer specialized in Front End",
+  "role": "Full Stack Developer Specialized in Front End",
   "location": "Atibaia, São Paulo, Brazil",
   "phone": "Phone: +55 11 96075 7716",
   "linkedin": "LinkedIn",
   "github": "GitHub",
   "profileSectionTitle": "Professional Profile",
-"profile": "Full Stack Developer focused on creating modern, accessible solutions with real impact. Experienced in React, Node.js, TypeScript, and DevOps. Committed to quality deliveries, continuous learning, and collaboration in diverse projects.",
-
+  "profile": "Full Stack Developer focused on creating modern, accessible, and impactful solutions. Experience in React, Node.js, and TypeScript. Committed to quality delivery, continuous learning, and collaboration on diverse projects.",
   "about": {
     "title": "About Me",
-    "body": "I'm a junior Full Stack Developer focused on building modern, accessible, and scalable solutions using React, Node.js, and TypeScript. I have experience with personal projects in accessibility, financial organization, automation, and web systems, always aiming to learn and apply best development practices.\n\nI have developed web applications using REST APIs, front-end and back-end architecture, automated tests, and integration with different tools. My personal project highlights include ideas like EcoVoz (digital accessibility) and Control Finance (financial management).\n\nI believe technology should create real impact and make people's lives easier. My personal journey has strengthened my empathy, resilience, and focus on solving real problems—values I bring to every coding challenge.",
+    "body": "I'm a junior Full Stack Developer focused on building modern, accessible, and scalable solutions using React, Node.js, and TypeScript. I have experience with personal projects in accessibility, financial organization, automation, and web systems, always seeking to learn and apply best development practices.\n\nI've developed web applications using REST APIs, front-end and back-end architecture, automated testing, and integration with various tools. My personal project highlights include ideas like EcoVoz (digital accessibility) and Control Finance (financial management).\n\nI believe technology should create real impact and make people's lives easier. My personal journey has strengthened my empathy, resilience, and focus on solving real problems—values I bring to every coding challenge.",
     "instagram": "Follow my Instagram",
     "carouselTitle": "Moments from My Journey",
     "carouselFooter": "See more on my Instagram!",
     "dotLabel": "Go to photo {{n}}",
     "prev": "Previous photo",
     "next": "Next photo",
-    "seeTechs": "See my full stack"
+    "seeTechs": "See my complete stack"
   },
   "techs": {
     "title": "Techs & Skills",
@@ -63,27 +62,27 @@
     ],
     "desc": {
       "html5": "Markup language for structuring web pages.",
-      "css3": "Stylesheet language for designing interfaces.",
+      "css3": "Styling language for designing interfaces.",
       "javascript": "Dynamic programming language for the web.",
       "typescript": "Typed superset of JavaScript for scalable applications.",
       "react": "JS library for building modern interfaces.",
       "nextjs": "React framework for SSR/SSG and full stack apps.",
       "nodejs": "JavaScript runtime for backend development.",
-      "express": "Minimal framework for Node.js APIs.",
+      "express": "Minimalist framework for Node.js APIs.",
       "redux": "Global state management for React apps.",
       "vite": "Super fast bundler for modern projects.",
       "springboot": "Java framework for microservices and APIs.",
-      "django": "Python framework for robust, fast web apps.",
+      "django": "Robust and fast Python web framework.",
       "postgresql": "Advanced open source relational database.",
-      "mongodb": "NoSQL database oriented to documents.",
+      "mongodb": "NoSQL document-oriented database.",
       "docker": "Application and environment containerization.",
-      "git": "Distributed version control.",
+      "git": "Distributed version control system.",
       "github": "Git repository hosting and collaboration.",
-      "tailwindcss": "Utility-first CSS framework for responsive UI.",
+      "tailwindcss": "Utility-first CSS framework for responsive interfaces.",
       "sass": "CSS preprocessor with advanced features.",
       "styledcomponents": "CSS-in-JS for React components.",
       "figma": "Collaborative UI/UX design tool.",
-      "windows": "The most widely used desktop OS."
+      "windows": "The most used desktop operating system in the world."
     }
   },
   "education": "Education",
@@ -97,19 +96,19 @@
     {
       "title": "Rocketseat ONE (In Progress)",
       "date": "September/2024 - Present",
-      "desc": "Full Stack course including React.js, Node.js, JavaScript, TypeScript, DevOps, and AI. Development of complete applications, use of DevOps tools and AI.",
+      "desc": "Full Stack course including React.js, Node.js, JavaScript, TypeScript, DevOps, and AI. Developing complete applications, using DevOps tools, and applying AI.",
       "link": "https://www.rocketseat.com.br/"
     },
     {
       "title": "Kenzie Academy Brasil",
       "date": "September/2023 - September/2024",
-      "desc": "Full Stack course focused on React.js, Node.js, PostgreSQL, Python. Over 2000h of practical learning in software from front-end to back-end.",
+      "desc": "Full Stack course focused on React.js, Node.js, PostgreSQL, Python. Over 2000 hours of practical study from front-end to back-end software.",
       "link": "https://kenzie.com.br/"
     },
     {
       "title": "UNIASSELVI - Systems Analysis and Development (In Progress)",
       "date": "July/2024 - December/2026",
-      "desc": "Training in programming fundamentals, software engineering, databases, and agile methodologies.",
+      "desc": "Training in programming fundamentals, software engineering, databases, and agile methods.",
       "link": "https://portal.uniasselvi.com.br/"
     }
   ],
@@ -119,10 +118,10 @@
       "date": "July/2024 - Present",
       "bullets": [
         "Development of web solutions using React, JavaScript, and TailwindCSS to create modern and dynamic interfaces.",
-        "Creation of responsive interfaces, ensuring accessibility and a smooth user experience across devices.",
+        "Creation of responsive interfaces, ensuring accessibility and a smooth user experience on various devices.",
         "Use of Git for version control in collaborative projects, ensuring consistency and traceability.",
-        "Development of projects such as an e-commerce platform and task management system.",
-        "Experience in remote work and effective client communication for requirements gathering."
+        "Development of projects such as e-commerce platforms and task management systems.",
+        "Experience in remote work and effective communication with clients for requirements gathering."
       ]
     },
     {
@@ -130,15 +129,15 @@
       "date": "HR Analyst - August/2012 to July/2017",
       "bullets": [
         "Payroll management and process automation, resulting in greater operational efficiency.",
-        "Supervision of benefits and compliance with labor legislation, ensuring employee satisfaction.",
+        "Supervision of benefits and compliance with labor laws, ensuring employee satisfaction.",
         "Communication with stakeholders and improvements in internal department processes."
       ]
     },
     {
       "title": "WM Assistência Contábil",
-      "date": "Payroll Assistant - February/2010 to April/2011",
+      "date": "HR Assistant - February/2010 to April/2011",
       "bullets": [
-        "Handling admissions, terminations, and vacation calculations, focusing on process optimization.",
+        "Carrying out hiring, termination, and vacation calculation routines, focusing on process optimization.",
         "Improvement of analytical and process management skills."
       ]
     }
@@ -146,13 +145,13 @@
   "projectsSectionArr": [
     {
       "title": "Kenzie Hub",
-      "desc": "Portfolio platform for developers to add and manage technologies they are learning, focused on showcasing professional growth.",
+      "desc": "Portfolio platform for developers to add and manage skills in progress, focusing on demonstrating professional growth.",
       "stack": "Technologies: React, Context API, TypeScript.",
       "link": "https://kenzie-hub-seven-blue.vercel.app/"
     },
     {
       "title": "Control Finance",
-      "desc": "Personal finance management app to register incomes and expenses, view total balance, and filter transactions by category.",
+      "desc": "Personal finance management app that allows users to record income and expenses, view total balance, and filter transactions by category.",
       "stack": "Technologies: React, Tailwind CSS.",
       "link": "https://control-finance-react-tail-wind.vercel.app/"
     }
@@ -161,17 +160,17 @@
     "Front-End: React, HTML, CSS, JavaScript, TailwindCSS, Styled Components, API integration",
     "Back-End: Node.js, Express, PostgreSQL, Python, Django REST Framework",
     "Tools: Git, GitHub, Vercel, Figma, Docker",
-    "Others: Responsive design, Hooks, OOP, TDD, Scrum, Kanban, DevOps"
+    "Other: Responsive design, Hooks, OOP, TDD, Scrum, Kanban, DevOps"
   ],
   "certificationsArr": [
-    "NLW Rocketseat - Intermediate Full-Stack: Certification in back-end application development with Node.js, REST API concepts, using TypeScript, Fastify, DrizzleORM, PostgreSQL, Docker, and Zod. Also includes front-end development with ReactJS using modern concepts.",
-    "Kenzie Academy - Completion Certificate: 2000 hours in Full-Stack Programming, covering HTML, CSS, React.js, TypeScript, Node.js, PostgreSQL, Python, focused on complete and scalable applications.",
-    "Kenzie Academy - Completion Certificate: 1000 hours in Front-End Programming with HTML, CSS, React.js, TypeScript, with a strong emphasis on modern development practices and creating responsive and intuitive user interfaces."
+    "NLW Rocketseat - Intermediate Full-stack: Certified in back-end application development with Node.js, applying REST API concepts, using TypeScript, Fastify, DrizzleORM, PostgreSQL, Docker, and Zod. Also includes front-end application development with modern ReactJS concepts.",
+    "Kenzie Academy - Completion Certificate: 2000 hours in Full-Stack Programming, covering HTML, CSS, React.js, TypeScript, Node.js, PostgreSQL, Python, focusing on the development of complete and scalable applications.",
+    "Kenzie Academy - Completion Certificate: 1000 hours in Front-End Programming with HTML, CSS, React.js, TypeScript, with a strong emphasis on modern development practices and creating responsive, intuitive user interfaces."
   ],
   "idiomsArr": [
     "Portuguese: Native",
-    "English: Intermediate (studying, focused on reading and conversation fluency)",
-    "Spanish: Advanced (skills in reading, writing, and verbal communication in professional settings)"
+    "English: Intermediate (In progress, focused on reading and conversation fluency)",
+    "Spanish: Advanced (reading, writing, and verbal communication in professional environments)"
   ],
   "button": {
     "seeMore": "See more",
@@ -180,7 +179,7 @@
   },
   "projects": {
     "title": "Projects by Category",
-    "metaDescription": "Main projects in Full Stack, Front End development and real solutions. See cases of technology, social impact and innovation.",
+    "metaDescription": "Main Full Stack, Front End, and real solutions projects. See cases of technology, social impact, and innovation.",
     "categories": {
       "fullStack": "Full Stack",
       "frontEnd": "Front End"
@@ -188,7 +187,31 @@
     "imgAlt": "Project image {{name}}",
     "stack": "Technologies",
     "demo": "Demo",
-    "github": "GitHub"
+    "github": "GitHub",
+    "controlFinance": {
+      "description": "Control Finance is a web app built with React and styled with Tailwind CSS, designed for personal finance management. The interface allows users to record incomes and expenses, view the total balance, and filter transactions by type. The project demonstrates skills in front-end development and state management with React."
+    },
+    "postit": {
+      "description": "Post-it Share App is a minimalist web application that allows you to create, share, and view short notes in the style of post-its. This project started in a live coding session with Mayk Brito, Rocketseat's CCO, and was improved with features like ESLint and Prettier for code standardization, as well as a copy button for easy link sharing."
+    },
+    "kenzieHub": {
+      "description": "Kenzie Hub is a web app developed as part of the Kenzie Academy training program. The project aims to provide a platform where students can register and track their skills acquired throughout the course. It uses modern technologies such as React, React Hook Form for form management and validation with Zod, and SASS for styling."
+    },
+    "hamburgueria": {
+      "description": "This project simulates a web app for a burger shop, developed using the React framework. It features an interactive and responsive interface, allowing users to browse the menu, add items to the cart, and view the final order. Axios is used for HTTP requests to a simulated API, and React Router manages routes."
+    },
+    "portfolioTemplate": {
+      "description": "This project is a personal portfolio template developed using the React framework. It features a modern and responsive interface, allowing users to view personal information, technical skills, and completed projects. The portfolio uses Axios for API integration and React Router for route management."
+    },
+    "newsPortal": {
+      "description": "News Portal is a technology news portal developed to demonstrate the ability to create modern layouts using CSS Flexbox and Grid. The project is fully responsive and includes CSS variables and pseudo-elements for better design."
+    },
+    "decodificadorDeTextos": {
+      "description": "This project is a web application that allows users to encrypt and decrypt text messages using a simple substitution key. The interface is built with HTML and styled using Tailwind CSS for a responsive design. The encryption and decryption logic is implemented in JavaScript."
+    },
+    "fylo": {
+      "description": "Frontend Mentor Challenge: Fylo landing page with two column layout. The challenge is to create a landing page for Fylo with a two-column layout. Users should be able to view the ideal site layout depending on the device screen size and see hover states for all interactive elements on the page."
+    }
   },
   "featured_projects": "Featured Projects",
   "see_repo": "See repository",
@@ -217,7 +240,7 @@
     "addressText": "Atibaia, São Paulo, Brazil",
     "toast": {
       "success": "Message sent successfully!",
-      "error": "Error sending message. Please try again."
+      "error": "Failed to send. Please try again."
     }
   },
   "cv": {

@@ -3,7 +3,7 @@ import { Github, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Projeto } from "../data/projetos";
 
-type Props = { projeto: Projeto; };
+type Props = { projeto: Projeto };
 
 interface RepoData {
   description: string;
@@ -46,9 +46,7 @@ export default function CardProjeto({ projeto }: Props) {
       </h2>
 
       <p className="text-gray-300 text-base leading-relaxed mb-2 min-h-[44px]">
-        {projeto.custom.descricao ||
-          repoData?.description ||
-          t("no_description")}
+        {t(projeto.custom.descricaoKey) || repoData?.description || t("no_description")}
       </p>
 
       <div className="flex flex-wrap gap-2 my-2">

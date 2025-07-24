@@ -20,10 +20,10 @@
       "Transformando ideas en código,",
       "Propósito en proyectos e innovación en impacto.",
       "Desarrollador Full Stack enfocado en resultados.",
-      "Accesibilidad, impacto y propósito en cada línea de código."
+      "Accesibilidad, impacto y propósito guiando cada línea de código."
     ],
     "heroTypewriterMobile": [
-      "Full Stack en acción.",
+      "Dev Full Stack en acción.",
       "Tecnología con propósito.",
       "Impacto real y código limpio."
     ]
@@ -36,11 +36,10 @@
   "linkedin": "LinkedIn",
   "github": "GitHub",
   "profileSectionTitle": "Perfil Profesional",
-"profile": "Desarrollador Full Stack enfocado en crear soluciones modernas, accesibles y con impacto real. Experiencia en React, Node.js, TypeScript y DevOps. Comprometido con la entrega de calidad, el aprendizaje continuo y la colaboración en proyectos diversos.",
-
+  "profile": "Desarrollador Full Stack enfocado en crear soluciones modernas, accesibles y de impacto real. Experiencia en React, Node.js y TypeScript. Comprometido con entregas de calidad, aprendizaje continuo y colaboración en proyectos diversos.",
   "about": {
     "title": "Sobre Mí",
-    "body": "Soy desarrollador Full Stack junior, enfocado en construir soluciones modernas, accesibles y escalables usando React, Node.js y TypeScript. Tengo experiencia en proyectos personales en accesibilidad, organización financiera, automatización y sistemas web, siempre buscando aprender y aplicar buenas prácticas de desarrollo.\n\nHe desarrollado aplicaciones web utilizando APIs REST, arquitectura de front-end y back-end, pruebas automatizadas e integración con diferentes herramientas. Entre mis proyectos personales destacados están ideas como EcoVoz (accesibilidad digital) y Control Finance (gestión financiera).\n\nCreo que la tecnología debe generar un impacto real y facilitar la vida de las personas. Mi trayectoria personal fortaleció mi empatía, resiliencia y enfoque en resolver problemas reales; valores que llevo a cada desafío de código.",
+    "body": "Soy desarrollador Full Stack junior, enfocado en construir soluciones modernas, accesibles y escalables usando React, Node.js y TypeScript. Tengo experiencia en proyectos personales de accesibilidad, organización financiera, automatización y sistemas web, siempre buscando aprender y aplicar buenas prácticas de desarrollo.\n\nHe desarrollado aplicaciones web utilizando APIs REST, arquitectura front-end y back-end, pruebas automatizadas e integración con diferentes herramientas. Entre mis proyectos personales destacados están ideas como EcoVoz (accesibilidad digital) y Control Finance (gestión financiera).\n\nCreo que la tecnología debe generar un impacto real y facilitar la vida de las personas. Mi trayectoria personal fortaleció mi empatía, resiliencia y enfoque en resolver problemas reales; valores que llevo a cada desafío de código.",
     "instagram": "Sigue mi Instagram",
     "carouselTitle": "Momentos de Mi Trayectoria",
     "carouselFooter": "¡Mira más en mi Instagram!",
@@ -51,7 +50,7 @@
   },
   "techs": {
     "title": "Techs & Skills",
-    "intro": "Conoce las principales tecnologías, frameworks y herramientas que domino y uso en mis proyectos:",
+    "intro": "Consulta las principales tecnologías, frameworks y herramientas que domino y utilizo en mis proyectos:",
     "skillsList": [
       "HTML5", "CSS3", "SASS", "Tailwind CSS",
       "JavaScript", "TypeScript",
@@ -63,26 +62,26 @@
     ],
     "desc": {
       "html5": "Lenguaje de marcado para estructurar páginas web.",
-      "css3": "Lenguaje de estilos para el diseño de interfaces.",
-      "javascript": "Lenguaje de programación dinámica para la web.",
+      "css3": "Lenguaje de estilos para diseñar interfaces.",
+      "javascript": "Lenguaje de programación dinámico para la web.",
       "typescript": "Superset tipado de JavaScript para aplicaciones escalables.",
       "react": "Librería JS para construir interfaces modernas.",
       "nextjs": "Framework React para SSR/SSG y aplicaciones full stack.",
-      "nodejs": "Entorno de ejecución JavaScript para el backend.",
-      "express": "Framework minimalista para APIs con Node.js.",
+      "nodejs": "Entorno de ejecución JavaScript en el backend.",
+      "express": "Framework minimalista para APIs Node.js.",
       "redux": "Gestión global de estado para aplicaciones React.",
-      "vite": "Bundler ultrarrápido para proyectos modernos.",
+      "vite": "Bundler súper rápido para proyectos modernos.",
       "springboot": "Framework Java para microservicios y APIs.",
-      "django": "Framework Python para web robusta y rápida.",
+      "django": "Framework Python robusto y rápido para web.",
       "postgresql": "Base de datos relacional open source avanzada.",
       "mongodb": "Base de datos NoSQL orientada a documentos.",
       "docker": "Contenerización de aplicaciones y entornos.",
-      "git": "Sistema de control de versiones distribuido.",
+      "git": "Control de versiones distribuido.",
       "github": "Alojamiento de repositorios Git y colaboración.",
       "tailwindcss": "Framework CSS utilitario para interfaces responsivas.",
       "sass": "Preprocesador CSS con funciones avanzadas.",
       "styledcomponents": "CSS-in-JS para componentes React.",
-      "figma": "Herramienta de diseño colaborativo UI/UX.",
+      "figma": "Herramienta colaborativa de diseño UI/UX.",
       "windows": "El sistema operativo de escritorio más utilizado del mundo."
     }
   },
@@ -96,49 +95,49 @@
   "educations": [
     {
       "title": "Rocketseat ONE (En Curso)",
-      "date": "Septiembre/2024 - Actual",
+      "date": "Septiembre/2024 - Actualidad",
       "desc": "Curso Full Stack que incluye React.js, Node.js, JavaScript, TypeScript, DevOps e IA. Desarrollo de aplicaciones completas, uso de herramientas DevOps y aplicación de IA.",
       "link": "https://www.rocketseat.com.br/"
     },
     {
       "title": "Kenzie Academy Brasil",
       "date": "Septiembre/2023 - Septiembre/2024",
-      "desc": "Curso Full Stack enfocado en React.js, Node.js, PostgreSQL, Python. Más de 2000h de aprendizaje práctico de software, desde el front-end hasta el back-end.",
+      "desc": "Curso Full Stack enfocado en React.js, Node.js, PostgreSQL, Python. Más de 2000h de estudio práctico en desarrollo de software de front-end y back-end.",
       "link": "https://kenzie.com.br/"
     },
     {
       "title": "UNIASSELVI - Análisis y Desarrollo de Sistemas (En Curso)",
       "date": "Julio/2024 - Diciembre/2026",
-      "desc": "Formación en fundamentos de programación, ingeniería de software, bases de datos y metodologías ágiles.",
+      "desc": "Formación en fundamentos de programación, ingeniería de software, bases de datos y métodos ágiles.",
       "link": "https://portal.uniasselvi.com.br/"
     }
   ],
   "experiences": [
     {
       "title": "Desarrollador Web Freelancer",
-      "date": "Julio/2024 - Actual",
+      "date": "Julio/2024 - Actualidad",
       "bullets": [
         "Desarrollo de soluciones web usando React, JavaScript y TailwindCSS para crear interfaces modernas y dinámicas.",
-        "Creación de interfaces responsivas, garantizando accesibilidad y una experiencia fluida para el usuario en todos los dispositivos.",
-        "Uso de Git para control de versiones en proyectos colaborativos, garantizando consistencia y trazabilidad.",
+        "Creación de interfaces responsivas, asegurando accesibilidad y experiencia fluida en diversos dispositivos.",
+        "Uso de Git para control de versiones en proyectos colaborativos, asegurando consistencia y trazabilidad.",
         "Desarrollo de proyectos como plataforma de e-commerce y sistema de gestión de tareas.",
-        "Experiencia en trabajo remoto y comunicación eficaz con clientes para el levantamiento de requisitos."
+        "Experiencia en trabajo remoto y comunicación eficaz con clientes para levantamiento de requisitos."
       ]
     },
     {
       "title": "Singular Servicios de Salud Ltda",
-      "date": "Analista de Recursos Humanos - Agosto/2012 a Julio/2017",
+      "date": "Analista de RRHH - Agosto/2012 a Julio/2017",
       "bullets": [
-        "Gestión de nómina y automatización de procesos, resultando en una mayor eficiencia operativa.",
-        "Supervisión de beneficios y cumplimiento de la legislación laboral, garantizando la satisfacción de los empleados.",
+        "Gestión de nómina y automatización de procesos, logrando mayor eficiencia operativa.",
+        "Supervisión de beneficios y cumplimiento de la legislación laboral, garantizando satisfacción de los colaboradores.",
         "Comunicación con stakeholders y mejoras en los procesos internos del departamento."
       ]
     },
     {
-      "title": "WM Assistência Contábil",
-      "date": "Auxiliar de Nómina - Febrero/2010 a Abril/2011",
+      "title": "WM Asistencia Contable",
+      "date": "Auxiliar de RRHH - Febrero/2010 a Abril/2011",
       "bullets": [
-        "Gestión de ingresos, egresos y cálculo de vacaciones, con enfoque en la optimización de procesos.",
+        "Realización de procesos de admisión, despido y cálculo de vacaciones, enfocándose en la optimización de procesos.",
         "Mejora de habilidades analíticas y de gestión de procesos."
       ]
     }
@@ -146,13 +145,13 @@
   "projectsSectionArr": [
     {
       "title": "Kenzie Hub",
-      "desc": "Plataforma de portafolio para desarrolladores que permite añadir y gestionar tecnologías en aprendizaje, enfocada en mostrar la evolución profesional.",
+      "desc": "Plataforma de portafolio para desarrolladores que permite agregar y gestionar tecnologías en aprendizaje, con foco en demostrar la evolución profesional.",
       "stack": "Tecnologías: React, Context API, TypeScript.",
       "link": "https://kenzie-hub-seven-blue.vercel.app/"
     },
     {
       "title": "Control Finance",
-      "desc": "Aplicación de gestión de finanzas personales, que permite registrar ingresos y egresos, visualizar el saldo total y filtrar transacciones por categoría.",
+      "desc": "Aplicación de gestión financiera personal, que permite registrar ingresos y gastos, ver el saldo total y filtrar transacciones por categoría.",
       "stack": "Tecnologías: React, Tailwind CSS.",
       "link": "https://control-finance-react-tail-wind.vercel.app/"
     }
@@ -164,13 +163,13 @@
     "Otros: Diseño responsivo, Hooks, POO, TDD, Scrum, Kanban, DevOps"
   ],
   "certificationsArr": [
-    "NLW Rocketseat - Full-stack Intermedio: Certificación en desarrollo de aplicaciones back-end con Node.js, conceptos de API REST, utilizando TypeScript, Fastify, DrizzleORM, PostgreSQL, Docker y Zod. Incluye también desarrollo front-end con ReactJS usando conceptos modernos.",
-    "Kenzie Academy - Certificado de Finalización: 2000 horas en Programación Full-Stack, cubriendo HTML, CSS, React.js, TypeScript, Node.js, PostgreSQL, Python, enfocado en aplicaciones completas y escalables.",
-    "Kenzie Academy - Certificado de Finalización: 1000 horas en Programación Front-End con HTML, CSS, React.js, TypeScript, con fuerte énfasis en prácticas modernas de desarrollo y creación de interfaces de usuario responsivas e intuitivas."
+    "NLW Rocketseat - Full-stack Intermedio: Certificación en desarrollo de una aplicación back-end en Node.js, aplicando conceptos de API REST, usando TypeScript, Fastify, DrizzleORM, PostgreSQL, Docker y Zod. Incluye desarrollo de una aplicación front-end en ReactJS con conceptos modernos.",
+    "Kenzie Academy - Certificado de Finalización: 2000 horas en Programación Full-Stack, abarcando HTML, CSS, React.js, TypeScript, Node.js, PostgreSQL, Python, enfocado en el desarrollo de aplicaciones completas y escalables.",
+    "Kenzie Academy - Certificado de Finalización: 1000 horas en Programación Front-End con HTML, CSS, React.js, TypeScript, con fuerte énfasis en buenas prácticas y en la creación de interfaces de usuario responsivas e intuitivas."
   ],
   "idiomsArr": [
     "Portugués: Nativo",
-    "Inglés: Intermedio (estudiando, enfocado en fluidez de lectura y conversación)",
+    "Inglés: Intermedio (En curso, enfocado en fluidez de lectura y conversación)",
     "Español: Avanzado (habilidades de lectura, escritura y comunicación verbal en entornos profesionales)"
   ],
   "button": {
@@ -180,7 +179,7 @@
   },
   "projects": {
     "title": "Proyectos por Categoría",
-    "metaDescription": "Principales proyectos en desarrollo Full Stack, Front End y soluciones reales. Consulta casos de tecnología, impacto social e innovación.",
+    "metaDescription": "Principales proyectos de desarrollo Full Stack, Front End y soluciones reales. Casos de tecnología, impacto social e innovación.",
     "categories": {
       "fullStack": "Full Stack",
       "frontEnd": "Front End"
@@ -188,27 +187,51 @@
     "imgAlt": "Imagen del proyecto {{name}}",
     "stack": "Tecnologías",
     "demo": "Demo",
-    "github": "GitHub"
+    "github": "GitHub",
+    "controlFinance": {
+      "description": "Control Finance es una aplicación web desarrollada con React y Tailwind CSS, destinada a la gestión de finanzas personales. La interfaz permite al usuario registrar ingresos y egresos, visualizar el saldo total y filtrar transacciones por tipo. El proyecto demuestra habilidades en desarrollo front-end y gestión de estado en React."
+    },
+    "postit": {
+      "description": "Post-it Share App es una aplicación web minimalista que permite crear, compartir y visualizar notas cortas al estilo post-it. Este proyecto comenzó en una live coding con Mayk Brito, CCO de Rocketseat, y fue mejorado con herramientas como ESLint y Prettier para estandarización de código, además de un botón para copiar y compartir el enlace."
+    },
+    "kenzieHub": {
+      "description": "Kenzie Hub es una aplicación web desarrollada como parte del programa de formación de Kenzie Academy. El proyecto busca ofrecer una plataforma donde los estudiantes puedan registrar y seguir sus habilidades adquiridas durante el curso. Utiliza tecnologías modernas como React, React Hook Form para gestión y validación de formularios con Zod, y SASS para los estilos."
+    },
+    "hamburgueria": {
+      "description": "Este proyecto es una simulación de una aplicación web para una hamburguesería, desarrollada con React. Incorpora una interfaz interactiva y responsiva, permitiendo a los usuarios navegar por el menú, agregar productos al carrito y ver el pedido final. Además, utiliza Axios para solicitudes HTTP a una API simulada y React Router para la gestión de rutas."
+    },
+    "portfolioTemplate": {
+      "description": "Este proyecto es una plantilla de portafolio personal desarrollada con React. Presenta una interfaz moderna y responsiva que permite a los usuarios visualizar información personal, habilidades técnicas y proyectos realizados. Utiliza Axios para integración con APIs y React Router para la gestión de rutas."
+    },
+    "newsPortal": {
+      "description": "News Portal es un portal de noticias tecnológicas desarrollado para demostrar la capacidad de crear layouts modernos utilizando CSS Flexbox y Grid. El proyecto es totalmente responsivo e incluye variables CSS y pseudoelementos para mejorar el diseño."
+    },
+    "decodificadorDeTextos": {
+      "description": "Este proyecto es una aplicación web que permite al usuario cifrar y descifrar mensajes de texto usando una clave de sustitución simple. La interfaz está construida con HTML y estilizada con Tailwind CSS para un diseño responsivo. La lógica de cifrado y descifrado está implementada en JavaScript."
+    },
+    "fylo": {
+      "description": "Desafío de Frontend Mentor: Fylo landing page con diseño de dos columnas. El reto consiste en crear una landing page para Fylo con diseño de dos columnas. Los usuarios deben poder ver el layout ideal según el tamaño de la pantalla y ver los estados hover para todos los elementos interactivos."
+    }
   },
   "featured_projects": "Proyectos Destacados",
   "see_repo": "Ver repositorio",
-  "see_all_on_github": "Ver todo en GitHub",
+  "see_all_on_github": "Ver todos en GitHub",
   "demo": "Demo",
   "loading": "Cargando...",
   "error": "Error al cargar proyectos de GitHub.",
-  "all": "Todas",
+  "all": "Todos",
   "no_description": "Sin descripción...",
   "backToProjects": "Volver a Proyectos",
   "contact": {
     "title": "Trabajemos Juntos",
-    "subtitle": "¿Tienes un proyecto en mente o simplemente quieres saludar? Completa el formulario abajo y te responderé lo antes posible.",
+    "subtitle": "¿Tienes un proyecto en mente o solo quieres saludar? Completa el formulario y te responderé lo antes posible.",
     "form": {
       "firstName": "Nombre",
       "lastName": "Apellido",
       "email": "Correo electrónico",
       "phone": "Número de teléfono",
       "message": "Escribe tu mensaje aquí...",
-      "button": "Enviar mensaje"
+      "button": "Enviar Mensaje"
     },
     "infoTitle": "Información de Contacto",
     "phone": "Teléfono",
@@ -217,7 +240,7 @@
     "addressText": "Atibaia, São Paulo, Brasil",
     "toast": {
       "success": "¡Mensaje enviado con éxito!",
-      "error": "Error al enviar el mensaje. Inténtalo de nuevo."
+      "error": "Error al enviar. Inténtalo de nuevo."
     }
   },
   "cv": {

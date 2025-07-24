@@ -36,8 +36,7 @@
   "linkedin": "LinkedIn",
   "github": "GitHub",
   "profileSectionTitle": "Perfil Profissional",
-"profile": "Desenvolvedor Full Stack focado em criar soluções modernas, acessíveis e com impacto real. Experiência em React, Node.js e TypeScript. Comprometido com entregas de qualidade, aprendizado contínuo e colaboração em projetos diversos.",
-
+  "profile": "Desenvolvedor Full Stack focado em criar soluções modernas, acessíveis e com impacto real. Experiência em React, Node.js e TypeScript. Comprometido com entregas de qualidade, aprendizado contínuo e colaboração em projetos diversos.",
   "about": {
     "title": "Sobre Mim",
     "body": "Sou desenvolvedor Full Stack júnior, focado em construir soluções modernas, acessíveis e escaláveis usando React, Node.js e TypeScript. Tenho experiência em projetos pessoais nas áreas de acessibilidade, organização financeira, automação e sistemas web, sempre buscando aprender e aplicar boas práticas de desenvolvimento.\n\nJá desenvolvi aplicações web utilizando APIs REST, arquitetura front-end e back-end, testes automatizados e integração com diferentes ferramentas. Entre meus projetos pessoais de destaque estão ideias como o EcoVoz (acessibilidade digital) e o Control Finance (gestão financeira).\n\nAcredito que tecnologia deve criar impacto real e facilitar a vida das pessoas. Minha trajetória pessoal fortaleceu minha empatia, resiliência e foco em resolver problemas reais — valores que levo para cada desafio de código.",
@@ -188,7 +187,31 @@
     "imgAlt": "Imagem do projeto {{name}}",
     "stack": "Tecnologias",
     "demo": "Demo",
-    "github": "GitHub"
+    "github": "GitHub",
+    "controlFinance": {
+      "description": "Control Finance é uma aplicação web desenvolvida com React e estilizada com Tailwind CSS, destinada ao gerenciamento de finanças pessoais. A interface permite ao usuário registrar entradas e saídas financeiras, visualizar o saldo total e filtrar transações por tipo. O projeto é uma demonstração de habilidades em desenvolvimento front-end e gerenciamento de estado em React."
+    },
+    "postit": {
+      "description": "Post-it Share App é uma aplicação web minimalista que permite criar, compartilhar e visualizar notas curtas no estilo de post-its. Esse projeto foi iniciado em uma live coding com Mayk Brito, CCO da Rocketseat, e aprimorado com recursos como ESLint e Prettier para padronização do código, além de um botão de cópia para facilitar o compartilhamento do link."
+    },
+    "kenzieHub": {
+      "description": "Kenzie Hub é uma aplicação web desenvolvida como parte do programa de treinamento da Kenzie Academy. O projeto visa fornecer uma plataforma onde os alunos podem registrar e acompanhar suas habilidades adquiridas ao longo do curso. Utiliza tecnologias modernas como React, React Hook Form para gerenciamento de formulários e validação com Zod, além de SASS para estilização."
+    },
+    "hamburgueria": {
+      "description": "Este projeto é uma simulação de uma aplicação web para uma hamburgueria, desenvolvida utilizando o framework React. Ele incorpora uma interface interativa e responsiva, que permite aos usuários navegar pelo menu, adicionar itens ao carrinho de compras e visualizar o pedido final. Além disso, utiliza Axios para realizar requisições HTTP a uma API simulada, e React Router para o gerenciamento de rotas."
+    },
+    "portfolioTemplate": {
+      "description": "Este projeto é um template de portfólio pessoal desenvolvido utilizando o framework React. Ele apresenta uma interface moderna e responsiva, que permite aos usuários visualizar informações pessoais, habilidades técnicas e projetos realizados. O portfólio utiliza Axios para integração com APIs e React Router para o gerenciamento de rotas."
+    },
+    "newsPortal": {
+      "description": "News Portal é um portal de notícias de tecnologia desenvolvido para demonstrar a capacidade de criar layouts modernos utilizando CSS Flexbox e Grid. O projeto é totalmente responsivo e inclui variáveis CSS e pseudo-elementos para melhor design."
+    },
+    "decodificadorDeTextos": {
+      "description": "Este projeto é uma aplicação web que permite ao usuário criptografar e descriptografar mensagens de texto utilizando uma chave de substituição simples. A interface é construída com HTML e estilizada utilizando o framework Tailwind CSS, proporcionando um design responsivo. A lógica de criptografia e descriptografia é implementada com JavaScript."
+    },
+    "fylo": {
+      "description": "Desafio do Frontend Mentor: Fylo landing page with two column layout. O desafio consiste em criar uma landing page para o Fylo com um layout de duas colunas. Os usuários devem ser capazes de visualizar o layout ideal do site, dependendo do tamanho da tela do dispositivo e devem ver os estados de hover para todos os elementos interativos na página."
+    }
   },
   "featured_projects": "Projetos em Destaque",
   "see_repo": "Ver repositório",

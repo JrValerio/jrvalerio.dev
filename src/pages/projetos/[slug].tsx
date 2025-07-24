@@ -8,7 +8,7 @@ import projetosData, { Projeto } from "../../data/projetos";
 const todosProjetos: Projeto[] = Object.values(projetosData).flat();
 
 export default function ProjetoDetalhado({ projeto }: { projeto: Projeto }) {
-  const { t, ready, i18n } = useTranslation("common");
+  const { t, ready } = useTranslation("common");
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
@@ -24,23 +24,22 @@ export default function ProjetoDetalhado({ projeto }: { projeto: Projeto }) {
     );
   }
 
+  const descricao = t(projeto.custom.descricaoKey);
+
   return (
     <>
       <Head>
         <title>
           {projeto.name} - {t("projects.title")} | Amaro Júnior
         </title>
-        <meta
-          name="description"
-          content={projeto.custom.descricao}
-        />
+        <meta name="description" content={descricao} />
         <meta property="og:title" content={`${projeto.name} - Amaro Júnior`} />
-        <meta property="og:description" content={projeto.custom.descricao} />
+        <meta property="og:description" content={descricao} />
         <meta property="og:url" content={`https://jrvalerio.dev/projetos/${projeto.slug}`} />
         <meta property="og:image" content={projeto.custom.imagem} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${projeto.name} - Amaro Júnior`} />
-        <meta name="twitter:description" content={projeto.custom.descricao} />
+        <meta name="twitter:description" content={descricao} />
         <meta name="twitter:image" content={projeto.custom.imagem} />
         <link rel="canonical" href={`https://jrvalerio.dev/projetos/${projeto.slug}`} />
       </Head>
@@ -57,7 +56,7 @@ export default function ProjetoDetalhado({ projeto }: { projeto: Projeto }) {
             />
           )}
           <p className="text-lg mb-4 text-gray-300">
-            {projeto.custom.descricao}
+            {descricao}
           </p>
           {projeto.custom.stack?.length > 0 && (
             <div className="mb-4">
