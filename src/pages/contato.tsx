@@ -119,8 +119,8 @@ export default function Contato() {
           href="https://jrvalerio.dev/contato"
         />
       </Head>
-      <main className="flex flex-col md:flex-row min-h-screen w-full justify-center items-center gap-10 px-4 md:px-16 py-12 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900">
-        <section className="flex-1 max-w-xl bg-white/10 dark:bg-black/60 rounded-2xl shadow-2xl p-8 md:p-10 flex flex-col justify-center items-center">
+      <main className="flex flex-col md:flex-row min-h-screen w-full justify-center items-center gap-10 px-4 md:px-16 py-12 bg-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 transition-colors">
+        <section className="flex-1 max-w-xl bg-white/90 dark:bg-black/60 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl p-8 md:p-10 flex flex-col justify-center items-center">
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-transparent text-center whitespace-nowrap">
             {t("contact.title")}
           </h2>
@@ -138,7 +138,7 @@ export default function Contato() {
                   type="text"
                   ref={nomeRef}
                   placeholder={t("contact.form.firstName")}
-                  className="flex-1 px-4 py-3 rounded bg-gray-100 border border-gray-300 text-gray-900 focus:border-teal-400 outline-none placeholder:text-gray-400"
+                  className="flex-1 px-4 py-3 rounded bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:border-teal-400 outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors"
                   aria-label={t("contact.form.firstName")}
                   required
                 />
@@ -146,7 +146,7 @@ export default function Contato() {
                   type="text"
                   ref={sobrenomeRef}
                   placeholder={t("contact.form.lastName")}
-                  className="flex-1 px-4 py-3 rounded bg-gray-100 border border-gray-300 text-gray-900 focus:border-teal-400 outline-none placeholder:text-gray-400"
+                  className="flex-1 px-4 py-3 rounded bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:border-teal-400 outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors"
                   aria-label={t("contact.form.lastName")}
                   required
                 />
@@ -156,7 +156,7 @@ export default function Contato() {
                   type="email"
                   ref={emailRef}
                   placeholder={t("contact.form.email")}
-                  className="flex-1 px-4 py-3 rounded bg-gray-100 border border-gray-300 text-gray-900 focus:border-teal-400 outline-none placeholder:text-gray-400"
+                  className="flex-1 px-4 py-3 rounded bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:border-teal-400 outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors"
                   aria-label={t("contact.form.email")}
                   required
                 />
@@ -164,7 +164,7 @@ export default function Contato() {
                   type="tel"
                   ref={phoneRef}
                   placeholder={t("contact.form.phone")}
-                  className="flex-1 px-4 py-3 rounded bg-gray-100 border border-gray-300 text-gray-900 focus:border-teal-400 outline-none placeholder:text-gray-400"
+                  className="flex-1 px-4 py-3 rounded bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:border-teal-400 outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors"
                   aria-label={t("contact.form.phone")}
                   required
                 />
@@ -173,7 +173,7 @@ export default function Contato() {
                 ref={msgRef}
                 placeholder={t("contact.form.message")}
                 rows={5}
-                className="px-4 py-3 rounded bg-gray-100 border border-gray-300 text-gray-900 focus:border-teal-400 outline-none resize-none placeholder:text-gray-400"
+                className="px-4 py-3 rounded bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:border-teal-400 outline-none resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors"
                 aria-label={t("contact.form.message")}
                 required
               />
@@ -209,14 +209,14 @@ export default function Contato() {
           </div>
         </section>
         <div className="flex-1 flex flex-col gap-8 max-w-xl w-full">
-          <section className="bg-white/10 dark:bg-black/60 rounded-2xl shadow-2xl p-8 flex flex-col items-center mb-0">
+          <section className="bg-white/90 dark:bg-black/60 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl p-8 flex flex-col items-center mb-0">
             <span className="inline-block px-4 py-1 rounded-full bg-gradient-to-r from-teal-400 to-blue-600 text-white font-bold shadow mb-3">
               {t(
                 "contact.banner",
                 "Disponível para projetos freelance e parcerias!"
               )}
             </span>
-            <p className="text-lg md:text-xl font-semibold text-white/90 text-center max-w-lg mb-4">
+            <p className="text-lg md:text-xl font-semibold text-gray-800 dark:text-white/90 text-center max-w-lg mb-4">
               {t("contact.chamada", "Vamos tomar um café?")}{" "}
               <span className="inline-block align-middle">👋</span>{" "}
               {t(
@@ -243,11 +243,11 @@ export default function Contato() {
               </a>
             </div>
           </section>
-          <aside className="bg-white/10 dark:bg-black/60 rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-8">
+          <aside className="bg-white/90 dark:bg-black/60 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-8">
             <h3 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-transparent text-center">
               {t("contact.infoTitle")}
             </h3>
-            <div className="flex flex-col gap-3 text-lg text-white/90 w-full items-center">
+            <div className="flex flex-col gap-3 text-lg text-gray-800 dark:text-white/90 w-full items-center">
               <div className="flex gap-3 items-center">
                 <FaPhone />{" "}
                 <span>
@@ -258,7 +258,7 @@ export default function Contato() {
                 <FaEnvelope />{" "}
                 <a
                   href="mailto:amarovsjr81@gmail.com"
-                  className="underline hover:text-teal-400 transition"
+                  className="underline text-teal-700 dark:text-teal-300 hover:text-teal-500 transition"
                 >
                   amarovsjr81@gmail.com
                 </a>
@@ -301,7 +301,7 @@ export default function Contato() {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="GitHub"
-                className="text-gray-400 hover:text-white text-2xl"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-2xl"
               >
                 <FaGithub />
               </a>

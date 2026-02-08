@@ -105,7 +105,7 @@ export default function CV() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 flex items-center justify-center print:bg-white print:text-black print:p-0">
+    <div className="min-h-screen bg-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 flex items-center justify-center print:bg-white print:text-black print:p-0 transition-colors">
       <Head>
         <title>{t("cv.title", "Currículo")} - Amaro Júnior</title>
         <meta
@@ -145,9 +145,9 @@ export default function CV() {
       </Head>
       <article
         ref={pdfRef}
-        className="w-full max-w-3xl mx-auto bg-white/95 dark:bg-[#202531] rounded-2xl shadow-2xl border border-gray-300 px-2 sm:px-8 py-8 sm:py-12 my-8 print:rounded-none print:shadow-none print:border-0 print:bg-white transition-colors"
+        className="w-full max-w-3xl mx-auto bg-white/95 dark:bg-[#202531] rounded-2xl shadow-2xl border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 px-2 sm:px-8 py-8 sm:py-12 my-8 print:rounded-none print:shadow-none print:border-0 print:bg-white transition-colors"
       >
-        <header className="border-b border-gray-300 pb-4 mb-4 print:border-black">
+        <header className="border-b border-gray-300 dark:border-gray-700 pb-4 mb-4 print:border-black">
           <h1 className="text-3xl md:text-4xl font-extrabold mb-2 bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-transparent print:text-black print:bg-transparent">
             {t("name")}
           </h1>
@@ -161,15 +161,15 @@ export default function CV() {
             <span>|</span>
             <a
               href="mailto:amarovsjr81@gmail.com"
-              className="underline text-teal-600 hover:text-blue-500 transition-colors"
+              className="underline text-teal-600 dark:text-teal-300 hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
             >
               amarovsjr81@gmail.com
             </a>
           </div>
-          <div className="flex flex-wrap gap-2 text-sm mt-1 print:text-black">
+          <div className="flex flex-wrap gap-2 text-sm mt-1 text-gray-700 dark:text-gray-300 print:text-black">
             <a
               href="https://www.linkedin.com/in/jrvalerio"
-              className="underline text-teal-600 hover:text-blue-500 transition-colors"
+              className="underline text-teal-600 dark:text-teal-300 hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -178,7 +178,7 @@ export default function CV() {
             <span>|</span>
             <a
               href="https://github.com/jrvalerio"
-              className="underline text-teal-600 hover:text-blue-500 transition-colors"
+              className="underline text-teal-600 dark:text-teal-300 hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -212,7 +212,7 @@ export default function CV() {
                     href={edu.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline text-teal-600 hover:text-blue-500 transition-colors"
+                    className="underline text-teal-600 dark:text-teal-300 hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
                   >
                     {edu.title}
                   </a>
@@ -220,13 +220,13 @@ export default function CV() {
                   edu.title
                 )}
               </strong>{" "}
-              <span className="text-gray-500 italic">{edu.date}</span>
+              <span className="text-gray-500 dark:text-gray-400 italic">{edu.date}</span>
               <br />
               <span className="text-gray-700 dark:text-gray-300 print:text-black italic">
                 {edu.desc}
               </span>
               {i < educations.length - 1 && (
-                <div className="border-t border-gray-200 my-3" />
+                <div className="border-t border-gray-200 dark:border-gray-700 my-3" />
               )}
             </div>
           ))}
@@ -234,17 +234,17 @@ export default function CV() {
         <Section title={t("experience")}>
           {experiences.map((exp, i) => (
             <div className="mb-2" key={i}>
-              <strong className="underline text-teal-600 hover:text-blue-500 transition-colors">
+              <strong className="underline text-teal-600 dark:text-teal-300 hover:text-blue-500 dark:hover:text-blue-300 transition-colors">
                 {exp.title}
               </strong>{" "}
-              <span className="text-gray-500 italic">{exp.date}</span>
+              <span className="text-gray-500 dark:text-gray-400 italic">{exp.date}</span>
               <ul className="list-disc ml-6 text-gray-800 dark:text-gray-200 print:text-black">
                 {exp.bullets.map((b, idx) => (
                   <li key={idx}>{b}</li>
                 ))}
               </ul>
               {i < experiences.length - 1 && (
-                <div className="border-t border-gray-200 my-3" />
+                <div className="border-t border-gray-200 dark:border-gray-700 my-3" />
               )}
             </div>
           ))}
@@ -258,7 +258,7 @@ export default function CV() {
                     href={proj.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline text-teal-600 hover:text-blue-500 transition-colors"
+                    className="underline text-teal-600 dark:text-teal-300 hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
                   >
                     {proj.title}
                   </a>
@@ -271,11 +271,11 @@ export default function CV() {
                 {proj.desc}
               </span>
               <br />
-              <span className="text-gray-600 dark:text-gray-400 print:text-black">
+              <span className="text-gray-600 dark:text-gray-300 print:text-black">
                 {proj.stack}
               </span>
               {i < projects.length - 1 && (
-                <div className="border-t border-gray-200 my-3" />
+                <div className="border-t border-gray-200 dark:border-gray-700 my-3" />
               )}
             </div>
           ))}
