@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import type { ISourceOptions } from "@tsparticles/engine";
 import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
 import Header from "./Header";
 import Footer from "./Footer";
 import MenuOverlay from "./MenuOverlay";
@@ -16,6 +17,7 @@ export default function Layout({ children }: LayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const { resolvedTheme } = useTheme();
   const router = useRouter();
 
   useEffect(() => {
@@ -53,42 +55,57 @@ export default function Layout({ children }: LayoutProps) {
   const shouldRenderParticles =
     router.pathname === "/" && isDesktop && !reduceMotion;
 
-  const particlesOptions = {
-    background: { color: "#000000" },
-    fullScreen: { enable: false },
-    fpsLimit: 45,
-    interactivity: {
-      events: {
-        onHover: { enable: true, mode: "grab" },
-        onClick: { enable: false, mode: "push" },
-      },
-      modes: {
-        grab: { distance: 150, links: { opacity: 0.5 } },
-        push: { quantity: 2 },
-      },
-    },
-    particles: {
-      color: { value: ["#00ffff", "#14e5c6", "#3b82f6"] },
-      links: {
-        enable: true,
-        color: "#14e5c6",
-        distance: 130,
-        opacity: 0.4,
-        width: 1,
-        triangles: { enable: false, opacity: 0.16 },
-      },
-      move: {
-        enable: true,
-        speed: 1,
-        outModes: { default: "bounce" },
-      },
-      number: { value: 45, density: { enable: true } },
-      opacity: { value: 0.65 },
-      shape: { type: "circle" },
-      size: { value: { min: 1.2, max: 2.8 } },
-      zIndex: { value: 5 },
-    },
-  } satisfies ISourceOptions;
+  const isDark = resolvedTheme === "dark";
+
+  const particlesOptions = useMemo(
+    () =>
+      ({
+        fullScreen: { enable: false },
+        detectRetina: false,
+        fpsLimit: 36,
+        pauseOnBlur: true,
+        pauseOnOutsideViewport: true,
+        interactivity: {
+          events: {
+            onHover: { enable: true, mode: "grab" },
+            onClick: { enable: false },
+          },
+          modes: {
+            grab: {
+              distance: 130,
+              links: { opacity: isDark ? 0.24 : 0.18 },
+            },
+          },
+        },
+        particles: {
+          color: {
+            value: isDark
+              ? ["#67e8f9", "#22d3ee", "#38bdf8"]
+              : ["#06b6d4", "#0ea5e9", "#14b8a6"],
+          },
+          links: {
+            enable: true,
+            color: isDark ? "#22d3ee" : "#0ea5e9",
+            distance: 125,
+            opacity: isDark ? 0.2 : 0.14,
+            width: 1,
+          },
+          move: {
+            enable: true,
+            speed: 0.35,
+            outModes: { default: "out" },
+          },
+          number: {
+            value: 30,
+            density: { enable: true, width: 1200, height: 800 },
+          },
+          opacity: { value: { min: 0.12, max: 0.3 } },
+          shape: { type: "circle" },
+          size: { value: { min: 1, max: 2.2 } },
+        },
+      }) satisfies ISourceOptions,
+    [isDark]
+  );
 
   return (
     <div
@@ -110,7 +127,7 @@ export default function Layout({ children }: LayoutProps) {
       {shouldRenderParticles && (
         <Particles
           id="tsparticles-global"
-          className="fixed inset-0 -z-10 pointer-events-none"
+          className="fixed inset-0 -z-10 pointer-events-none opacity-70 dark:opacity-90"
           options={particlesOptions}
         />
       )}
