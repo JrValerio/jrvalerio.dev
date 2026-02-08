@@ -55,3 +55,24 @@ html, body {
 [data-sonner-toaster], .react-hot-toast, .react-hot-toast__toast-container {
   z-index: 999999 !important;
 }
+
+@keyframes bgZoomMove {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.1) translate(-20px, -20px);
+  }
+}
+
+@layer utilities {
+  .animate-bgZoomMove {
+    animation: bgZoomMove 30s ease-in-out infinite alternate;
+  }
+}
+
+.animate-bgZoomMove {
+  animation: bgZoomMove 30s ease-in-out infinite alternate;
+  will-change: transform;
+}
+  

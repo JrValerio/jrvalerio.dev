@@ -4,7 +4,16 @@
     "about": "Sobre mí",
     "techs": "Techs & Skills",
     "projects": "Proyectos",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "cv": "Currículum",
+    "mainMenu": "Menu principal",
+    "skipToContent": "Saltar al contenido",
+    "languageSelector": "Abrir selector de idioma",
+    "language": "Idioma",
+    "changeLanguageTo": "Cambiar idioma a {{lng}}",
+    "flag": "Bandera",
+    "closeMenu": "Cerrar menu",
+    "openMenu": "Abrir menu de navegacion"
   },
   "pageTitles": {
     "home": "Inicio",
@@ -175,7 +184,8 @@
   "button": {
     "seeMore": "Ver más",
     "print": "Imprimir / Guardar PDF",
-    "downloadPdf": "Descargar PDF"
+    "downloadPdf": "Descargar PDF",
+    "download": "Descargar PDF"
   },
   "projects": {
     "title": "Proyectos por Categoría",
@@ -188,6 +198,8 @@
     "stack": "Tecnologías",
     "demo": "Demo",
     "github": "GitHub",
+    "back": "Volver a Proyectos",
+    "noProjects": "No se encontraron proyectos.",
     "controlFinance": {
       "description": "Control Finance es una aplicación web desarrollada con React y Tailwind CSS, destinada a la gestión de finanzas personales. La interfaz permite al usuario registrar ingresos y egresos, visualizar el saldo total y filtrar transacciones por tipo. El proyecto demuestra habilidades en desarrollo front-end y gestión de estado en React."
     },
@@ -244,6 +256,8 @@
   "all": "Todos",
   "no_description": "Sin descripción...",
   "backToProjects": "Volver a Proyectos",
+  "viewOnGithub": "Ver en GitHub",
+  "viewDemo": "Ver demo",
   "contact": {
     "title": "Trabajemos Juntos",
     "subtitle": "¿Tienes un proyecto en mente o solo quieres saludar? Completa el formulario y te responderé lo antes posible.",
@@ -263,10 +277,17 @@
     "toast": {
       "success": "¡Mensaje enviado con éxito!",
       "error": "Error al enviar. Inténtalo de nuevo."
-    }
+    },
+    "banner": "Disponible para proyectos freelance y colaboraciones!",
+    "bannerSubtitle": "Abierto a networking, mentorías y nuevas ideas. Escríbeme por WhatsApp o LinkedIn!",
+    "chamada": "¿Tomamos un café?"
   },
   "cv": {
-    "title": "Currículum"
+    "title": "Currículum",
+    "description": "Currículum e historial profesional de Amaro Junior"
+  },
+  "notFound": {
+    "description": "Página no encontrada."
   },
   "footer": {
     "rights": "Todos los derechos reservados."

@@ -1,7 +1,31 @@
-import { useTranslation } from "react-i18next";
-import { FaGithub, FaReact, FaNodeJs, FaDocker, FaCss3Alt, FaHtml5, FaJs } from "react-icons/fa";
+import type { GetStaticProps } from "next";
+import Head from "next/head";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 import {
-  SiTypescript, SiTailwindcss, SiNextdotjs, SiPostgresql, SiMongodb, SiExpress, SiRedux, SiVite, SiSpringboot, SiDjango, SiFigma, SiSass, SiStyledcomponents, SiGit
+  FaGithub,
+  FaReact,
+  FaNodeJs,
+  FaDocker,
+  FaCss3Alt,
+  FaHtml5,
+  FaJs,
+} from "react-icons/fa";
+import {
+  SiTypescript,
+  SiTailwindcss,
+  SiNextdotjs,
+  SiPostgresql,
+  SiMongodb,
+  SiExpress,
+  SiRedux,
+  SiVite,
+  SiSpringboot,
+  SiDjango,
+  SiFigma,
+  SiSass,
+  SiStyledcomponents,
+  SiGit,
 } from "react-icons/si";
 
 const techs = [
@@ -26,39 +50,79 @@ const techs = [
   { name: "SASS", icon: <SiSass className="text-pink-400" />, descKey: "sass" },
   { name: "styled-components", icon: <SiStyledcomponents className="text-pink-600" />, descKey: "styledcomponents" },
   { name: "Figma", icon: <SiFigma className="text-pink-500" />, descKey: "figma" },
-  // { name: "Windows", icon: <SiWindows className="text-blue-600" />, descKey: "windows" }
 ];
 
 export default function Techs() {
   const { t } = useTranslation("common");
+
+  const pageUrl = "https://jrvalerio.dev/techs";
+  const imageUrl = "https://jrvalerio.dev/img/perfil2.png";
+  const pageTitle = `${t("techs.title")} - Amaro Junior`;
+  const pageDescription = t(
+    "techs.intro",
+    "Conheca a stack completa de tecnologias de Amaro Junior."
+  );
+
   return (
-    <section className="min-h-[80vh] flex flex-col items-center justify-center py-12 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900">
-      <div className="max-w-4xl w-full px-6 py-10 rounded-2xl bg-white/5 backdrop-blur-md border border-gray-800 shadow-lg mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold mb-6 text-transparent bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-center">
-          {t("techs.title")}
-        </h1>
-        <p className="text-center text-white/70 max-w-2xl mx-auto mb-6">{t("techs.intro")}</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-8">
-          {techs.map((tech) => (
-            <div
-              key={tech.name}
-              className="relative group flex flex-col items-center gap-2 bg-black/40 rounded-xl p-4 shadow transition hover:scale-105 hover:bg-teal-950/60"
-              aria-label={tech.name}
-            >
-              <span className="text-4xl">{tech.icon}</span>
-              <span className="text-xs sm:text-sm text-white/80 text-center">{tech.name}</span>
-              <span className="
-                absolute bottom-14 left-1/2 z-10 -translate-x-1/2
-                px-3 py-2 min-w-[160px] rounded bg-gray-900 text-xs text-gray-100
-                opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 shadow-lg
-                text-center
-                ">
-                {t(`techs.desc.${tech.descKey}`)}
-              </span>
-            </div>
-          ))}
+    <>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={imageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <link rel="canonical" href={pageUrl} />
+      </Head>
+
+      <section className="min-h-[80vh] flex flex-col items-center justify-center py-12 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900">
+        <div className="max-w-4xl w-full px-6 py-10 rounded-2xl bg-white/5 backdrop-blur-md border border-gray-800 shadow-lg mb-10">
+          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-transparent bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-center">
+            {t("techs.title")}
+          </h1>
+          <p className="text-center text-white/70 max-w-2xl mx-auto mb-6">{t("techs.intro")}</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-8" role="list">
+            {techs.map((tech) => {
+              const tooltipId = `tooltip-${tech.descKey}`;
+              return (
+                <div
+                  key={tech.name}
+                  role="listitem"
+                  tabIndex={0}
+                  aria-label={tech.name}
+                  aria-describedby={tooltipId}
+                  className="relative group flex flex-col items-center gap-2 bg-black/40 rounded-xl p-4 shadow transition hover:scale-105 hover:bg-teal-950/60 focus:outline-none"
+                >
+                  <span className="text-4xl">{tech.icon}</span>
+                  <span className="text-xs sm:text-sm text-white/80 text-center">{tech.name}</span>
+                  <span
+                    id={tooltipId}
+                    className="
+                    absolute bottom-14 left-1/2 z-10 -translate-x-1/2
+                    px-3 py-2 min-w-[160px] rounded bg-gray-900 text-xs text-gray-100
+                    opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 pointer-events-none transition-opacity duration-200 shadow-lg
+                    text-center
+                  "
+                  >
+                    {t(`techs.desc.${tech.descKey}`)}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? "pt", ["common"])),
+  },
+});

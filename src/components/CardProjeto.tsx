@@ -1,53 +1,59 @@
-import { useEffect, useState } from "react";
-import { Github, ExternalLink } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import Image from "next/image";
+import { CalendarDays, ExternalLink, Github, GitFork, Star } from "lucide-react";
+import { useTranslation } from "next-i18next";
 import { Projeto } from "../data/projetos";
 
-type Props = { projeto: Projeto };
-
-interface RepoData {
-  description: string;
-  stargazers_count: number;
-  forks_count: number;
-  updated_at: string;
-  html_url: string;
+export interface RepoData {
+  description?: string;
+  stargazers_count?: number;
+  forks_count?: number;
+  updated_at?: string;
+  html_url?: string;
 }
 
-export default function CardProjeto({ projeto }: Props) {
-  const { t, i18n } = useTranslation("common");
-  const [repoData, setRepoData] = useState<RepoData | null>(null);
-  const [loading, setLoading] = useState(true);
+type Props = {
+  projeto: Projeto;
+  repoData?: RepoData | null;
+};
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(`https://api.github.com/repos/JrValerio/${projeto.repo}`)
-      .then((res) => res.json())
-      .then((data) => setRepoData(data))
-      .finally(() => setLoading(false));
-  }, [projeto.repo]);
+export default function CardProjeto({ projeto, repoData = null }: Props) {
+  const { t, i18n } = useTranslation("common");
+
+  const translatedDescription = t(projeto.custom.descricaoKey);
+  const description =
+    translatedDescription !== projeto.custom.descricaoKey
+      ? translatedDescription
+      : repoData?.description || t("no_description");
+
+  const githubUrl = projeto.custom.links?.github ?? repoData?.html_url;
 
   return (
-    <div className="
-      border border-gray-700 p-6 rounded-2xl bg-black/70
-      hover:shadow-2xl hover:scale-[1.025] transition-all duration-300 text-white
-      flex flex-col justify-between
-    ">
+    <div
+      className="
+        border border-gray-700 p-6 rounded-2xl bg-black/70
+        hover:shadow-2xl hover:scale-[1.025] transition-all duration-300 text-white
+        flex flex-col justify-between
+      "
+    >
       {projeto.custom.imagem && (
-        <img
-          src={projeto.custom.imagem}
-          alt={t("projects.imgAlt", { name: projeto.name }) || `Imagem do projeto ${projeto.name}`}
-          className="rounded-lg w-full h-52 object-cover mb-6"
-          loading="lazy"
-        />
+        <div className="relative mb-6 h-52 w-full overflow-hidden rounded-lg">
+          <Image
+            src={projeto.custom.imagem}
+            alt={
+              t("projects.imgAlt", { name: projeto.name }) ||
+              `Imagem do projeto ${projeto.name}`
+            }
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
+            loading="lazy"
+          />
+        </div>
       )}
 
-      <h2 className="text-xl font-semibold mb-2 text-teal-300">
-        {projeto.name}
-      </h2>
+      <h2 className="text-xl font-semibold mb-2 text-teal-300">{projeto.name}</h2>
 
-      <p className="text-gray-300 text-base leading-relaxed mb-2 min-h-[44px]">
-        {t(projeto.custom.descricaoKey) || repoData?.description || t("no_description")}
-      </p>
+      <p className="text-gray-300 text-base leading-relaxed mb-2 min-h-[44px]">{description}</p>
 
       <div className="flex flex-wrap gap-2 my-2">
         {projeto.custom.stack.map((tech) => (
@@ -62,31 +68,35 @@ export default function CardProjeto({ projeto }: Props) {
       </div>
 
       <div className="text-sm text-gray-400 mt-4 flex flex-wrap gap-4 items-center">
-        {loading && <span>{t("loading")}</span>}
-        {!loading && (
-          <>
-            {repoData?.stargazers_count !== undefined && (
-              <span>⭐ {repoData.stargazers_count}</span>
-            )}
-            {repoData?.forks_count !== undefined && (
-              <span>🍴 {repoData.forks_count}</span>
-            )}
-            {repoData?.updated_at && (
-              <span>
-                📅 {new Date(repoData.updated_at).toLocaleDateString(i18n.language)}
-              </span>
-            )}
-          </>
+        {typeof repoData?.stargazers_count === "number" && (
+          <span className="inline-flex items-center gap-1">
+            <Star className="h-4 w-4" /> {repoData.stargazers_count}
+          </span>
+        )}
+        {typeof repoData?.forks_count === "number" && (
+          <span className="inline-flex items-center gap-1">
+            <GitFork className="h-4 w-4" /> {repoData.forks_count}
+          </span>
+        )}
+        {repoData?.updated_at && (
+          <span className="inline-flex items-center gap-1">
+            <CalendarDays className="h-4 w-4" />
+            {new Date(repoData.updated_at).toLocaleDateString(i18n.language)}
+          </span>
         )}
       </div>
 
       <div className="mt-4 flex gap-4">
-        {repoData?.html_url && (
+        {githubUrl && (
           <a
-            href={repoData.html_url}
+            href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 border border-gray-600 rounded-lg hover:bg-gray-800 text-sm transition-colors"
+            aria-label={t("viewOnGithub", {
+              name: projeto.name,
+              defaultValue: "Ver no GitHub",
+            })}
           >
             <Github className="w-4 h-4" /> {t("github")}
           </a>
@@ -97,6 +107,10 @@ export default function CardProjeto({ projeto }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 border border-cyan-600 rounded-lg hover:bg-cyan-800 text-sm text-cyan-300 transition-colors"
+            aria-label={t("viewDemo", {
+              name: projeto.name,
+              defaultValue: "Ver demonstracao",
+            })}
           >
             <ExternalLink className="w-4 h-4" /> {t("demo")}
           </a>

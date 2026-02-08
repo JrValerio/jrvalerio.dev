@@ -22,3 +22,6 @@ Thumbs.db
 
 # VSCode configs (opcional)
 .vscode/
+
+# Artefatos locais
+*.zip

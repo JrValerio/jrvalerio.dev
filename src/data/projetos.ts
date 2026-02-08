@@ -1,5 +1,10 @@
 function generateSlug(repo: string): string {
-  return repo.toLowerCase().replace(/\s+/g, "-");
+  return repo
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // remove acentos
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
 }
 
 export type ProjetoCustom = {
@@ -32,11 +37,13 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("Control-Finance-React-TailWind"),
       custom: {
         descricaoKey: "projects.controlFinance.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/Control-Finance-React-TailWind/main/src/assets/Control%20Finance.png",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/Control-Finance-React-TailWind/main/src/assets/Control%20Finance.png",
         stack: ["React", "Tailwind", "JavaScript"],
         links: {
           demo: "https://control-finance-react-tail-wind.vercel.app/",
-          github: "https://github.com/JrValerio/Control-Finance-React-TailWind",
+          github:
+            "https://github.com/JrValerio/Control-Finance-React-TailWind",
         },
       },
     },
@@ -46,7 +53,8 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("postit"),
       custom: {
         descricaoKey: "projects.postit.description",
-        imagem: "https://github.com/JrValerio/postit/blob/main/public/assets/postit.png?raw=true",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/postit/main/public/assets/postit.png",
         stack: ["Node.js", "Express", "HTMX", "SQLite"],
         links: {
           demo: "https://postit-8nii.onrender.com/",
@@ -60,7 +68,8 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("Kenzie-Hub"),
       custom: {
         descricaoKey: "projects.kenzieHub.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/Kenzie-Hub/main/src/assets/Kenzie%20Hub.png",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/Kenzie-Hub/main/src/assets/Kenzie%20Hub.png",
         stack: ["React", "React Hook Form", "Zod", "SASS"],
         links: {
           demo: "https://kenzie-hub-seven-blue.vercel.app/",
@@ -74,11 +83,13 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("portfolio-template-JrValerio"),
       custom: {
         descricaoKey: "projects.portfolioTemplate.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/portfolio-template-JrValerio/main/src/assets/portfolio-template-JrValerio.png",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/portfolio-template-JrValerio/main/src/assets/portfolio-template-JrValerio.png",
         stack: ["React", "CSS", "Vercel"],
         links: {
           demo: "https://portfolio-template-jr-valerio.vercel.app/",
-          github: "https://github.com/JrValerio/portfolio-template-JrValerio",
+          github:
+            "https://github.com/JrValerio/portfolio-template-JrValerio",
         },
       },
     },
@@ -88,7 +99,8 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("template-hamburgueria"),
       custom: {
         descricaoKey: "projects.hamburgueria.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/template-hamburgueria/main/src/assets/Hamburgueria%20-Page.png",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/template-hamburgueria/main/src/assets/Hamburgueria%20-Page.png",
         stack: ["React", "Axios", "SASS"],
         links: {
           demo: "https://template-hamburgueria.vercel.app/",
@@ -102,10 +114,12 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("buscadorcep"),
       custom: {
         descricaoKey: "projects.buscadorCEP.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/buscadorcep/main/Buscador%20CEP.png",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/buscadorcep/main/Buscador%20CEP.png",
         stack: ["React", "JavaScript", "Axios", "Styled Components"],
         links: {
-          demo: "https://buscadorcep-3qzvzd239-amaro-juniors-projects.vercel.app/",
+          demo:
+            "https://buscadorcep-3qzvzd239-amaro-juniors-projects.vercel.app/",
           github: "https://github.com/JrValerio/buscadorcep",
         },
       },
@@ -116,7 +130,8 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("gitSearchBase"),
       custom: {
         descricaoKey: "projects.gitSearch.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/gitSearchBase/main/src/assets/Git%20Search.png",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/gitSearchBase/main/src/assets/Git%20Search.png",
         stack: ["HTML", "CSS", "JavaScript", "API Integration"],
         links: {
           demo: "https://jrvalerio.github.io/gitSearchBase/index.html",
@@ -132,7 +147,8 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("newsportal"),
       custom: {
         descricaoKey: "projects.newsPortal.description",
-        imagem: "https://github.com/JrValerio/newsportal/blob/main/assets/Screenshot%20News%20Portal.png?raw=true",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/newsportal/main/assets/Screenshot%20News%20Portal.png",
         stack: ["HTML5", "CSS3"],
         links: {
           demo: "https://jrvalerio.github.io/newsportal/",
@@ -146,13 +162,14 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("travelgram"),
       custom: {
         descricaoKey: "projects.travelgram.description",
-        imagem: "https://github.com/JrValerio/travelgram/blob/main/assets/Screenshot%20Travelgram.png?raw=true",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/travelgram/main/assets/Screenshot%20Travelgram.png",
         stack: ["HTML5", "CSS3", "Google Fonts"],
         links: {
           demo: "https://jrvalerio.github.io/travelgram/",
-          github: "https://github.com/JrValerio/travelgram"
-        }
-      }
+          github: "https://github.com/JrValerio/travelgram",
+        },
+      },
     },
     {
       name: "Portfolio Dev",
@@ -160,13 +177,14 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("Portfolio-Dev"),
       custom: {
         descricaoKey: "projects.portfolioDev.description",
-        imagem: "https://github.com/JrValerio/Portfolio-Dev/blob/main/assets/Screenshot%20Portifolio%20DEV.png?raw=true",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/Portfolio-Dev/main/assets/Screenshot%20Portifolio%20DEV.png",
         stack: ["HTML5", "CSS3"],
         links: {
           demo: "https://jrvalerio.github.io/Portfolio-Dev/",
-          github: "https://github.com/JrValerio/Portfolio-Dev"
-        }
-      }
+          github: "https://github.com/JrValerio/Portfolio-Dev",
+        },
+      },
     },
     {
       name: "Decodificador de Textos",
@@ -174,7 +192,8 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("decodificador-de-textos"),
       custom: {
         descricaoKey: "projects.decodificadorDeTextos.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/decodificador-de-textos/main/assets/img/Decodificador%20de%20Textos.png",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/decodificador-de-textos/main/assets/img/Decodificador%20de%20Textos.png",
         stack: ["JavaScript", "Tailwind CSS"],
         links: {
           demo: "https://decodificador-de-textos-lilac.vercel.app/",
@@ -188,13 +207,16 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("site-institucional-generico"),
       custom: {
         descricaoKey: "projects.siteInstitucionalGenerico.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/site-institucional-generico/main/src/assets/P%C3%A1gina%20Institucional%20Gen%C3%A9rica%20Preview.png",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/site-institucional-generico/main/src/assets/P%C3%A1gina%20Institucional%20Gen%C3%A9rica%20Preview.png",
         stack: ["HTML", "CSS", "JavaScript", "Responsive Design"],
         links: {
-          demo: "https://jrvalerio.github.io/site-institucional-generico/",
-          github: "https://github.com/JrValerio/site-institucional-generico"
-        }
-      }
+          demo:
+            "https://jrvalerio.github.io/site-institucional-generico/",
+          github:
+            "https://github.com/JrValerio/site-institucional-generico",
+        },
+      },
     },
     {
       name: "Open Music",
@@ -202,13 +224,20 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("open-music"),
       custom: {
         descricaoKey: "projects.openMusic.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/open-music/main/src/assets/img/Open%20Music.png",
-        stack: ["HTML", "CSS", "JavaScript", "Dark Mode", "Responsive Design"],
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/open-music/main/src/assets/img/Open%20Music.png",
+        stack: [
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Dark Mode",
+          "Responsive Design",
+        ],
         links: {
           demo: "https://jrvalerio.github.io/open-music/",
-          github: "https://github.com/JrValerio/open-music"
-        }
-      }
+          github: "https://github.com/JrValerio/open-music",
+        },
+      },
     },
     {
       name: "Fylo",
@@ -216,7 +245,8 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("Fylo"),
       custom: {
         descricaoKey: "projects.fylo.description",
-        imagem: "https://github.com/JrValerio/jrvalerio/raw/main/desktop-preview.jpg",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/jrvalerio/main/desktop-preview.jpg",
         stack: ["HTML", "CSS"],
         links: {
           demo: "https://jrvalerio.github.io/Fylo/",
@@ -230,15 +260,18 @@ const projetos: CategoriaDeProjetos = {
       slug: generateSlug("Profile-card-component"),
       custom: {
         descricaoKey: "projects.profileCardComponent.description",
-        imagem: "https://raw.githubusercontent.com/JrValerio/jrvalerio/main/Profile-card-component.jpeg",
+        imagem:
+          "https://raw.githubusercontent.com/JrValerio/jrvalerio/main/Profile-card-component.jpeg",
         stack: ["HTML", "CSS", "Styled Components", "Mobile First"],
         links: {
-          demo: "https://jrvalerio.github.io/Profile-card-component/",
-          github: "https://github.com/JrValerio/Profile-card-component"
-        }
-      }
-    }
-  ]
+          demo:
+            "https://jrvalerio.github.io/Profile-card-component/",
+          github:
+            "https://github.com/JrValerio/Profile-card-component",
+        },
+      },
+    },
+  ],
 };
 
 export default projetos;
