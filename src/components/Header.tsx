@@ -29,7 +29,7 @@ export default function Header({ onMenuOpen }: HeaderProps) {
       href: "/cv",
       label: t("header.cv", "CV"),
       className:
-        "text-teal-400 dark:text-blue-700 font-semibold underline underline-offset-4 hover:text-teal-300 dark:hover:text-blue-600",
+        "text-teal-700 dark:text-teal-300 font-semibold underline underline-offset-4 hover:text-teal-500 dark:hover:text-teal-200",
     },
   ];
 
@@ -47,7 +47,7 @@ export default function Header({ onMenuOpen }: HeaderProps) {
 
   return (
     <header
-      className="w-full bg-black/60 dark:bg-white/90 text-white dark:text-gray-900 flex items-center py-4 px-4 md:px-8 sticky top-0 z-30 backdrop-blur-md shadow-lg transition-colors"
+      className="w-full bg-white/85 dark:bg-gray-900/90 text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 flex items-center py-4 px-4 md:px-8 sticky top-0 z-30 backdrop-blur-md shadow-lg transition-colors"
     >
       <a
         href="#main-content"
@@ -66,7 +66,7 @@ export default function Header({ onMenuOpen }: HeaderProps) {
               href={href}
               aria-label={label}
               aria-current={router.pathname === href ? "page" : undefined}
-              className={`relative px-2 py-1 transition-colors after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-gradient-to-r after:from-teal-400 after:to-blue-500 dark:after:from-blue-500 dark:after:to-teal-400 after:rounded-full after:transition-all after:duration-300 hover:after:w-full hover:text-teal-300 dark:hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-teal-400 dark:focus:ring-blue-500 ${className || ""}`}
+              className={`relative px-2 py-1 transition-colors after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-gradient-to-r after:from-teal-400 after:to-blue-500 dark:after:from-blue-500 dark:after:to-teal-400 after:rounded-full after:transition-all after:duration-300 hover:after:w-full hover:text-teal-600 dark:hover:text-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-400 dark:focus:ring-blue-500 ${className || ""}`}
             >
               {label}
             </Link>
@@ -74,7 +74,7 @@ export default function Header({ onMenuOpen }: HeaderProps) {
         </div>
         <div className="flex items-center gap-4">
           <FaGlobe
-            className="text-gray-400 dark:text-gray-600"
+            className="text-gray-500 dark:text-gray-300"
             aria-label={t("header.languageSelector", "Abrir seletor de idiomas")}
             title={t("header.language", "Idioma")}
           />
@@ -87,7 +87,7 @@ export default function Header({ onMenuOpen }: HeaderProps) {
               className={`flex items-center gap-1 text-xs px-2 py-1 rounded transition-colors ring-1 ring-transparent focus:outline-none focus:ring-2 focus:ring-teal-400 dark:focus:ring-blue-500 ${
                 activeLocale === lng
                   ? "bg-teal-500 dark:bg-blue-500 text-white font-bold ring-2 ring-teal-400 dark:ring-blue-500"
-                  : "text-gray-300 dark:text-gray-700 hover:bg-gray-700 dark:hover:bg-gray-200"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
               }`}
             >
               <Image
@@ -104,7 +104,7 @@ export default function Header({ onMenuOpen }: HeaderProps) {
         </div>
       </nav>
       <button
-        className="flex md:hidden text-2xl p-2 hover:bg-black/30 dark:hover:bg-gray-200 rounded transition ml-auto focus:outline-none focus:ring-2 focus:ring-teal-400 dark:focus:ring-blue-500"
+        className="flex md:hidden text-2xl p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded transition ml-auto focus:outline-none focus:ring-2 focus:ring-teal-400 dark:focus:ring-blue-500"
         onClick={onMenuOpen}
         aria-label={t("header.openMenu", "Abrir menu de navegação")}
       >

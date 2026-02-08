@@ -94,7 +94,7 @@ export default function HeroSection({ HEADER_HEIGHT }: HeroSectionProps) {
         flex md:hidden flex-col items-center justify-start
         w-full px-4 py-8
         min-h-[calc(100vh-${HEADER_HEIGHT}px)]
-        bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900
+        bg-transparent
       `}
       >
         <div className="w-60 h-70 mb-6 mx-auto relative">

@@ -7,7 +7,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="flex flex-col md:flex-row justify-between items-center gap-2 p-6 mt-16 text-xs tracking-wide bg-black/90 dark:bg-gray-900/90 border-t border-gray-800 dark:border-gray-700 text-gray-300 dark:text-gray-400"
+      className="flex flex-col md:flex-row justify-between items-center gap-2 p-6 mt-16 text-xs tracking-wide bg-white/85 dark:bg-gray-900/90 border-t border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 transition-colors"
       itemScope
       itemType="http://schema.org/Person"
     >

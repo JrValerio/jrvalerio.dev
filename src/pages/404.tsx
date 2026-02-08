@@ -19,8 +19,8 @@ export default function NotFoundPage() {
         />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <section className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6">
-        <h1 className="text-5xl font-bold mb-4">404</h1>
+      <section className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 text-gray-900 dark:text-gray-100">
+        <h1 className="text-5xl font-bold mb-4 text-gray-900 dark:text-gray-100">404</h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
           {description}
         </p>

@@ -30,8 +30,8 @@ export default function CardProjeto({ projeto, repoData = null }: Props) {
   return (
     <div
       className="
-        border border-gray-700 p-6 rounded-2xl bg-black/70
-        hover:shadow-2xl hover:scale-[1.025] transition-all duration-300 text-white
+        border border-gray-200 dark:border-gray-700 p-6 rounded-2xl bg-white/90 dark:bg-black/70
+        hover:shadow-2xl hover:scale-[1.025] transition-all duration-300 transition-colors text-gray-900 dark:text-white
         flex flex-col justify-between
       "
     >
@@ -51,15 +51,17 @@ export default function CardProjeto({ projeto, repoData = null }: Props) {
         </div>
       )}
 
-      <h2 className="text-xl font-semibold mb-2 text-teal-300">{projeto.name}</h2>
+      <h2 className="text-xl font-semibold mb-2 text-teal-700 dark:text-teal-300">{projeto.name}</h2>
 
-      <p className="text-gray-300 text-base leading-relaxed mb-2 min-h-[44px]">{description}</p>
+      <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed mb-2 min-h-[44px]">
+        {description}
+      </p>
 
       <div className="flex flex-wrap gap-2 my-2">
         {projeto.custom.stack.map((tech) => (
           <span
             key={tech}
-            className="bg-cyan-800 text-white text-xs px-2 py-1 rounded-full"
+            className="bg-cyan-100 dark:bg-cyan-800 text-cyan-900 dark:text-white text-xs px-2 py-1 rounded-full"
             title={tech}
           >
             {tech}
@@ -67,7 +69,7 @@ export default function CardProjeto({ projeto, repoData = null }: Props) {
         ))}
       </div>
 
-      <div className="text-sm text-gray-400 mt-4 flex flex-wrap gap-4 items-center">
+      <div className="text-sm text-gray-600 dark:text-gray-400 mt-4 flex flex-wrap gap-4 items-center">
         {typeof repoData?.stargazers_count === "number" && (
           <span className="inline-flex items-center gap-1">
             <Star className="h-4 w-4" /> {repoData.stargazers_count}
@@ -92,7 +94,7 @@ export default function CardProjeto({ projeto, repoData = null }: Props) {
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 border border-gray-600 rounded-lg hover:bg-gray-800 text-sm transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-sm transition-colors"
             aria-label={t("viewOnGithub", {
               name: projeto.name,
               defaultValue: "Ver no GitHub",
@@ -106,7 +108,7 @@ export default function CardProjeto({ projeto, repoData = null }: Props) {
             href={projeto.custom.links.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 border border-cyan-600 rounded-lg hover:bg-cyan-800 text-sm text-cyan-300 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-cyan-500 dark:border-cyan-600 rounded-lg hover:bg-cyan-100 dark:hover:bg-cyan-800 text-sm text-cyan-700 dark:text-cyan-300 transition-colors"
             aria-label={t("viewDemo", {
               name: projeto.name,
               defaultValue: "Ver demonstracao",

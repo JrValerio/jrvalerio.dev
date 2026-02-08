@@ -63,13 +63,13 @@ export default function MenuOverlay({ open, onClose }: MenuOverlayProps) {
       aria-modal="true"
       aria-label={t("header.mainMenu", "Menu principal")}
       tabIndex={-1}
-      className={`fixed inset-0 z-[9999] bg-black/90 dark:bg-gray-950/95 dark:text-gray-100 backdrop-blur-2xl transition-opacity duration-300 ${
+      className={`fixed inset-0 z-[9999] bg-white/95 dark:bg-gray-950/95 text-gray-900 dark:text-gray-100 backdrop-blur-2xl transition-opacity duration-300 ${
         open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       } flex flex-col`}
     >
       <div className="flex items-center justify-end px-6 py-5">
         <button
-          className="text-3xl p-2 hover:bg-black/30 dark:hover:bg-gray-200 rounded transition focus:outline-none focus:ring-2 ring-teal-400"
+          className="text-3xl p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded transition focus:outline-none focus:ring-2 ring-teal-400"
           onClick={onClose}
           aria-label={t("header.closeMenu", "Fechar menu")}
         >

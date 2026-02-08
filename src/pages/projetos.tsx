@@ -113,13 +113,13 @@ export default function Projetos({ repoDataByRepo }: ProjetosProps) {
           {t("projects.title")}
         </h1>
         {categories.length === 0 && (
-          <p className="text-center text-gray-300">
+          <p className="text-center text-gray-600 dark:text-gray-300">
             {t("projects.noProjects", "Nenhum projeto encontrado.")}
           </p>
         )}
         {categories.map(([categoria, lista]) => (
           <div key={categoria} className="mb-16">
-            <h2 className="text-2xl font-semibold mb-4 text-white capitalize">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white capitalize">
               {t(`projects.categories.${categoria}`) || categoria}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
