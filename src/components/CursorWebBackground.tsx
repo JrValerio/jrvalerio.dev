@@ -7,36 +7,53 @@ type CursorWebBackgroundProps = {
 type Node = {
   x: number;
   y: number;
+  baseX: number;
+  baseY: number;
   vx: number;
   vy: number;
-  angle: number;
-  radius: number;
-  orbitSpeed: number;
-  spreadAngle: number;
-  spreadRadius: number;
-  spreadSpeed: number;
-  phase: number;
 };
 
-const NODE_COUNT = 56;
-const MAX_LINK_DISTANCE = 165;
-const CURSOR_LINK_DISTANCE = 230;
-const MAX_CURSOR_CONNECTIONS = 16;
+const MAX_LINK_DISTANCE = 170;
+const DRAG_RADIUS = 220;
+const BASE_STIFFNESS = 0.022;
+const DAMPING = 0.9;
 
-function createNodes(centerX: number, centerY: number): Node[] {
-  return Array.from({ length: NODE_COUNT }, () => ({
-    x: centerX,
-    y: centerY,
-    vx: 0,
-    vy: 0,
-    angle: Math.random() * Math.PI * 2,
-    radius: 18 + Math.random() * 52,
-    orbitSpeed: (Math.random() - 0.5) * 0.018,
-    spreadAngle: Math.random() * Math.PI * 2,
-    spreadRadius: 120 + Math.random() * 320,
-    spreadSpeed: (Math.random() - 0.5) * 0.0024,
-    phase: Math.random() * Math.PI * 2,
-  }));
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+function createNodes(width: number, height: number): Node[] {
+  const area = width * height;
+  const count = Math.min(115, Math.max(60, Math.floor(area / 26000)));
+
+  const cols = Math.max(1, Math.ceil(Math.sqrt((count * width) / Math.max(1, height))));
+  const rows = Math.max(1, Math.ceil(count / cols));
+  const cellWidth = width / cols;
+  const cellHeight = height / rows;
+
+  const nodes: Node[] = [];
+
+  for (let row = 0; row < rows; row += 1) {
+    for (let col = 0; col < cols; col += 1) {
+      if (nodes.length >= count) break;
+
+      const jitterX = (Math.random() - 0.5) * cellWidth * 0.5;
+      const jitterY = (Math.random() - 0.5) * cellHeight * 0.5;
+      const baseX = clamp((col + 0.5) * cellWidth + jitterX, 0, width);
+      const baseY = clamp((row + 0.5) * cellHeight + jitterY, 0, height);
+
+      nodes.push({
+        x: baseX,
+        y: baseY,
+        baseX,
+        baseY,
+        vx: 0,
+        vy: 0,
+      });
+    }
+  }
+
+  return nodes;
 }
 
 export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps) {
@@ -64,21 +81,25 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       y: 0,
       targetX: 0,
       targetY: 0,
+      vx: 0,
+      vy: 0,
+      active: false,
+      lastMoveAt: 0,
     };
 
     const palette = isDark
       ? {
           line: "34, 211, 238",
           point: "56, 189, 248",
-          cursor: "103, 232, 249",
+          aura: "103, 232, 249",
         }
       : {
           line: "15, 118, 110",
           point: "2, 132, 199",
-          cursor: "8, 145, 178",
+          aura: "8, 145, 178",
         };
 
-    let nodes = createNodes(0, 0);
+    let nodes: Node[] = [];
 
     function resizeCanvas() {
       const parent = canvasEl.parentElement;
@@ -103,38 +124,81 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       pointer.targetX = centerX;
       pointer.targetY = centerY;
 
-      nodes = createNodes(centerX, centerY);
+      nodes = createNodes(width, height);
     }
 
     function updatePointer(event: PointerEvent) {
       const rect = canvasEl.getBoundingClientRect();
-      pointer.targetX = event.clientX - rect.left;
-      pointer.targetY = event.clientY - rect.top;
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      if (!pointer.active) {
+        pointer.x = x;
+        pointer.y = y;
+      }
+
+      pointer.targetX = x;
+      pointer.targetY = y;
+      pointer.active = true;
+      pointer.lastMoveAt = performance.now();
     }
 
-    function animate(time: number) {
-      pointer.x += (pointer.targetX - pointer.x) * 0.14;
-      pointer.y += (pointer.targetY - pointer.y) * 0.14;
+    function deactivatePointer() {
+      pointer.active = false;
+    }
+
+    function animate(now: number) {
+      pointer.vx += (pointer.targetX - pointer.x) * 0.18;
+      pointer.vy += (pointer.targetY - pointer.y) * 0.18;
+      pointer.vx *= 0.72;
+      pointer.vy *= 0.72;
+
+      pointer.x += pointer.vx;
+      pointer.y += pointer.vy;
 
       ctx.clearRect(0, 0, width, height);
 
+      const pointerSpeed = Math.hypot(pointer.vx, pointer.vy);
+      const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 180;
+
       for (const node of nodes) {
-        node.angle += node.orbitSpeed;
-        node.spreadAngle += node.spreadSpeed;
+        if (pointerRecentlyActive && pointerSpeed > 0.02) {
+          const dx = node.x - pointer.x;
+          const dy = node.y - pointer.y;
+          const distance = Math.hypot(dx, dy);
 
-        const spreadX = Math.cos(node.spreadAngle) * node.spreadRadius;
-        const spreadY = Math.sin(node.spreadAngle) * node.spreadRadius;
-        const orbitRadius = node.radius + Math.sin(time * 0.0012 + node.phase) * 9;
-        const targetX = pointer.x + spreadX + Math.cos(node.angle) * orbitRadius;
-        const targetY = pointer.y + spreadY + Math.sin(node.angle) * orbitRadius;
+          if (distance < DRAG_RADIUS) {
+            const influence = 1 - distance / DRAG_RADIUS;
+            const drag = influence * influence;
+            node.vx += pointer.vx * drag * 0.28;
+            node.vy += pointer.vy * drag * 0.28;
+          }
+        }
 
-        node.vx += (targetX - node.x) * 0.013;
-        node.vy += (targetY - node.y) * 0.013;
-        node.vx *= 0.88;
-        node.vy *= 0.88;
+        node.vx += (node.baseX - node.x) * BASE_STIFFNESS;
+        node.vy += (node.baseY - node.y) * BASE_STIFFNESS;
+        node.vx *= DAMPING;
+        node.vy *= DAMPING;
 
         node.x += node.vx;
         node.y += node.vy;
+      }
+
+      if (pointerRecentlyActive) {
+        const gradient = ctx.createRadialGradient(
+          pointer.x,
+          pointer.y,
+          0,
+          pointer.x,
+          pointer.y,
+          DRAG_RADIUS * 0.65
+        );
+        gradient.addColorStop(0, `rgba(${palette.aura}, ${isDark ? 0.13 : 0.1})`);
+        gradient.addColorStop(1, `rgba(${palette.aura}, 0)`);
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(pointer.x, pointer.y, DRAG_RADIUS * 0.65, 0, Math.PI * 2);
+        ctx.fill();
       }
 
       ctx.lineWidth = 1;
@@ -148,7 +212,17 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
           const distance = Math.hypot(dx, dy);
           if (distance > MAX_LINK_DISTANCE) continue;
 
-          const alpha = (1 - distance / MAX_LINK_DISTANCE) * (isDark ? 0.34 : 0.3);
+          let alpha = (1 - distance / MAX_LINK_DISTANCE) * (isDark ? 0.34 : 0.3);
+
+          if (pointerRecentlyActive) {
+            const da = Math.hypot(a.x - pointer.x, a.y - pointer.y);
+            const db = Math.hypot(b.x - pointer.x, b.y - pointer.y);
+            const boost = 1 - Math.min(da, db) / DRAG_RADIUS;
+            if (boost > 0) {
+              alpha += boost * (isDark ? 0.14 : 0.12);
+            }
+          }
+
           ctx.strokeStyle = `rgba(${palette.line}, ${alpha})`;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -157,30 +231,14 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
         }
       }
 
-      const cursorConnections = nodes
-        .map((node) => {
-          const dx = node.x - pointer.x;
-          const dy = node.y - pointer.y;
-          return { node, distance: Math.hypot(dx, dy) };
-        })
-        .filter((item) => item.distance <= CURSOR_LINK_DISTANCE)
-        .sort((a, b) => a.distance - b.distance)
-        .slice(0, MAX_CURSOR_CONNECTIONS);
-
-      for (const { node, distance } of cursorConnections) {
-        const alpha =
-          (1 - distance / CURSOR_LINK_DISTANCE) * (isDark ? 0.44 : 0.4);
-        ctx.strokeStyle = `rgba(${palette.cursor}, ${alpha})`;
-        ctx.beginPath();
-        ctx.moveTo(pointer.x, pointer.y);
-        ctx.lineTo(node.x, node.y);
-        ctx.stroke();
-      }
-
       for (const node of nodes) {
-        ctx.fillStyle = `rgba(${palette.point}, ${isDark ? 0.78 : 0.72})`;
+        const distanceToPointer = Math.hypot(node.x - pointer.x, node.y - pointer.y);
+        const boost = pointerRecentlyActive
+          ? Math.max(0, 1 - distanceToPointer / DRAG_RADIUS) * 0.22
+          : 0;
+        ctx.fillStyle = `rgba(${palette.point}, ${(isDark ? 0.72 : 0.68) + boost})`;
         ctx.beginPath();
-        ctx.arc(node.x, node.y, 1.6, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, 1.45 + boost * 1.6, 0, Math.PI * 2);
         ctx.fill();
       }
 
@@ -193,10 +251,12 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
     resizeCanvas();
     rafId = window.requestAnimationFrame(animate);
     window.addEventListener("pointermove", updatePointer, { passive: true });
+    window.addEventListener("pointerleave", deactivatePointer);
 
     return () => {
       resizeObserver.disconnect();
       window.removeEventListener("pointermove", updatePointer);
+      window.removeEventListener("pointerleave", deactivatePointer);
       window.cancelAnimationFrame(rafId);
     };
   }, [isDark]);
