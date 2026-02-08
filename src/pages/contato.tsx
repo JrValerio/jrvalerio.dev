@@ -62,7 +62,7 @@ export default function Contato() {
       if (emailRef.current) emailRef.current.value = "";
       if (phoneRef.current) phoneRef.current.value = "";
       if (msgRef.current) msgRef.current.value = "";
-    } catch (error) {
+    } catch {
       toast.error(
         t("contact.toast.error", "Erro ao enviar. Tente novamente.")
       );

@@ -9,6 +9,7 @@ node_modules/
 out/
 dist/
 coverage/
+*.tsbuildinfo
 
 # Logs e temporários
 npm-debug.log*

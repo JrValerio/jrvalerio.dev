@@ -7,6 +7,26 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import Head from "next/head";
 
+type Education = {
+  title: string;
+  date: string;
+  desc: string;
+  link?: string;
+};
+
+type Experience = {
+  title: string;
+  date: string;
+  bullets: string[];
+};
+
+type CVProject = {
+  title: string;
+  desc: string;
+  stack: string;
+  link?: string;
+};
+
 const Section = ({
   title,
   children,
@@ -26,9 +46,9 @@ export default function CV() {
   const { t } = useTranslation("common");
   const pdfRef = useRef<HTMLDivElement>(null);
 
-  const educations = t("educations", { returnObjects: true }) as any[];
-  const experiences = t("experiences", { returnObjects: true }) as any[];
-  const projects = t("projectsSectionArr", { returnObjects: true }) as any[];
+  const educations = t("educations", { returnObjects: true }) as Education[];
+  const experiences = t("experiences", { returnObjects: true }) as Experience[];
+  const projects = t("projectsSectionArr", { returnObjects: true }) as CVProject[];
   const skills = t("skillsArr", { returnObjects: true }) as string[];
   const certifications = t("certificationsArr", {
     returnObjects: true,
@@ -171,7 +191,7 @@ export default function CV() {
               </strong>{" "}
               <span className="text-gray-500 italic">{exp.date}</span>
               <ul className="list-disc ml-6 text-gray-800 dark:text-gray-200 print:text-black">
-                {exp.bullets.map((b: string, idx: number) => (
+                {exp.bullets.map((b, idx) => (
                   <li key={idx}>{b}</li>
                 ))}
               </ul>

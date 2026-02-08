@@ -6,10 +6,12 @@ import { appWithTranslation } from "next-i18next";
 import { Toaster } from "react-hot-toast";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
+import nextI18NextConfig from "../../next-i18next.config";
 
-const nextI18NextConfig = require("../../next-i18next.config");
-
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+export type NextPageWithLayout<P = Record<string, never>, IP = P> = NextPage<
+  P,
+  IP
+> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
