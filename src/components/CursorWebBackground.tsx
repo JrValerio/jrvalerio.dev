@@ -24,23 +24,40 @@ function clamp(value: number, min: number, max: number): number {
 
 function createNodes(width: number, height: number): Node[] {
   const area = width * height;
-  const count = Math.min(115, Math.max(60, Math.floor(area / 26000)));
-
-  const cols = Math.max(1, Math.ceil(Math.sqrt((count * width) / Math.max(1, height))));
-  const rows = Math.max(1, Math.ceil(count / cols));
-  const cellWidth = width / cols;
-  const cellHeight = height / rows;
+  const count = Math.min(120, Math.max(64, Math.floor(area / 25000)));
+  const minDim = Math.min(width, height);
+  const clusterCount = Math.max(5, Math.min(12, Math.round(count / 9)));
+  const clusteredCount = Math.floor(count * 0.8);
 
   const nodes: Node[] = [];
+  const clusters = Array.from({ length: clusterCount }, () => ({
+    x: clamp(width * (0.12 + Math.random() * 0.76), 0, width),
+    y: clamp(height * (0.14 + Math.random() * 0.72), 0, height),
+    radius: clamp(minDim * (0.09 + Math.random() * 0.06), 42, 96),
+  }));
 
-  for (let row = 0; row < rows; row += 1) {
-    for (let col = 0; col < cols; col += 1) {
-      if (nodes.length >= count) break;
+  const baseClusterSize = Math.floor(clusteredCount / clusterCount);
+  const clusterRemainder = clusteredCount % clusterCount;
 
-      const jitterX = (Math.random() - 0.5) * cellWidth * 0.5;
-      const jitterY = (Math.random() - 0.5) * cellHeight * 0.5;
-      const baseX = clamp((col + 0.5) * cellWidth + jitterX, 0, width);
-      const baseY = clamp((row + 0.5) * cellHeight + jitterY, 0, height);
+  for (let i = 0; i < clusterCount; i += 1) {
+    const cluster = clusters[i];
+    const pointsInCluster = baseClusterSize + (i < clusterRemainder ? 1 : 0);
+
+    for (let j = 0; j < pointsInCluster; j += 1) {
+      const angle = Math.random() * Math.PI * 2;
+      const distance = (Math.random() ** 0.65) * cluster.radius;
+      const jitterX = (Math.random() - 0.5) * 18;
+      const jitterY = (Math.random() - 0.5) * 18;
+      const baseX = clamp(
+        cluster.x + Math.cos(angle) * distance + jitterX,
+        0,
+        width
+      );
+      const baseY = clamp(
+        cluster.y + Math.sin(angle) * distance + jitterY,
+        0,
+        height
+      );
 
       nodes.push({
         x: baseX,
@@ -51,6 +68,20 @@ function createNodes(width: number, height: number): Node[] {
         vy: 0,
       });
     }
+  }
+
+  while (nodes.length < count) {
+    const baseX = Math.random() * width;
+    const baseY = Math.random() * height;
+
+    nodes.push({
+      x: baseX,
+      y: baseY,
+      baseX,
+      baseY,
+      vx: 0,
+      vy: 0,
+    });
   }
 
   return nodes;
