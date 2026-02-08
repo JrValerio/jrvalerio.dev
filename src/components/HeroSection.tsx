@@ -47,7 +47,7 @@ export default function HeroSection() {
     <>
       <section
         className="
-        hidden md:flex flex-row items-center justify-center gap-x-32
+        hidden md:flex md:flex-1 flex-row items-center justify-center gap-x-32
         w-full max-w-7xl mx-auto min-h-full
         px-0 md:px-8 overflow-hidden
       "
