@@ -12,12 +12,16 @@ type Node = {
   angle: number;
   radius: number;
   orbitSpeed: number;
+  spreadAngle: number;
+  spreadRadius: number;
+  spreadSpeed: number;
   phase: number;
 };
 
-const NODE_COUNT = 50;
-const MAX_LINK_DISTANCE = 150;
-const CURSOR_LINK_DISTANCE = 180;
+const NODE_COUNT = 56;
+const MAX_LINK_DISTANCE = 165;
+const CURSOR_LINK_DISTANCE = 230;
+const MAX_CURSOR_CONNECTIONS = 16;
 
 function createNodes(centerX: number, centerY: number): Node[] {
   return Array.from({ length: NODE_COUNT }, () => ({
@@ -26,8 +30,11 @@ function createNodes(centerX: number, centerY: number): Node[] {
     vx: 0,
     vy: 0,
     angle: Math.random() * Math.PI * 2,
-    radius: 35 + Math.random() * 135,
-    orbitSpeed: (Math.random() - 0.5) * 0.012,
+    radius: 18 + Math.random() * 52,
+    orbitSpeed: (Math.random() - 0.5) * 0.018,
+    spreadAngle: Math.random() * Math.PI * 2,
+    spreadRadius: 120 + Math.random() * 320,
+    spreadSpeed: (Math.random() - 0.5) * 0.0024,
     phase: Math.random() * Math.PI * 2,
   }));
 }
@@ -113,14 +120,18 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
       for (const node of nodes) {
         node.angle += node.orbitSpeed;
-        const orbitRadius = node.radius + Math.sin(time * 0.001 + node.phase) * 10;
-        const targetX = pointer.x + Math.cos(node.angle) * orbitRadius;
-        const targetY = pointer.y + Math.sin(node.angle) * orbitRadius;
+        node.spreadAngle += node.spreadSpeed;
 
-        node.vx += (targetX - node.x) * 0.018;
-        node.vy += (targetY - node.y) * 0.018;
-        node.vx *= 0.86;
-        node.vy *= 0.86;
+        const spreadX = Math.cos(node.spreadAngle) * node.spreadRadius;
+        const spreadY = Math.sin(node.spreadAngle) * node.spreadRadius;
+        const orbitRadius = node.radius + Math.sin(time * 0.0012 + node.phase) * 9;
+        const targetX = pointer.x + spreadX + Math.cos(node.angle) * orbitRadius;
+        const targetY = pointer.y + spreadY + Math.sin(node.angle) * orbitRadius;
+
+        node.vx += (targetX - node.x) * 0.013;
+        node.vy += (targetY - node.y) * 0.013;
+        node.vx *= 0.88;
+        node.vy *= 0.88;
 
         node.x += node.vx;
         node.y += node.vy;
@@ -137,7 +148,7 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
           const distance = Math.hypot(dx, dy);
           if (distance > MAX_LINK_DISTANCE) continue;
 
-          const alpha = (1 - distance / MAX_LINK_DISTANCE) * (isDark ? 0.38 : 0.34);
+          const alpha = (1 - distance / MAX_LINK_DISTANCE) * (isDark ? 0.34 : 0.3);
           ctx.strokeStyle = `rgba(${palette.line}, ${alpha})`;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -146,14 +157,19 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
         }
       }
 
-      for (const node of nodes) {
-        const dx = node.x - pointer.x;
-        const dy = node.y - pointer.y;
-        const distance = Math.hypot(dx, dy);
-        if (distance > CURSOR_LINK_DISTANCE) continue;
+      const cursorConnections = nodes
+        .map((node) => {
+          const dx = node.x - pointer.x;
+          const dy = node.y - pointer.y;
+          return { node, distance: Math.hypot(dx, dy) };
+        })
+        .filter((item) => item.distance <= CURSOR_LINK_DISTANCE)
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, MAX_CURSOR_CONNECTIONS);
 
+      for (const { node, distance } of cursorConnections) {
         const alpha =
-          (1 - distance / CURSOR_LINK_DISTANCE) * (isDark ? 0.46 : 0.42);
+          (1 - distance / CURSOR_LINK_DISTANCE) * (isDark ? 0.44 : 0.4);
         ctx.strokeStyle = `rgba(${palette.cursor}, ${alpha})`;
         ctx.beginPath();
         ctx.moveTo(pointer.x, pointer.y);
