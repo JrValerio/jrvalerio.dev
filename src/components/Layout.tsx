@@ -88,18 +88,24 @@ export default function Layout({ children }: LayoutProps) {
       ({
         fullScreen: { enable: false },
         detectRetina: false,
-        fpsLimit: 36,
+        fpsLimit: 40,
         pauseOnBlur: true,
         pauseOnOutsideViewport: true,
         interactivity: {
           events: {
-            onHover: { enable: true, mode: "grab" },
+            onHover: { enable: true, mode: ["grab", "bubble"] },
             onClick: { enable: false },
           },
           modes: {
             grab: {
-              distance: 130,
-              links: { opacity: isDark ? 0.24 : 0.18 },
+              distance: 220,
+              links: { opacity: isDark ? 0.42 : 0.36 },
+            },
+            bubble: {
+              distance: 210,
+              duration: 1,
+              opacity: isDark ? 0.62 : 0.5,
+              size: 3.8,
             },
           },
         },
@@ -107,27 +113,27 @@ export default function Layout({ children }: LayoutProps) {
           color: {
             value: isDark
               ? ["#67e8f9", "#22d3ee", "#38bdf8"]
-              : ["#06b6d4", "#0ea5e9", "#14b8a6"],
+              : ["#0f766e", "#0369a1", "#0e7490"],
           },
           links: {
             enable: true,
-            color: isDark ? "#22d3ee" : "#0ea5e9",
-            distance: 125,
-            opacity: isDark ? 0.2 : 0.14,
+            color: isDark ? "#22d3ee" : "#0f766e",
+            distance: 150,
+            opacity: isDark ? 0.3 : 0.26,
             width: 1,
           },
           move: {
             enable: true,
-            speed: 0.35,
+            speed: 0.55,
             outModes: { default: "out" },
           },
           number: {
-            value: 30,
+            value: 44,
             density: { enable: true, width: 1200, height: 800 },
           },
-          opacity: { value: { min: 0.12, max: 0.3 } },
+          opacity: { value: { min: 0.22, max: 0.5 } },
           shape: { type: "circle" },
-          size: { value: { min: 1, max: 2.2 } },
+          size: { value: { min: 1.2, max: 2.8 } },
         },
       }) satisfies ISourceOptions,
     [isDark]
@@ -153,7 +159,7 @@ export default function Layout({ children }: LayoutProps) {
       {shouldRenderParticles && (
         <Particles
           id="tsparticles-global"
-          className="absolute inset-0 z-0 pointer-events-none opacity-70 dark:opacity-90"
+          className="absolute inset-0 z-0 pointer-events-none opacity-95"
           options={particlesOptions}
         />
       )}
