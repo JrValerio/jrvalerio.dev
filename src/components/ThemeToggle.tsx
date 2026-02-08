@@ -14,24 +14,11 @@ export default function ThemeToggle({ classNameExtra = "" }: ThemeToggleProps) {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!mounted || !resolvedTheme) return;
-
-    // Aplica a classe no <html>
-    document.documentElement.classList.remove("dark", "light");
-    document.documentElement.classList.add(resolvedTheme);
-
-    // Persistência extra (opcional, para depuração ou controle manual)
-    localStorage.setItem("theme", resolvedTheme);
-  }, [mounted, resolvedTheme]);
-
   if (!mounted) return null;
 
-  const isDark = resolvedTheme === "dark";
+  const isDark = (resolvedTheme ?? "light") === "dark";
   const toggleTheme = () => {
-    const nextTheme = isDark ? "light" : "dark";
-    setTheme(nextTheme);
-    localStorage.setItem("theme", nextTheme); // redundância segura
+    setTheme(isDark ? "light" : "dark");
   };
 
   return (

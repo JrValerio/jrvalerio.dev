@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import type { ISourceOptions } from "@tsparticles/engine";
-import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -17,13 +16,7 @@ export default function Layout({ children }: LayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
-  const { resolvedTheme } = useTheme();
   const router = useRouter();
-
-  useEffect(() => {
-    document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(resolvedTheme || "light");
-  }, [resolvedTheme]);
 
   useEffect(() => {
     if (menuOpen) {
