@@ -13,10 +13,19 @@ type Node = {
   vy: number;
 };
 
-const MAX_LINK_DISTANCE = 185;
-const DRAG_RADIUS = 320;
-const BASE_STIFFNESS = 0.012;
-const DAMPING = 0.935;
+type Link = {
+  a: number;
+  b: number;
+  baseDistance: number;
+};
+
+const MAX_LINK_DISTANCE = 220;
+const DRAG_RADIUS = 360;
+const BASE_STIFFNESS = 0.01;
+const DAMPING = 0.94;
+const POINTER_EASE = 0.14;
+const POINTER_DAMPING = 0.78;
+const LOCAL_NEIGHBORS = 4;
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
@@ -24,16 +33,16 @@ function clamp(value: number, min: number, max: number): number {
 
 function createNodes(width: number, height: number): Node[] {
   const area = width * height;
-  const count = Math.min(138, Math.max(72, Math.floor(area / 21500)));
+  const count = Math.min(140, Math.max(76, Math.floor(area / 20500)));
   const minDim = Math.min(width, height);
-  const clusterCount = Math.max(4, Math.min(9, Math.round(count / 16)));
+  const clusterCount = Math.max(5, Math.min(10, Math.round(count / 14)));
   const clusteredCount = Math.floor(count * 0.9);
 
   const nodes: Node[] = [];
   const clusters = Array.from({ length: clusterCount }, () => ({
-    x: clamp(width * (0.12 + Math.random() * 0.76), 0, width),
-    y: clamp(height * (0.14 + Math.random() * 0.72), 0, height),
-    radius: clamp(minDim * (0.055 + Math.random() * 0.04), 30, 68),
+    x: clamp(width * (0.1 + Math.random() * 0.8), 0, width),
+    y: clamp(height * (0.12 + Math.random() * 0.76), 0, height),
+    radius: clamp(minDim * (0.06 + Math.random() * 0.045), 32, 76),
   }));
 
   const baseClusterSize = Math.floor(clusteredCount / clusterCount);
@@ -48,16 +57,8 @@ function createNodes(width: number, height: number): Node[] {
       const distance = (Math.random() ** 0.42) * cluster.radius;
       const jitterX = (Math.random() - 0.5) * 10;
       const jitterY = (Math.random() - 0.5) * 10;
-      const baseX = clamp(
-        cluster.x + Math.cos(angle) * distance + jitterX,
-        0,
-        width
-      );
-      const baseY = clamp(
-        cluster.y + Math.sin(angle) * distance + jitterY,
-        0,
-        height
-      );
+      const baseX = clamp(cluster.x + Math.cos(angle) * distance + jitterX, 0, width);
+      const baseY = clamp(cluster.y + Math.sin(angle) * distance + jitterY, 0, height);
 
       nodes.push({
         x: baseX,
@@ -85,6 +86,97 @@ function createNodes(width: number, height: number): Node[] {
   }
 
   return nodes;
+}
+
+function createLinks(nodes: Node[]): Link[] {
+  const count = nodes.length;
+  if (count < 2) return [];
+
+  const linkMap = new Map<string, Link>();
+  const allPairs: Link[] = [];
+
+  const addLink = (a: number, b: number, baseDistance: number) => {
+    const min = Math.min(a, b);
+    const max = Math.max(a, b);
+    const key = `${min}-${max}`;
+    if (!linkMap.has(key)) {
+      linkMap.set(key, { a: min, b: max, baseDistance });
+    }
+  };
+
+  for (let i = 0; i < count; i += 1) {
+    const neighbors: Array<{ index: number; distance: number }> = [];
+
+    for (let j = 0; j < count; j += 1) {
+      if (i === j) continue;
+      const dx = nodes[i].baseX - nodes[j].baseX;
+      const dy = nodes[i].baseY - nodes[j].baseY;
+      const distance = Math.hypot(dx, dy);
+
+      neighbors.push({ index: j, distance });
+
+      if (j > i) {
+        allPairs.push({ a: i, b: j, baseDistance: distance });
+      }
+    }
+
+    neighbors.sort((left, right) => left.distance - right.distance);
+
+    for (let n = 0; n < Math.min(LOCAL_NEIGHBORS, neighbors.length); n += 1) {
+      const neighbor = neighbors[n];
+      if (neighbor.distance <= MAX_LINK_DISTANCE * 1.25) {
+        addLink(i, neighbor.index, neighbor.distance);
+      }
+    }
+  }
+
+  const parent = Array.from({ length: count }, (_, index) => index);
+  const rank = Array.from({ length: count }, () => 0);
+
+  const find = (value: number): number => {
+    let current = value;
+
+    while (parent[current] !== current) {
+      parent[current] = parent[parent[current]];
+      current = parent[current];
+    }
+
+    return current;
+  };
+
+  const union = (a: number, b: number): boolean => {
+    const rootA = find(a);
+    const rootB = find(b);
+
+    if (rootA === rootB) return false;
+
+    if (rank[rootA] < rank[rootB]) {
+      parent[rootA] = rootB;
+    } else if (rank[rootA] > rank[rootB]) {
+      parent[rootB] = rootA;
+    } else {
+      parent[rootB] = rootA;
+      rank[rootA] += 1;
+    }
+
+    return true;
+  };
+
+  allPairs.sort((left, right) => left.baseDistance - right.baseDistance);
+
+  let mstEdges = 0;
+  for (const pair of allPairs) {
+    if (union(pair.a, pair.b)) {
+      addLink(pair.a, pair.b, pair.baseDistance);
+      mstEdges += 1;
+
+      if (mstEdges === count - 1) {
+        break;
+      }
+    }
+  }
+
+  return [...linkMap.values()];
 }
 
 export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps) {
@@ -129,6 +221,7 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
         };
 
     let nodes: Node[] = [];
+    let links: Link[] = [];
 
     function resizeCanvas() {
       const parent = canvasEl.parentElement;
@@ -154,12 +247,13 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       pointer.targetY = centerY;
 
       nodes = createNodes(width, height);
+      links = createLinks(nodes);
     }
 
     function updatePointer(event: PointerEvent) {
       const rect = canvasEl.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+      const x = clamp(event.clientX - rect.left, 0, width);
+      const y = clamp(event.clientY - rect.top, 0, height);
 
       if (!pointer.active) {
         pointer.x = x;
@@ -177,10 +271,10 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
     }
 
     function animate(now: number) {
-      pointer.vx += (pointer.targetX - pointer.x) * 0.18;
-      pointer.vy += (pointer.targetY - pointer.y) * 0.18;
-      pointer.vx *= 0.72;
-      pointer.vy *= 0.72;
+      pointer.vx += (pointer.targetX - pointer.x) * POINTER_EASE;
+      pointer.vy += (pointer.targetY - pointer.y) * POINTER_EASE;
+      pointer.vx *= POINTER_DAMPING;
+      pointer.vy *= POINTER_DAMPING;
 
       pointer.x += pointer.vx;
       pointer.y += pointer.vy;
@@ -188,19 +282,19 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       ctx.clearRect(0, 0, width, height);
 
       const pointerSpeed = Math.hypot(pointer.vx, pointer.vy);
-      const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 420;
+      const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 560;
 
       for (const node of nodes) {
-        if (pointerRecentlyActive && pointerSpeed > 0.02) {
+        if (pointerRecentlyActive && pointerSpeed > 0.015) {
           const dx = node.x - pointer.x;
           const dy = node.y - pointer.y;
           const distance = Math.hypot(dx, dy);
 
           if (distance < DRAG_RADIUS) {
             const influence = 1 - distance / DRAG_RADIUS;
-            const drag = influence * influence * (0.7 + influence * 0.8);
-            node.vx += pointer.vx * drag * 0.44;
-            node.vy += pointer.vy * drag * 0.44;
+            const drag = influence * influence * (0.9 + influence * 1.8);
+            node.vx += pointer.vx * drag * 0.52;
+            node.vy += pointer.vy * drag * 0.52;
           }
         }
 
@@ -213,44 +307,48 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
         node.y += node.vy;
       }
 
-      ctx.lineWidth = 1;
+      ctx.lineCap = "round";
 
-      for (let i = 0; i < nodes.length; i += 1) {
-        for (let j = i + 1; j < nodes.length; j += 1) {
-          const a = nodes[i];
-          const b = nodes[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const distance = Math.hypot(dx, dy);
-          if (distance > MAX_LINK_DISTANCE) continue;
+      for (const link of links) {
+        const a = nodes[link.a];
+        const b = nodes[link.b];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const distance = Math.hypot(dx, dy);
+        const stretchLimit = Math.max(link.baseDistance * 2.1, MAX_LINK_DISTANCE);
+        if (distance > stretchLimit) continue;
 
-          let alpha = (1 - distance / MAX_LINK_DISTANCE) * (isDark ? 0.34 : 0.3);
+        const stretchFactor = clamp(1 - distance / stretchLimit, 0, 1);
+        let alpha = (0.08 + stretchFactor * 0.32) * (isDark ? 1 : 0.92);
 
-          if (pointerRecentlyActive) {
-            const da = Math.hypot(a.x - pointer.x, a.y - pointer.y);
-            const db = Math.hypot(b.x - pointer.x, b.y - pointer.y);
-            const boost = 1 - Math.min(da, db) / DRAG_RADIUS;
-            if (boost > 0) {
-              alpha += boost * (isDark ? 0.14 : 0.12);
-            }
+        if (pointerRecentlyActive) {
+          const da = Math.hypot(a.x - pointer.x, a.y - pointer.y);
+          const db = Math.hypot(b.x - pointer.x, b.y - pointer.y);
+          const boost = 1 - Math.min(da, db) / DRAG_RADIUS;
+          if (boost > 0) {
+            alpha += boost * (isDark ? 0.17 : 0.14);
           }
-
-          ctx.strokeStyle = `rgba(${palette.line}, ${alpha})`;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
         }
+
+        if (alpha < 0.03) continue;
+
+        ctx.strokeStyle = `rgba(${palette.line}, ${alpha})`;
+        ctx.lineWidth = 0.8 + stretchFactor * 0.7;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
       }
 
       for (const node of nodes) {
         const distanceToPointer = Math.hypot(node.x - pointer.x, node.y - pointer.y);
         const boost = pointerRecentlyActive
-          ? Math.max(0, 1 - distanceToPointer / DRAG_RADIUS) * 0.22
+          ? Math.max(0, 1 - distanceToPointer / DRAG_RADIUS) * 0.28
           : 0;
-        ctx.fillStyle = `rgba(${palette.point}, ${(isDark ? 0.72 : 0.68) + boost})`;
+
+        ctx.fillStyle = `rgba(${palette.point}, ${Math.min((isDark ? 0.72 : 0.66) + boost, 0.95)})`;
         ctx.beginPath();
-        ctx.arc(node.x, node.y, 1.45 + boost * 1.6, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, 1.3 + boost * 1.7, 0, Math.PI * 2);
         ctx.fill();
       }
 
