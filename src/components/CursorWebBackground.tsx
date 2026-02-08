@@ -13,10 +13,10 @@ type Node = {
   vy: number;
 };
 
-const MAX_LINK_DISTANCE = 170;
-const DRAG_RADIUS = 220;
-const BASE_STIFFNESS = 0.022;
-const DAMPING = 0.9;
+const MAX_LINK_DISTANCE = 185;
+const DRAG_RADIUS = 320;
+const BASE_STIFFNESS = 0.012;
+const DAMPING = 0.935;
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
@@ -24,16 +24,16 @@ function clamp(value: number, min: number, max: number): number {
 
 function createNodes(width: number, height: number): Node[] {
   const area = width * height;
-  const count = Math.min(120, Math.max(64, Math.floor(area / 25000)));
+  const count = Math.min(138, Math.max(72, Math.floor(area / 21500)));
   const minDim = Math.min(width, height);
-  const clusterCount = Math.max(5, Math.min(12, Math.round(count / 9)));
-  const clusteredCount = Math.floor(count * 0.8);
+  const clusterCount = Math.max(4, Math.min(9, Math.round(count / 16)));
+  const clusteredCount = Math.floor(count * 0.9);
 
   const nodes: Node[] = [];
   const clusters = Array.from({ length: clusterCount }, () => ({
     x: clamp(width * (0.12 + Math.random() * 0.76), 0, width),
     y: clamp(height * (0.14 + Math.random() * 0.72), 0, height),
-    radius: clamp(minDim * (0.09 + Math.random() * 0.06), 42, 96),
+    radius: clamp(minDim * (0.055 + Math.random() * 0.04), 30, 68),
   }));
 
   const baseClusterSize = Math.floor(clusteredCount / clusterCount);
@@ -45,9 +45,9 @@ function createNodes(width: number, height: number): Node[] {
 
     for (let j = 0; j < pointsInCluster; j += 1) {
       const angle = Math.random() * Math.PI * 2;
-      const distance = (Math.random() ** 0.65) * cluster.radius;
-      const jitterX = (Math.random() - 0.5) * 18;
-      const jitterY = (Math.random() - 0.5) * 18;
+      const distance = (Math.random() ** 0.42) * cluster.radius;
+      const jitterX = (Math.random() - 0.5) * 10;
+      const jitterY = (Math.random() - 0.5) * 10;
       const baseX = clamp(
         cluster.x + Math.cos(angle) * distance + jitterX,
         0,
@@ -122,12 +122,10 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       ? {
           line: "34, 211, 238",
           point: "56, 189, 248",
-          aura: "103, 232, 249",
         }
       : {
           line: "15, 118, 110",
           point: "2, 132, 199",
-          aura: "8, 145, 178",
         };
 
     let nodes: Node[] = [];
@@ -190,7 +188,7 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       ctx.clearRect(0, 0, width, height);
 
       const pointerSpeed = Math.hypot(pointer.vx, pointer.vy);
-      const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 180;
+      const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 420;
 
       for (const node of nodes) {
         if (pointerRecentlyActive && pointerSpeed > 0.02) {
@@ -200,9 +198,9 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
           if (distance < DRAG_RADIUS) {
             const influence = 1 - distance / DRAG_RADIUS;
-            const drag = influence * influence;
-            node.vx += pointer.vx * drag * 0.28;
-            node.vy += pointer.vy * drag * 0.28;
+            const drag = influence * influence * (0.7 + influence * 0.8);
+            node.vx += pointer.vx * drag * 0.44;
+            node.vy += pointer.vy * drag * 0.44;
           }
         }
 
@@ -213,23 +211,6 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
         node.x += node.vx;
         node.y += node.vy;
-      }
-
-      if (pointerRecentlyActive) {
-        const gradient = ctx.createRadialGradient(
-          pointer.x,
-          pointer.y,
-          0,
-          pointer.x,
-          pointer.y,
-          DRAG_RADIUS * 0.65
-        );
-        gradient.addColorStop(0, `rgba(${palette.aura}, ${isDark ? 0.13 : 0.1})`);
-        gradient.addColorStop(1, `rgba(${palette.aura}, 0)`);
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(pointer.x, pointer.y, DRAG_RADIUS * 0.65, 0, Math.PI * 2);
-        ctx.fill();
       }
 
       ctx.lineWidth = 1;
