@@ -4,8 +4,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import HeroSection from "../components/HeroSection";
 
-const HEADER_HEIGHT = 64;
-
 export default function Home() {
   const { t } = useTranslation("common");
 
@@ -49,7 +47,7 @@ export default function Home() {
           }}
         />
       </Head>
-      <HeroSection HEADER_HEIGHT={HEADER_HEIGHT} />
+      <HeroSection />
     </>
   );
 }

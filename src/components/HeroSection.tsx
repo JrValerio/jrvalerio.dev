@@ -5,11 +5,7 @@ import { useTranslation } from "next-i18next";
 
 const Typewriter = dynamic(() => import("typewriter-effect"), { ssr: false });
 
-interface HeroSectionProps {
-  HEADER_HEIGHT: number;
-}
-
-export default function HeroSection({ HEADER_HEIGHT }: HeroSectionProps) {
+export default function HeroSection() {
   const { t } = useTranslation("common");
   const [isMobile, setIsMobile] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -52,7 +48,7 @@ export default function HeroSection({ HEADER_HEIGHT }: HeroSectionProps) {
       <section
         className="
         hidden md:flex flex-row items-center justify-center gap-x-32
-        w-full max-w-7xl mx-auto min-h-[calc(100vh-64px)]
+        w-full max-w-7xl mx-auto min-h-full
         px-0 md:px-8 overflow-hidden
       "
       >
@@ -93,7 +89,7 @@ export default function HeroSection({ HEADER_HEIGHT }: HeroSectionProps) {
         className={`
         flex md:hidden flex-col items-center justify-start
         w-full px-4 py-8
-        min-h-[calc(100vh-${HEADER_HEIGHT}px)]
+        min-h-full
         bg-transparent
       `}
       >

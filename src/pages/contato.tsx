@@ -119,7 +119,7 @@ export default function Contato() {
           href="https://jrvalerio.dev/contato"
         />
       </Head>
-      <main className="flex flex-col md:flex-row min-h-screen w-full justify-center items-center gap-10 px-4 md:px-16 py-12 bg-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 transition-colors">
+      <main className="flex flex-col md:flex-row w-full justify-center items-center gap-10 px-4 md:px-16 py-8 md:py-10 bg-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 transition-colors">
         <section className="flex-1 max-w-xl bg-white/90 dark:bg-black/60 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl p-8 md:p-10 flex flex-col justify-center items-center">
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text text-transparent text-center whitespace-nowrap">
             {t("contact.title")}

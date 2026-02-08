@@ -111,7 +111,7 @@ export default function Sobre() {
         <link rel="canonical" href={pageUrl} />
       </Head>
 
-      <section className="min-h-[80vh] bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center py-8">
+      <section className="min-h-full bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-start py-6 md:py-8">
         <div className="max-w-3xl mx-auto px-6 py-12 rounded-2xl bg-white/70 dark:bg-white/5 backdrop-blur-md border border-gray-300 dark:border-gray-800 shadow-lg mb-10">
           <h1 className="text-3xl md:text-4xl font-bold mb-6 text-transparent bg-gradient-to-r from-teal-400 to-blue-600 bg-clip-text">
             {t("about.title")}
