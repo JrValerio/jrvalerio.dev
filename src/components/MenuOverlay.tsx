@@ -61,6 +61,7 @@ export default function MenuOverlay({ open, onClose }: MenuOverlayProps) {
       ref={dialogRef}
       role="dialog"
       aria-modal="true"
+      aria-label={t("header.mainMenu", "Menu principal")}
       tabIndex={-1}
       className={`fixed inset-0 z-[9999] bg-black/90 dark:bg-gray-950/95 dark:text-gray-100 backdrop-blur-2xl transition-opacity duration-300 ${
         open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
