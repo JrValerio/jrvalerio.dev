@@ -16,7 +16,7 @@ import {
 } from "react-icons/fa";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 
 export default function Contato() {
   const { t, i18n } = useTranslation("common");
@@ -51,7 +51,7 @@ export default function Contato() {
         serviceId as string,
         templateId as string,
         templateParams,
-        userId as string
+        { publicKey: userId as string }
       );
 
       toast.success(
