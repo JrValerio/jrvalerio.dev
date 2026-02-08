@@ -17,6 +17,7 @@ export default function Layout({ children }: LayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [particlesReady, setParticlesReady] = useState(false);
   const { resolvedTheme } = useTheme();
   const router = useRouter();
 
@@ -52,8 +53,33 @@ export default function Layout({ children }: LayoutProps) {
     return () => mq.removeEventListener("change", handleChange);
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    async function initParticles() {
+      const [{ initParticlesEngine }, { loadSlim }] = await Promise.all([
+        import("@tsparticles/react"),
+        import("@tsparticles/slim"),
+      ]);
+
+      await initParticlesEngine(async (engine) => {
+        await loadSlim(engine);
+      });
+
+      if (!cancelled) {
+        setParticlesReady(true);
+      }
+    }
+
+    void initParticles();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const shouldRenderParticles =
-    router.pathname === "/" && isDesktop && !reduceMotion;
+    particlesReady && router.pathname === "/" && isDesktop && !reduceMotion;
 
   const isDark = resolvedTheme === "dark";
 
@@ -110,7 +136,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div
       className="
-        relative min-h-screen w-full flex flex-col
+        relative isolate min-h-screen w-full flex flex-col
         bg-gradient-to-br
         from-gray-100 via-gray-300 to-gray-100
         dark:from-gray-900 dark:via-gray-950 dark:to-gray-900
@@ -127,7 +153,7 @@ export default function Layout({ children }: LayoutProps) {
       {shouldRenderParticles && (
         <Particles
           id="tsparticles-global"
-          className="fixed inset-0 -z-10 pointer-events-none opacity-70 dark:opacity-90"
+          className="absolute inset-0 z-0 pointer-events-none opacity-70 dark:opacity-90"
           options={particlesOptions}
         />
       )}
