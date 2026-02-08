@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import Header from "./Header";
 import Footer from "./Footer";
 import MenuOverlay from "./MenuOverlay";
-import SpotlightGrainBackground from "./SpotlightGrainBackground";
+import CursorWebBackground from "./CursorWebBackground";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -49,7 +49,7 @@ export default function Layout({ children }: LayoutProps) {
     return () => mq.removeEventListener("change", handleChange);
   }, []);
 
-  const shouldRenderHomeAmbient =
+  const shouldRenderParticles =
     router.pathname === "/" && isDesktop && !reduceMotion;
 
   const isDark = resolvedTheme === "dark";
@@ -71,7 +71,7 @@ export default function Layout({ children }: LayoutProps) {
         Ir para o conteudo principal
       </a>
 
-      {shouldRenderHomeAmbient && <SpotlightGrainBackground isDark={isDark} />}
+      {shouldRenderParticles && <CursorWebBackground isDark={isDark} />}
 
       <Header onMenuOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
