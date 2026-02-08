@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import type { ISourceOptions } from "@tsparticles/engine";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/router";
 import Header from "./Header";
 import Footer from "./Footer";
 import MenuOverlay from "./MenuOverlay";
@@ -15,7 +16,9 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const { resolvedTheme } = useTheme();
+  const router = useRouter();
 
   useEffect(() => {
     document.documentElement.classList.remove("light", "dark");
@@ -44,17 +47,30 @@ export default function Layout({ children }: LayoutProps) {
     return () => mq.removeEventListener("change", handleChange);
   }, []);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const handleChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+
+    setIsDesktop(mq.matches);
+    mq.addEventListener("change", handleChange);
+
+    return () => mq.removeEventListener("change", handleChange);
+  }, []);
+
+  const shouldRenderParticles =
+    router.pathname === "/" && isDesktop && !reduceMotion;
+
   const particlesOptions = {
     background: { color: "#000000" },
     fullScreen: { enable: false },
-    fpsLimit: 60,
+    fpsLimit: 45,
     interactivity: {
       events: {
         onHover: { enable: true, mode: "grab" },
-        onClick: { enable: true, mode: "push" },
+        onClick: { enable: false, mode: "push" },
       },
       modes: {
-        grab: { distance: 160, links: { opacity: 0.7 } },
+        grab: { distance: 150, links: { opacity: 0.5 } },
         push: { quantity: 2 },
       },
     },
@@ -63,20 +79,20 @@ export default function Layout({ children }: LayoutProps) {
       links: {
         enable: true,
         color: "#14e5c6",
-        distance: 140,
-        opacity: 0.6,
-        width: 1.2,
-        triangles: { enable: true, opacity: 0.16 },
+        distance: 130,
+        opacity: 0.4,
+        width: 1,
+        triangles: { enable: false, opacity: 0.16 },
       },
       move: {
         enable: true,
-        speed: 1.4,
+        speed: 1,
         outModes: { default: "bounce" },
       },
-      number: { value: 98, density: { enable: true } },
-      opacity: { value: 0.82 },
+      number: { value: 45, density: { enable: true } },
+      opacity: { value: 0.65 },
       shape: { type: "circle" },
-      size: { value: { min: 1.5, max: 3.5 } },
+      size: { value: { min: 1.2, max: 2.8 } },
       zIndex: { value: 5 },
     },
   } satisfies ISourceOptions;
@@ -98,7 +114,7 @@ export default function Layout({ children }: LayoutProps) {
         Ir para o conteudo principal
       </a>
 
-      {!reduceMotion && (
+      {shouldRenderParticles && (
         <Particles
           id="tsparticles-global"
           className="fixed inset-0 -z-10 pointer-events-none"

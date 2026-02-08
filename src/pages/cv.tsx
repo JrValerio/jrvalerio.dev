@@ -1,10 +1,8 @@
 import type { GetStaticProps } from "next";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FaPrint, FaDownload } from "react-icons/fa";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 import Head from "next/head";
 
 type Education = {
@@ -45,6 +43,7 @@ const Section = ({
 export default function CV() {
   const { t } = useTranslation("common");
   const pdfRef = useRef<HTMLDivElement>(null);
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
 
   const educations = t("educations", { returnObjects: true }) as Education[];
   const experiences = t("experiences", { returnObjects: true }) as Experience[];
@@ -55,6 +54,55 @@ export default function CV() {
   }) as string[];
   const idioms = t("idiomsArr", { returnObjects: true }) as string[];
   const techs = t("techs.skillsList", { returnObjects: true }) as string[];
+
+  async function handleDownloadPdf() {
+    if (!pdfRef.current || downloadingPdf) return;
+    setDownloadingPdf(true);
+
+    try {
+      const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+        import("html2canvas"),
+        import("jspdf"),
+      ]);
+
+      const canvas = await html2canvas(pdfRef.current, {
+        onclone: (clonedDoc: Document) => {
+          clonedDoc.querySelectorAll("*").forEach((el: Element) => {
+            const style = clonedDoc.defaultView?.getComputedStyle(el);
+            if (!style) return;
+
+            const hasUnsupportedColor =
+              (style.backgroundImage &&
+                (style.backgroundImage.includes("oklab") ||
+                  style.backgroundImage.includes("oklch"))) ||
+              (style.backgroundColor &&
+                (style.backgroundColor.includes("oklab") ||
+                  style.backgroundColor.includes("oklch"))) ||
+              (style.color &&
+                (style.color.includes("oklab") ||
+                  style.color.includes("oklch")));
+
+            if (hasUnsupportedColor) {
+              (el as HTMLElement).style.backgroundImage = "none";
+              (el as HTMLElement).style.backgroundColor = "#ffffff";
+              (el as HTMLElement).style.color = "#000000";
+            }
+          });
+        },
+      });
+
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "px",
+        format: [canvas.width, canvas.height],
+      });
+      pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+      pdf.save("CV-Amaro-Junior.pdf");
+    } finally {
+      setDownloadingPdf(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 flex items-center justify-center print:bg-white print:text-black print:p-0">
@@ -262,56 +310,16 @@ export default function CV() {
             <FaPrint className="mb-1" /> {t("button.print", "Imprimir")}
           </button>
           <button
-  className="px-6 py-2 rounded bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold shadow hover:from-teal-500 hover:to-blue-600 flex items-center gap-2 transition-colors"
-  onClick={async () => {
-    if (pdfRef.current) {
-      const canvas = await html2canvas(pdfRef.current, {
-        onclone: (clonedDoc) => {
-          clonedDoc.querySelectorAll("*").forEach((el) => {
-            const style = clonedDoc.defaultView!.getComputedStyle(
-              el as Element
-            );
-            const hasUnsupportedColor =
-              (style.backgroundImage &&
-                (style.backgroundImage.includes("oklab") ||
-                  style.backgroundImage.includes("oklch"))) ||
-              (style.backgroundColor &&
-                (style.backgroundColor.includes("oklab") ||
-                  style.backgroundColor.includes("oklch"))) ||
-              (style.color &&
-                (style.color.includes("oklab") ||
-                  style.color.includes("oklch")));
-
-            if (hasUnsupportedColor) {
-              (el as HTMLElement).style.backgroundImage = "none";
-              (el as HTMLElement).style.backgroundColor = "#ffffff";
-              (el as HTMLElement).style.color = "#000000";
-            }
-          });
-        },
-      });
-
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "px",
-        format: [canvas.width, canvas.height],
-      });
-      pdf.addImage(
-        imgData,
-        "PNG",
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-      pdf.save("CV-Amaro-Junior.pdf");
-    }
-  }}
-  aria-label={t("button.download", "Baixar PDF")}
->
-  <FaDownload className="mb-1" /> {t("button.download", "Baixar PDF")}
-</button>
+            className="px-6 py-2 rounded bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold shadow hover:from-teal-500 hover:to-blue-600 flex items-center gap-2 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+            onClick={handleDownloadPdf}
+            aria-label={t("button.download", "Baixar PDF")}
+            disabled={downloadingPdf}
+          >
+            <FaDownload className="mb-1" />{" "}
+            {downloadingPdf
+              ? t("button.generating", "Gerando PDF...")
+              : t("button.download", "Baixar PDF")}
+          </button>
 
         </div>
       </article>
