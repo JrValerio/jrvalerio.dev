@@ -13,170 +13,279 @@ type Node = {
   vy: number;
 };
 
+type LinkKind = "web" | "bridge";
+
 type Link = {
   a: number;
   b: number;
   baseDistance: number;
+  kind: LinkKind;
 };
 
-const MAX_LINK_DISTANCE = 220;
-const DRAG_RADIUS = 360;
-const BASE_STIFFNESS = 0.01;
-const DAMPING = 0.94;
-const POINTER_EASE = 0.14;
-const POINTER_DAMPING = 0.78;
-const LOCAL_NEIGHBORS = 4;
+type WebMeta = {
+  centerX: number;
+  centerY: number;
+  outerNodeIds: number[];
+};
+
+type GraphData = {
+  nodes: Node[];
+  links: Link[];
+};
+
+const DRAG_RADIUS = 430;
+const BASE_STIFFNESS = 0.0075;
+const DAMPING = 0.955;
+const POINTER_EASE = 0.17;
+const POINTER_DAMPING = 0.81;
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
 
-function createNodes(width: number, height: number): Node[] {
+function randomInt(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function createSpiderWebGraph(width: number, height: number): GraphData {
   const area = width * height;
-  const count = Math.min(140, Math.max(76, Math.floor(area / 20500)));
-  const minDim = Math.min(width, height);
-  const clusterCount = Math.max(5, Math.min(10, Math.round(count / 14)));
-  const clusteredCount = Math.floor(count * 0.9);
+  const webCount = clamp(Math.round(area / 550000), 3, 5);
 
   const nodes: Node[] = [];
-  const clusters = Array.from({ length: clusterCount }, () => ({
-    x: clamp(width * (0.1 + Math.random() * 0.8), 0, width),
-    y: clamp(height * (0.12 + Math.random() * 0.76), 0, height),
-    radius: clamp(minDim * (0.06 + Math.random() * 0.045), 32, 76),
-  }));
+  const links = new Map<string, Link>();
+  const webs: WebMeta[] = [];
 
-  const baseClusterSize = Math.floor(clusteredCount / clusterCount);
-  const clusterRemainder = clusteredCount % clusterCount;
+  const cols = Math.max(1, Math.ceil(Math.sqrt((webCount * width) / Math.max(1, height))));
+  const rows = Math.max(1, Math.ceil(webCount / cols));
+  const cellWidth = width / cols;
+  const cellHeight = height / rows;
+  const minDim = Math.min(width, height);
 
-  for (let i = 0; i < clusterCount; i += 1) {
-    const cluster = clusters[i];
-    const pointsInCluster = baseClusterSize + (i < clusterRemainder ? 1 : 0);
-
-    for (let j = 0; j < pointsInCluster; j += 1) {
-      const angle = Math.random() * Math.PI * 2;
-      const distance = (Math.random() ** 0.42) * cluster.radius;
-      const jitterX = (Math.random() - 0.5) * 10;
-      const jitterY = (Math.random() - 0.5) * 10;
-      const baseX = clamp(cluster.x + Math.cos(angle) * distance + jitterX, 0, width);
-      const baseY = clamp(cluster.y + Math.sin(angle) * distance + jitterY, 0, height);
-
-      nodes.push({
-        x: baseX,
-        y: baseY,
-        baseX,
-        baseY,
-        vx: 0,
-        vy: 0,
-      });
-    }
-  }
-
-  while (nodes.length < count) {
-    const baseX = Math.random() * width;
-    const baseY = Math.random() * height;
-
+  const addNode = (x: number, y: number): number => {
+    const id = nodes.length;
     nodes.push({
-      x: baseX,
-      y: baseY,
-      baseX,
-      baseY,
+      x,
+      y,
+      baseX: x,
+      baseY: y,
       vx: 0,
       vy: 0,
     });
-  }
+    return id;
+  };
 
-  return nodes;
-}
+  const addLink = (a: number, b: number, kind: LinkKind) => {
+    if (a === b) return;
 
-function createLinks(nodes: Node[]): Link[] {
-  const count = nodes.length;
-  if (count < 2) return [];
-
-  const linkMap = new Map<string, Link>();
-  const allPairs: Link[] = [];
-
-  const addLink = (a: number, b: number, baseDistance: number) => {
     const min = Math.min(a, b);
     const max = Math.max(a, b);
     const key = `${min}-${max}`;
-    if (!linkMap.has(key)) {
-      linkMap.set(key, { a: min, b: max, baseDistance });
+
+    const nodeA = nodes[min];
+    const nodeB = nodes[max];
+    const baseDistance = Math.hypot(nodeA.baseX - nodeB.baseX, nodeA.baseY - nodeB.baseY);
+    const existing = links.get(key);
+
+    if (!existing) {
+      links.set(key, { a: min, b: max, baseDistance, kind });
+      return;
+    }
+
+    if (existing.kind === "bridge" && kind === "web") {
+      links.set(key, { ...existing, kind: "web" });
     }
   };
 
-  for (let i = 0; i < count; i += 1) {
-    const neighbors: Array<{ index: number; distance: number }> = [];
+  for (let index = 0; index < webCount; index += 1) {
+    const col = index % cols;
+    const row = Math.floor(index / cols);
 
-    for (let j = 0; j < count; j += 1) {
-      if (i === j) continue;
-      const dx = nodes[i].baseX - nodes[j].baseX;
-      const dy = nodes[i].baseY - nodes[j].baseY;
-      const distance = Math.hypot(dx, dy);
+    const centerX = clamp(
+      (col + 0.5) * cellWidth + (Math.random() - 0.5) * cellWidth * 0.36,
+      56,
+      width - 56
+    );
+    const centerY = clamp(
+      (row + 0.5) * cellHeight + (Math.random() - 0.5) * cellHeight * 0.36,
+      64,
+      height - 64
+    );
 
-      neighbors.push({ index: j, distance });
+    const spokes = randomInt(8, 11);
+    const rings = randomInt(3, 4);
+    const outerRadius = clamp(minDim * (0.13 + Math.random() * 0.05), 95, 185);
+    const angleOffset = Math.random() * Math.PI * 2;
 
-      if (j > i) {
-        allPairs.push({ a: i, b: j, baseDistance: distance });
+    const centerId = addNode(centerX, centerY);
+    let previousRing: number[] | null = null;
+    let outerRing: number[] = [];
+
+    for (let ring = 1; ring <= rings; ring += 1) {
+      const ringNodes: number[] = [];
+      const ringProgress = ring / rings;
+      const ringRadius = outerRadius * (0.2 + ringProgress * 0.82);
+
+      for (let spoke = 0; spoke < spokes; spoke += 1) {
+        const angle =
+          angleOffset +
+          (spoke / spokes) * Math.PI * 2 +
+          (Math.random() - 0.5) * (0.09 * (1 - ringProgress));
+
+        const radius = ringRadius * (0.95 + (Math.random() - 0.5) * 0.16);
+        const x = clamp(centerX + Math.cos(angle) * radius, 0, width);
+        const y = clamp(centerY + Math.sin(angle) * radius, 0, height);
+
+        const nodeId = addNode(x, y);
+        ringNodes.push(nodeId);
+
+        if (ring === 1) {
+          addLink(centerId, nodeId, "web");
+        } else if (previousRing) {
+          addLink(previousRing[spoke], nodeId, "web");
+        }
       }
+
+      for (let spoke = 0; spoke < spokes; spoke += 1) {
+        const current = ringNodes[spoke];
+        const next = ringNodes[(spoke + 1) % spokes];
+        addLink(current, next, "web");
+
+        if (previousRing && Math.random() > 0.34) {
+          const diagonal = previousRing[(spoke + 1) % spokes];
+          addLink(current, diagonal, "web");
+        }
+      }
+
+      previousRing = ringNodes;
+      outerRing = ringNodes;
     }
 
-    neighbors.sort((left, right) => left.distance - right.distance);
-
-    for (let n = 0; n < Math.min(LOCAL_NEIGHBORS, neighbors.length); n += 1) {
-      const neighbor = neighbors[n];
-      if (neighbor.distance <= MAX_LINK_DISTANCE * 1.25) {
-        addLink(i, neighbor.index, neighbor.distance);
-      }
-    }
+    webs.push({ centerX, centerY, outerNodeIds: outerRing });
   }
 
-  const parent = Array.from({ length: count }, (_, index) => index);
-  const rank = Array.from({ length: count }, () => 0);
+  const parent = Array.from({ length: webCount }, (_, idx) => idx);
+  const rank = Array.from({ length: webCount }, () => 0);
 
   const find = (value: number): number => {
     let current = value;
-
     while (parent[current] !== current) {
       parent[current] = parent[parent[current]];
       current = parent[current];
     }
-
     return current;
   };
 
-  const union = (a: number, b: number): boolean => {
-    const rootA = find(a);
-    const rootB = find(b);
+  const union = (left: number, right: number): boolean => {
+    const rootLeft = find(left);
+    const rootRight = find(right);
+    if (rootLeft === rootRight) return false;
 
-    if (rootA === rootB) return false;
-
-    if (rank[rootA] < rank[rootB]) {
-      parent[rootA] = rootB;
-    } else if (rank[rootA] > rank[rootB]) {
-      parent[rootB] = rootA;
+    if (rank[rootLeft] < rank[rootRight]) {
+      parent[rootLeft] = rootRight;
+    } else if (rank[rootLeft] > rank[rootRight]) {
+      parent[rootRight] = rootLeft;
     } else {
-      parent[rootB] = rootA;
-      rank[rootA] += 1;
+      parent[rootRight] = rootLeft;
+      rank[rootLeft] += 1;
     }
 
     return true;
   };
 
-  allPairs.sort((left, right) => left.baseDistance - right.baseDistance);
-
-  let mstEdges = 0;
-  for (const pair of allPairs) {
-    if (union(pair.a, pair.b)) {
-      addLink(pair.a, pair.b, pair.baseDistance);
-      mstEdges += 1;
-
-      if (mstEdges === count - 1) {
-        break;
-      }
+  const webPairs: Array<{ a: number; b: number; distance: number }> = [];
+  for (let a = 0; a < webCount; a += 1) {
+    for (let b = a + 1; b < webCount; b += 1) {
+      const dx = webs[a].centerX - webs[b].centerX;
+      const dy = webs[a].centerY - webs[b].centerY;
+      webPairs.push({ a, b, distance: Math.hypot(dx, dy) });
     }
   }
 
-  return [...linkMap.values()];
+  webPairs.sort((left, right) => left.distance - right.distance);
+
+  const connectedPairs = new Set<string>();
+
+  const connectWebs = (a: number, b: number, addDoubleStrand: boolean) => {
+    const key = `${Math.min(a, b)}-${Math.max(a, b)}`;
+    if (connectedPairs.has(key)) return;
+    connectedPairs.add(key);
+
+    const webA = webs[a];
+    const webB = webs[b];
+
+    const pickNode = (ids: number[], targetX: number, targetY: number, skip?: number): number => {
+      let bestId = ids[0];
+      let bestDistance = Number.POSITIVE_INFINITY;
+
+      for (const id of ids) {
+        if (skip !== undefined && id === skip) continue;
+        const node = nodes[id];
+        const distance = Math.hypot(node.baseX - targetX, node.baseY - targetY);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestId = id;
+        }
+      }
+
+      return bestId;
+    };
+
+    const aMain = pickNode(webA.outerNodeIds, webB.centerX, webB.centerY);
+    const bMain = pickNode(webB.outerNodeIds, webA.centerX, webA.centerY);
+
+    const midX =
+      (nodes[aMain].baseX + nodes[bMain].baseX) / 2 +
+      (Math.random() - 0.5) * 42;
+    const midY =
+      (nodes[aMain].baseY + nodes[bMain].baseY) / 2 +
+      (Math.random() - 0.5) * 30;
+
+    const midId = addNode(clamp(midX, 0, width), clamp(midY, 0, height));
+    addLink(aMain, midId, "bridge");
+    addLink(midId, bMain, "bridge");
+
+    if (addDoubleStrand) {
+      const aSide = pickNode(webA.outerNodeIds, webB.centerX, webB.centerY, aMain);
+      const bSide = pickNode(webB.outerNodeIds, webA.centerX, webA.centerY, bMain);
+      addLink(aSide, bSide, "bridge");
+    }
+  };
+
+  let edges = 0;
+  for (const pair of webPairs) {
+    if (!union(pair.a, pair.b)) continue;
+
+    connectWebs(pair.a, pair.b, true);
+    edges += 1;
+
+    if (edges === webCount - 1) break;
+  }
+
+  for (let i = 0; i < webCount; i += 1) {
+    let nearest = -1;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+
+    for (let j = 0; j < webCount; j += 1) {
+      if (i === j) continue;
+      const key = `${Math.min(i, j)}-${Math.max(i, j)}`;
+      if (connectedPairs.has(key)) continue;
+
+      const dx = webs[i].centerX - webs[j].centerX;
+      const dy = webs[i].centerY - webs[j].centerY;
+      const distance = Math.hypot(dx, dy);
+
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearest = j;
+      }
+    }
+
+    if (nearest >= 0 && Math.random() > 0.4) {
+      connectWebs(i, nearest, false);
+    }
+  }
+
+  return { nodes, links: [...links.values()] };
 }
 
 export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps) {
@@ -216,8 +325,8 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
           point: "56, 189, 248",
         }
       : {
-          line: "15, 118, 110",
-          point: "2, 132, 199",
+          line: "13, 148, 136",
+          point: "3, 105, 161",
         };
 
     let nodes: Node[] = [];
@@ -246,8 +355,9 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       pointer.targetX = centerX;
       pointer.targetY = centerY;
 
-      nodes = createNodes(width, height);
-      links = createLinks(nodes);
+      const graph = createSpiderWebGraph(width, height);
+      nodes = graph.nodes;
+      links = graph.links;
     }
 
     function updatePointer(event: PointerEvent) {
@@ -282,19 +392,19 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       ctx.clearRect(0, 0, width, height);
 
       const pointerSpeed = Math.hypot(pointer.vx, pointer.vy);
-      const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 560;
+      const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 620;
 
       for (const node of nodes) {
-        if (pointerRecentlyActive && pointerSpeed > 0.015) {
+        if (pointerRecentlyActive && pointerSpeed > 0.01) {
           const dx = node.x - pointer.x;
           const dy = node.y - pointer.y;
           const distance = Math.hypot(dx, dy);
 
           if (distance < DRAG_RADIUS) {
             const influence = 1 - distance / DRAG_RADIUS;
-            const drag = influence * influence * (0.9 + influence * 1.8);
-            node.vx += pointer.vx * drag * 0.52;
-            node.vy += pointer.vy * drag * 0.52;
+            const drag = influence * influence * (0.85 + influence * 1.9);
+            node.vx += pointer.vx * drag * 0.58;
+            node.vy += pointer.vy * drag * 0.58;
           }
         }
 
@@ -312,28 +422,32 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       for (const link of links) {
         const a = nodes[link.a];
         const b = nodes[link.b];
+
         const dx = a.x - b.x;
         const dy = a.y - b.y;
         const distance = Math.hypot(dx, dy);
-        const stretchLimit = Math.max(link.baseDistance * 2.1, MAX_LINK_DISTANCE);
-        if (distance > stretchLimit) continue;
+        const stretch = distance / Math.max(link.baseDistance, 1);
+        if (stretch > 2.9) continue;
 
-        const stretchFactor = clamp(1 - distance / stretchLimit, 0, 1);
-        let alpha = (0.08 + stretchFactor * 0.32) * (isDark ? 1 : 0.92);
+        const stretchFalloff = clamp(1 - (stretch - 1) * 0.48, 0.22, 1);
+        const baseAlpha = link.kind === "bridge" ? (isDark ? 0.18 : 0.15) : (isDark ? 0.27 : 0.23);
+
+        let alpha = baseAlpha * stretchFalloff;
 
         if (pointerRecentlyActive) {
           const da = Math.hypot(a.x - pointer.x, a.y - pointer.y);
           const db = Math.hypot(b.x - pointer.x, b.y - pointer.y);
           const boost = 1 - Math.min(da, db) / DRAG_RADIUS;
           if (boost > 0) {
-            alpha += boost * (isDark ? 0.17 : 0.14);
+            alpha += boost * (isDark ? 0.22 : 0.19);
           }
         }
 
-        if (alpha < 0.03) continue;
+        if (alpha < 0.04) continue;
 
+        const widthBase = link.kind === "bridge" ? 0.75 : 1.05;
+        ctx.lineWidth = widthBase + clamp(alpha, 0, 0.5) * 0.9;
         ctx.strokeStyle = `rgba(${palette.line}, ${alpha})`;
-        ctx.lineWidth = 0.8 + stretchFactor * 0.7;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
@@ -343,12 +457,15 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       for (const node of nodes) {
         const distanceToPointer = Math.hypot(node.x - pointer.x, node.y - pointer.y);
         const boost = pointerRecentlyActive
-          ? Math.max(0, 1 - distanceToPointer / DRAG_RADIUS) * 0.28
+          ? Math.max(0, 1 - distanceToPointer / DRAG_RADIUS) * 0.3
           : 0;
 
-        ctx.fillStyle = `rgba(${palette.point}, ${Math.min((isDark ? 0.72 : 0.66) + boost, 0.95)})`;
+        const alpha = Math.min((isDark ? 0.72 : 0.64) + boost, 0.96);
+        const radius = 1.18 + boost * 1.7;
+
+        ctx.fillStyle = `rgba(${palette.point}, ${alpha})`;
         ctx.beginPath();
-        ctx.arc(node.x, node.y, 1.3 + boost * 1.7, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
         ctx.fill();
       }
 
@@ -360,6 +477,7 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
     resizeCanvas();
     rafId = window.requestAnimationFrame(animate);
+
     window.addEventListener("pointermove", updatePointer, { passive: true });
     window.addEventListener("pointerleave", deactivatePointer);
 
