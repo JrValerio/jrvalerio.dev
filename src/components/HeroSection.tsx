@@ -47,8 +47,8 @@ export default function HeroSection() {
     <>
       <section
         className="
-        hidden md:flex md:flex-1 flex-row items-center justify-center gap-x-32
-        w-full max-w-7xl mx-auto min-h-full
+        hidden md:flex md:flex-1 flex-row items-stretch justify-between gap-x-14
+        w-full max-w-7xl mx-auto h-full
         px-0 md:px-8 overflow-hidden
       "
       >
@@ -71,13 +71,13 @@ export default function HeroSection() {
           />
         </div>
 
-        <div className="relative flex-1 flex justify-center items-center min-h-0">
-          <div className="relative w-full md:w-[420px] aspect-[9/16] flex items-center justify-center pr-8 overflow-hidden">
+        <div className="relative flex-1 flex justify-end items-end min-h-0">
+          <div className="relative w-[min(46vw,520px)] h-[min(100%,760px)] overflow-hidden border-2 border-teal-400/80 rounded-t-[240px] shadow-[0_10px_26px_rgba(15,23,42,0.2)]">
             <Image
-              src="/img/perfil2.png"
+              src="/img/perfil-hero.png"
               alt={imageAlt}
               fill
-              className="object-cover rounded-none md:rounded-l-full shadow-2xl border-4 border-teal-400"
+              className="object-cover object-center"
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
             />
@@ -93,12 +93,12 @@ export default function HeroSection() {
         bg-transparent
       `}
       >
-        <div className="w-60 h-70 mb-6 mx-auto relative">
+        <div className="w-60 h-72 mb-6 mx-auto relative">
           <Image
-            src="/img/perfil2.png"
+            src="/img/perfil-hero.png"
             alt={imageAlt}
             fill
-            className="object-cover rounded-2xl shadow-2xl border-4 border-teal-400"
+            className="object-cover object-center rounded-2xl shadow-lg border-2 border-teal-400"
             priority
             sizes="90vw"
           />
