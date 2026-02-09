@@ -6,6 +6,7 @@ type CursorWebBackgroundProps = {
 
 const POINTER_EASE = 0.17;
 const POINTER_DAMPING = 0.81;
+const HALO_SIZE_MULTIPLIER = 2;
 
 type HaloCircle = {
   baseRadius: number;
@@ -203,7 +204,9 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
       HALO_CIRCLES.forEach((circle) => {
         const radius =
-          (circle.baseRadius + motionBoost * circle.radiusBoost) * viewportScale;
+          (circle.baseRadius + motionBoost * circle.radiusBoost) *
+          viewportScale *
+          HALO_SIZE_MULTIPLIER;
         drawHalo(
           pointer.x,
           pointer.y,
