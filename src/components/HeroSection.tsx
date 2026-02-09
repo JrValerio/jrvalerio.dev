@@ -72,14 +72,15 @@ export default function HeroSection() {
         </div>
 
         <div className="relative flex-1 flex justify-end items-end min-h-0">
-          <div className="relative w-[min(46vw,520px)] h-[min(100%,760px)] overflow-hidden border-2 border-teal-400/80 rounded-t-[240px] shadow-[0_10px_26px_rgba(15,23,42,0.2)]">
+          <div className="relative w-[min(49vw,620px)] h-[min(100%,760px)]">
+            <div className="absolute inset-x-3 bottom-0 h-[90%] rounded-t-[280px] border border-teal-400/40 bg-gradient-to-b from-teal-200/25 via-white/10 to-transparent dark:from-cyan-400/18 dark:via-slate-900/10 dark:to-transparent shadow-[0_12px_28px_rgba(15,23,42,0.18)]" />
             <Image
-              src="/img/perfil-hero.png"
+              src="/img/perfil-hero-nobg.png"
               alt={imageAlt}
               fill
-              className="object-cover object-center"
+              className="object-contain object-bottom drop-shadow-[0_14px_26px_rgba(15,23,42,0.18)]"
               priority
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 1024px) 44vw, 620px"
             />
           </div>
         </div>
@@ -93,14 +94,15 @@ export default function HeroSection() {
         bg-transparent
       `}
       >
-        <div className="w-60 h-72 mb-6 mx-auto relative">
+        <div className="w-72 h-[27rem] max-w-[92vw] mb-6 mx-auto relative">
+          <div className="absolute inset-x-2 bottom-0 h-[88%] rounded-t-[180px] border border-teal-400/35 bg-gradient-to-b from-teal-200/25 via-white/10 to-transparent dark:from-cyan-400/15 dark:via-slate-900/8 dark:to-transparent" />
           <Image
-            src="/img/perfil-hero.png"
+            src="/img/perfil-hero-nobg.png"
             alt={imageAlt}
             fill
-            className="object-cover object-center rounded-2xl shadow-lg border-2 border-teal-400"
+            className="object-contain object-bottom drop-shadow-[0_10px_18px_rgba(15,23,42,0.18)]"
             priority
-            sizes="90vw"
+            sizes="(max-width: 768px) 92vw, 420px"
           />
         </div>
         <div className="w-full flex flex-col items-center">
