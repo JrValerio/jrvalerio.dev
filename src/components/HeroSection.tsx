@@ -72,13 +72,13 @@ export default function HeroSection() {
         </div>
 
         <div className="relative flex-1 flex justify-end items-end min-h-0">
-          <div className="relative w-[min(49vw,620px)] h-[min(100%,760px)]">
-            <div className="absolute inset-x-3 bottom-0 h-[90%] rounded-t-[280px] border border-teal-400/40 bg-gradient-to-b from-teal-200/25 via-white/10 to-transparent dark:from-cyan-400/18 dark:via-slate-900/10 dark:to-transparent shadow-[0_12px_28px_rgba(15,23,42,0.18)]" />
+          <div className="relative w-[min(48vw,620px)] h-[min(100%,760px)] flex items-end justify-center rounded-t-[280px] overflow-hidden ring-1 ring-teal-400/35 dark:ring-cyan-300/25">
+            <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_0%,rgba(45,212,191,0.34),rgba(59,130,246,0.13)_46%,rgba(0,0,0,0)_75%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.36),rgba(59,130,246,0.16)_46%,rgba(0,0,0,0)_75%)]" />
             <Image
               src="/img/perfil-hero-nobg.png"
               alt={imageAlt}
               fill
-              className="object-contain object-bottom drop-shadow-[0_14px_26px_rgba(15,23,42,0.18)]"
+              className="relative z-10 object-contain object-bottom translate-y-4 drop-shadow-[0_14px_24px_rgba(15,23,42,0.22)]"
               priority
               sizes="(max-width: 1024px) 44vw, 620px"
             />
@@ -94,13 +94,13 @@ export default function HeroSection() {
         bg-transparent
       `}
       >
-        <div className="w-72 h-[27rem] max-w-[92vw] mb-6 mx-auto relative">
-          <div className="absolute inset-x-2 bottom-0 h-[88%] rounded-t-[180px] border border-teal-400/35 bg-gradient-to-b from-teal-200/25 via-white/10 to-transparent dark:from-cyan-400/15 dark:via-slate-900/8 dark:to-transparent" />
+        <div className="w-72 h-[27rem] max-w-[92vw] mb-6 mx-auto relative flex items-end justify-center rounded-t-[180px] overflow-hidden ring-1 ring-teal-400/35 dark:ring-cyan-300/25">
+          <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_0%,rgba(45,212,191,0.3),rgba(59,130,246,0.11)_46%,rgba(0,0,0,0)_75%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.3),rgba(59,130,246,0.14)_46%,rgba(0,0,0,0)_75%)]" />
           <Image
             src="/img/perfil-hero-nobg.png"
             alt={imageAlt}
             fill
-            className="object-contain object-bottom drop-shadow-[0_10px_18px_rgba(15,23,42,0.18)]"
+            className="relative z-10 object-contain object-bottom translate-y-3 drop-shadow-[0_10px_18px_rgba(15,23,42,0.2)]"
             priority
             sizes="(max-width: 768px) 92vw, 420px"
           />
