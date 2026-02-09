@@ -323,10 +323,12 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       ? {
           line: "34, 211, 238",
           point: "56, 189, 248",
+          aura: "103, 232, 249",
         }
       : {
           line: "13, 148, 136",
           point: "3, 105, 161",
+          aura: "15, 118, 110",
         };
 
     let nodes: Node[] = [];
@@ -393,6 +395,41 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
       const pointerSpeed = Math.hypot(pointer.vx, pointer.vy);
       const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 620;
+
+      const motionBoost = clamp(pointerSpeed * 5.5, 0, 1);
+      const haloStrength = pointerRecentlyActive ? 1 : 0.58;
+      const smallRadius = 14 + motionBoost * 5;
+      const mediumRadius = 52 + motionBoost * 14;
+      const outerRadius = 118 + motionBoost * 24;
+
+      const drawHalo = (radius: number, centerAlpha: number, edgeAlpha: number) => {
+        const gradient = ctx.createRadialGradient(
+          pointer.x,
+          pointer.y,
+          0,
+          pointer.x,
+          pointer.y,
+          radius
+        );
+        gradient.addColorStop(
+          0,
+          `rgba(${palette.aura}, ${centerAlpha * haloStrength})`
+        );
+        gradient.addColorStop(
+          0.62,
+          `rgba(${palette.aura}, ${edgeAlpha * haloStrength})`
+        );
+        gradient.addColorStop(1, `rgba(${palette.aura}, 0)`);
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(pointer.x, pointer.y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      drawHalo(outerRadius, isDark ? 0.13 : 0.1, isDark ? 0.05 : 0.04);
+      drawHalo(mediumRadius, isDark ? 0.19 : 0.15, isDark ? 0.07 : 0.055);
+      drawHalo(smallRadius, isDark ? 0.32 : 0.24, isDark ? 0.12 : 0.09);
 
       for (const node of nodes) {
         if (pointerRecentlyActive && pointerSpeed > 0.01) {
