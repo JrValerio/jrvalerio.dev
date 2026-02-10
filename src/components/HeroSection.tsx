@@ -72,13 +72,12 @@ export default function HeroSection() {
         </div>
 
         <div className="relative flex-1 flex justify-end items-end min-h-0">
-          <div className="relative w-[min(48vw,620px)] h-[min(100%,760px)] flex items-end justify-center rounded-t-[280px] overflow-hidden ring-1 ring-teal-400/35 dark:ring-cyan-300/25">
-            <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_0%,rgba(45,212,191,0.34),rgba(59,130,246,0.13)_46%,rgba(0,0,0,0)_75%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.36),rgba(59,130,246,0.16)_46%,rgba(0,0,0,0)_75%)]" />
+          <div className="relative w-[min(46vw,560px)] h-[min(100%,760px)] overflow-hidden rounded-t-[240px] border border-teal-400/45 shadow-[0_14px_28px_rgba(15,23,42,0.18)]">
             <Image
               src="/img/perfil-hero.png"
               alt={imageAlt}
               fill
-              className="relative z-10 object-cover object-[56%_18%] scale-[1.08] drop-shadow-[0_12px_22px_rgba(15,23,42,0.2)]"
+              className="object-cover object-[56%_18%]"
               priority
               sizes="(max-width: 1024px) 44vw, 620px"
             />
@@ -94,13 +93,12 @@ export default function HeroSection() {
         bg-transparent
       `}
       >
-        <div className="w-72 h-[27rem] max-w-[92vw] mb-6 mx-auto relative flex items-end justify-center rounded-t-[180px] overflow-hidden ring-1 ring-teal-400/35 dark:ring-cyan-300/25">
-          <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_0%,rgba(45,212,191,0.3),rgba(59,130,246,0.11)_46%,rgba(0,0,0,0)_75%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.3),rgba(59,130,246,0.14)_46%,rgba(0,0,0,0)_75%)]" />
+        <div className="w-72 h-[27rem] max-w-[92vw] mb-6 mx-auto relative overflow-hidden rounded-t-[180px] border border-teal-400/40 shadow-[0_10px_22px_rgba(15,23,42,0.14)]">
           <Image
             src="/img/perfil-hero.png"
             alt={imageAlt}
             fill
-            className="relative z-10 object-cover object-[54%_15%] scale-[1.06] drop-shadow-[0_10px_18px_rgba(15,23,42,0.18)]"
+            className="object-cover object-[54%_15%]"
             priority
             sizes="(max-width: 768px) 92vw, 420px"
           />
