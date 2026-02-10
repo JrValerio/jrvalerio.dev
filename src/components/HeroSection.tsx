@@ -77,10 +77,11 @@ export default function HeroSection() {
               src="/img/perfil-hero.png"
               alt={imageAlt}
               fill
-              className="object-cover object-[56%_18%]"
+              className="relative z-0 object-cover object-[56%_18%]"
               priority
               sizes="(max-width: 1024px) 44vw, 620px"
             />
+            <div className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 dark:opacity-100 bg-[radial-gradient(circle_at_50%_10%,rgba(34,211,238,0.18),rgba(30,41,59,0.08)_48%,rgba(2,6,23,0.3)_100%)]" />
           </div>
         </div>
       </section>
@@ -98,10 +99,11 @@ export default function HeroSection() {
             src="/img/perfil-hero.png"
             alt={imageAlt}
             fill
-            className="object-cover object-[54%_15%]"
+            className="relative z-0 object-cover object-[54%_15%]"
             priority
             sizes="(max-width: 768px) 92vw, 420px"
           />
+          <div className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 dark:opacity-100 bg-[radial-gradient(circle_at_50%_10%,rgba(34,211,238,0.16),rgba(30,41,59,0.08)_48%,rgba(2,6,23,0.28)_100%)]" />
         </div>
         <div className="w-full flex flex-col items-center">
           <h1
