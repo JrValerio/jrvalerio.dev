@@ -6,7 +6,7 @@ type CursorWebBackgroundProps = {
 
 const POINTER_EASE = 0.17;
 const POINTER_DAMPING = 0.81;
-const HALO_SIZE_MULTIPLIER = 2;
+const HALO_SIZE_MULTIPLIER = 1.45;
 
 type HaloCircle = {
   baseRadius: number;
@@ -82,6 +82,7 @@ function clamp(value: number, min: number, max: number): number {
 
 export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasOpacity = isDark ? 0.82 : 0.72;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -111,7 +112,23 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       lastMoveAt: 0,
     };
 
-    const aura = isDark ? "103, 232, 249" : "15, 118, 110";
+    const haloTheme = isDark
+      ? {
+          inner: "103, 232, 249",
+          middle: "59, 130, 246",
+          outer: "15, 23, 42",
+          alphaScale: 0.42,
+          activeStrength: 0.78,
+          idleStrength: 0.36,
+        }
+      : {
+          inner: "125, 211, 252",
+          middle: "148, 163, 184",
+          outer: "203, 213, 225",
+          alphaScale: 0.34,
+          activeStrength: 0.62,
+          idleStrength: 0.28,
+        };
 
     function resizeCanvas() {
       const parent = canvasEl.parentElement;
@@ -173,7 +190,9 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       const pointerSpeed = Math.hypot(pointer.vx, pointer.vy);
       const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 620;
       const motionBoost = clamp(pointerSpeed * 5.5, 0, 1);
-      const haloStrength = pointerRecentlyActive ? 1 : 0.58;
+      const haloStrength = pointerRecentlyActive
+        ? haloTheme.activeStrength
+        : haloTheme.idleStrength;
       const viewportScale = clamp(Math.min(width, height) / 900, 0.72, 1.24);
 
       const drawHalo = (
@@ -192,9 +211,13 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
           radius
         );
 
-        gradient.addColorStop(0, `rgba(${aura}, ${centerAlpha * haloStrength})`);
-        gradient.addColorStop(0.62, `rgba(${aura}, ${edgeAlpha * haloStrength})`);
-        gradient.addColorStop(1, `rgba(${aura}, 0)`);
+        const centerOpacity = centerAlpha * haloStrength * haloTheme.alphaScale;
+        const edgeOpacity = edgeAlpha * haloStrength * haloTheme.alphaScale;
+
+        gradient.addColorStop(0, `rgba(${haloTheme.inner}, ${centerOpacity})`);
+        gradient.addColorStop(0.36, `rgba(${haloTheme.middle}, ${edgeOpacity})`);
+        gradient.addColorStop(0.72, `rgba(${haloTheme.outer}, ${edgeOpacity * 0.52})`);
+        gradient.addColorStop(1, `rgba(${haloTheme.outer}, 0)`);
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -239,7 +262,8 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 z-0 pointer-events-none opacity-95"
+      className="absolute inset-0 z-0 pointer-events-none"
+      style={{ opacity: canvasOpacity }}
       aria-hidden="true"
     />
   );
