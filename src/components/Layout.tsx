@@ -12,8 +12,6 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
   const { resolvedTheme } = useTheme();
   const router = useRouter();
 
@@ -29,28 +27,7 @@ export default function Layout({ children }: LayoutProps) {
     };
   }, [menuOpen]);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handleChange = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
-
-    setReduceMotion(mq.matches);
-    mq.addEventListener("change", handleChange);
-
-    return () => mq.removeEventListener("change", handleChange);
-  }, []);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const handleChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-
-    setIsDesktop(mq.matches);
-    mq.addEventListener("change", handleChange);
-
-    return () => mq.removeEventListener("change", handleChange);
-  }, []);
-
-  const shouldRenderParticles =
-    router.pathname === "/" && isDesktop && !reduceMotion;
+  const shouldRenderParticles = router.pathname === "/";
 
   const isDark = resolvedTheme === "dark";
 

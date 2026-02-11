@@ -4,85 +4,192 @@ type CursorWebBackgroundProps = {
   isDark: boolean;
 };
 
-const POINTER_EASE = 0.17;
-const POINTER_DAMPING = 0.81;
-const HALO_SIZE_MULTIPLIER = 1.45;
-
-type HaloCircle = {
-  baseRadius: number;
-  radiusBoost: number;
-  centerAlphaDark: number;
-  centerAlphaLight: number;
-  edgeAlphaDark: number;
-  edgeAlphaLight: number;
+type MeshPoint = {
+  x: number;
+  y: number;
+  baseX: number;
+  baseY: number;
+  vx: number;
+  vy: number;
+  pinned: boolean;
 };
 
-const HALO_CIRCLES: HaloCircle[] = [
-  {
-    baseRadius: 248,
-    radiusBoost: 38,
-    centerAlphaDark: 0.08,
-    centerAlphaLight: 0.06,
-    edgeAlphaDark: 0.03,
-    edgeAlphaLight: 0.022,
-  },
-  {
-    baseRadius: 208,
-    radiusBoost: 34,
-    centerAlphaDark: 0.11,
-    centerAlphaLight: 0.082,
-    edgeAlphaDark: 0.042,
-    edgeAlphaLight: 0.03,
-  },
-  {
-    baseRadius: 172,
-    radiusBoost: 30,
-    centerAlphaDark: 0.14,
-    centerAlphaLight: 0.105,
-    edgeAlphaDark: 0.055,
-    edgeAlphaLight: 0.04,
-  },
-  {
-    baseRadius: 138,
-    radiusBoost: 24,
-    centerAlphaDark: 0.18,
-    centerAlphaLight: 0.135,
-    edgeAlphaDark: 0.072,
-    edgeAlphaLight: 0.052,
-  },
-  {
-    baseRadius: 108,
-    radiusBoost: 20,
-    centerAlphaDark: 0.22,
-    centerAlphaLight: 0.165,
-    edgeAlphaDark: 0.088,
-    edgeAlphaLight: 0.063,
-  },
-  {
-    baseRadius: 82,
-    radiusBoost: 16,
-    centerAlphaDark: 0.28,
-    centerAlphaLight: 0.21,
-    edgeAlphaDark: 0.112,
-    edgeAlphaLight: 0.082,
-  },
-  {
-    baseRadius: 58,
-    radiusBoost: 12,
-    centerAlphaDark: 0.34,
-    centerAlphaLight: 0.26,
-    edgeAlphaDark: 0.14,
-    edgeAlphaLight: 0.1,
-  },
-];
+type MeshConstraint = {
+  a: number;
+  b: number;
+  restLength: number;
+  tension: number;
+};
+
+type WebMesh = {
+  points: MeshPoint[];
+  constraints: MeshConstraint[];
+};
+
+type SegmentHit = {
+  constraintIndex: number;
+  distance: number;
+  t: number;
+  x: number;
+  y: number;
+};
+
+type GrabNodeState = {
+  active: boolean;
+  constraintIndex: number;
+  t: number;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+};
+
+const POINTER_EASE = 0.18;
+const POINTER_DAMPING = 0.78;
+
+const BASE_SPRING = 0.0028;
+const VELOCITY_DAMPING = 0.9;
+
+const CONSTRAINT_ITERATIONS = 7;
+const CONSTRAINT_STIFFNESS = 0.92;
+const MAX_TENSION = 1.3;
+
+const SEGMENT_GRAB_DISTANCE = 72;
+const SEGMENT_GRAB_SPRING = 0.1;
+const SEGMENT_DRAG_PUSH = 0.5;
+
+const GRAB_NODE_SPRING = 0.16;
+const GRAB_NODE_DRAG_PUSH = 0.26;
+const GRAB_NODE_DAMPING = 0.78;
+
+const NEARBY_PUSH_RADIUS = 150;
+const NEARBY_PUSH = 0.052;
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
 
+function randomBetween(min: number, max: number): number {
+  return min + Math.random() * (max - min);
+}
+
+function closestPointOnSegment(
+  px: number,
+  py: number,
+  ax: number,
+  ay: number,
+  bx: number,
+  by: number
+): { t: number; x: number; y: number; distance: number } {
+  const abx = bx - ax;
+  const aby = by - ay;
+  const abLenSq = abx * abx + aby * aby;
+
+  if (abLenSq <= 0.00001) {
+    const distance = Math.hypot(px - ax, py - ay);
+    return { t: 0, x: ax, y: ay, distance };
+  }
+
+  const apx = px - ax;
+  const apy = py - ay;
+  const rawT = (apx * abx + apy * aby) / abLenSq;
+  const t = clamp(rawT, 0, 1);
+  const x = ax + abx * t;
+  const y = ay + aby * t;
+  const distance = Math.hypot(px - x, py - y);
+
+  return { t, x, y, distance };
+}
+
+function createWebMesh(width: number, height: number): WebMesh {
+  const cols = clamp(Math.round(width / 135), 9, 16);
+  const rows = clamp(Math.round(height / 120), 7, 12);
+  const stepX = cols > 1 ? width / (cols - 1) : width;
+  const stepY = rows > 1 ? height / (rows - 1) : height;
+
+  const points: MeshPoint[] = [];
+  const constraints: MeshConstraint[] = [];
+  const linkKeys = new Set<string>();
+  const pointIds: number[][] = Array.from({ length: rows }, () =>
+    Array.from({ length: cols }, () => -1)
+  );
+
+  const addPoint = (x: number, y: number, pinned: boolean): number => {
+    const id = points.length;
+    points.push({ x, y, baseX: x, baseY: y, vx: 0, vy: 0, pinned });
+    return id;
+  };
+
+  const addConstraint = (a: number, b: number) => {
+    if (a === b) return;
+    const min = Math.min(a, b);
+    const max = Math.max(a, b);
+    const key = `${min}-${max}`;
+    if (linkKeys.has(key)) return;
+    linkKeys.add(key);
+
+    const pa = points[min];
+    const pb = points[max];
+    constraints.push({
+      a: min,
+      b: max,
+      restLength: Math.hypot(pb.baseX - pa.baseX, pb.baseY - pa.baseY),
+      tension: 0,
+    });
+  };
+
+  for (let row = 0; row < rows; row += 1) {
+    for (let col = 0; col < cols; col += 1) {
+      const pinned =
+        row === 0 || row === rows - 1 || col === 0 || col === cols - 1;
+      const jitterScaleX = pinned ? 0 : stepX * 0.34;
+      const jitterScaleY = pinned ? 0 : stepY * 0.34;
+
+      const x = clamp(
+        col * stepX + randomBetween(-jitterScaleX, jitterScaleX),
+        0,
+        width
+      );
+      const y = clamp(
+        row * stepY + randomBetween(-jitterScaleY, jitterScaleY),
+        0,
+        height
+      );
+
+      pointIds[row][col] = addPoint(x, y, pinned);
+    }
+  }
+
+  for (let row = 0; row < rows; row += 1) {
+    for (let col = 0; col < cols; col += 1) {
+      const id = pointIds[row][col];
+      const onEdge =
+        row === 0 || row === rows - 1 || col === 0 || col === cols - 1;
+
+      if (col < cols - 1 && (onEdge || Math.random() > 0.12)) {
+        addConstraint(id, pointIds[row][col + 1]);
+      }
+
+      if (row < rows - 1 && (onEdge || Math.random() > 0.12)) {
+        addConstraint(id, pointIds[row + 1][col]);
+      }
+
+      if (row < rows - 1 && col < cols - 1 && Math.random() > 0.34) {
+        addConstraint(id, pointIds[row + 1][col + 1]);
+      }
+
+      if (row < rows - 1 && col > 0 && Math.random() > 0.38) {
+        addConstraint(id, pointIds[row + 1][col - 1]);
+      }
+    }
+  }
+
+  return { points, constraints };
+}
+
 export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const canvasOpacity = isDark ? 0.82 : 0.72;
+  const canvasOpacity = isDark ? 0.9 : 0.8;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -112,23 +219,40 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       lastMoveAt: 0,
     };
 
-    const haloTheme = isDark
+    const theme = isDark
       ? {
-          inner: "103, 232, 249",
-          middle: "59, 130, 246",
-          outer: "15, 23, 42",
-          alphaScale: 0.42,
-          activeStrength: 0.78,
-          idleStrength: 0.36,
+          line: "125, 211, 252",
+          point: "148, 163, 184",
+          baseAlpha: 0.08,
+          tensionBoost: 0.34,
+          grabBoost: 0.18,
+          pointAlpha: 0.44,
+          lineWidth: 0.44,
         }
       : {
-          inner: "125, 211, 252",
-          middle: "148, 163, 184",
-          outer: "203, 213, 225",
-          alphaScale: 0.34,
-          activeStrength: 0.62,
-          idleStrength: 0.28,
+          line: "100, 116, 139",
+          point: "100, 116, 139",
+          baseAlpha: 0.064,
+          tensionBoost: 0.28,
+          grabBoost: 0.14,
+          pointAlpha: 0.34,
+          lineWidth: 0.4,
         };
+
+    let points: MeshPoint[] = [];
+    let constraints: MeshConstraint[] = [];
+    let activeSegmentIndex = -1;
+    let activeSegmentDistance = Number.POSITIVE_INFINITY;
+
+    const grabNode: GrabNodeState = {
+      active: false,
+      constraintIndex: -1,
+      t: 0,
+      x: 0,
+      y: 0,
+      vx: 0,
+      vy: 0,
+    };
 
     function resizeCanvas() {
       const parent = canvasEl.parentElement;
@@ -152,12 +276,30 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       pointer.y = centerY;
       pointer.targetX = centerX;
       pointer.targetY = centerY;
+      pointer.vx = 0;
+      pointer.vy = 0;
+
+      grabNode.active = false;
+      grabNode.constraintIndex = -1;
+      grabNode.vx = 0;
+      grabNode.vy = 0;
+      grabNode.x = centerX;
+      grabNode.y = centerY;
+
+      const mesh = createWebMesh(width, height);
+      points = mesh.points;
+      constraints = mesh.constraints;
     }
 
     function updatePointer(event: PointerEvent) {
       const rect = canvasEl.getBoundingClientRect();
-      const x = clamp(event.clientX - rect.left, 0, width);
-      const y = clamp(event.clientY - rect.top, 0, height);
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      if (x < 0 || x > width || y < 0 || y > height) {
+        pointer.active = false;
+        return;
+      }
 
       if (!pointer.active) {
         pointer.x = x;
@@ -172,8 +314,223 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
     function deactivatePointer() {
       pointer.active = false;
-      pointer.targetX = width / 2;
-      pointer.targetY = height / 2;
+      pointer.targetX = pointer.x;
+      pointer.targetY = pointer.y;
+      pointer.vx = 0;
+      pointer.vy = 0;
+
+      grabNode.active = false;
+      grabNode.constraintIndex = -1;
+      grabNode.vx = 0;
+      grabNode.vy = 0;
+    }
+
+    function findNearestSegment(mouseX: number, mouseY: number): SegmentHit | null {
+      let bestHit: SegmentHit | null = null;
+
+      for (let index = 0; index < constraints.length; index += 1) {
+        const constraint = constraints[index];
+        const a = points[constraint.a];
+        const b = points[constraint.b];
+
+        const hit = closestPointOnSegment(mouseX, mouseY, a.x, a.y, b.x, b.y);
+
+        if (!bestHit || hit.distance < bestHit.distance) {
+          bestHit = {
+            constraintIndex: index,
+            distance: hit.distance,
+            t: hit.t,
+            x: hit.x,
+            y: hit.y,
+          };
+        }
+      }
+
+      return bestHit;
+    }
+
+    function applyMouseInteraction(pointerRecentlyActive: boolean) {
+      activeSegmentIndex = -1;
+      activeSegmentDistance = Number.POSITIVE_INFINITY;
+
+      if (!pointerRecentlyActive) {
+        grabNode.active = false;
+        grabNode.constraintIndex = -1;
+        return;
+      }
+
+      const hit = findNearestSegment(pointer.x, pointer.y);
+      if (!hit || hit.distance > SEGMENT_GRAB_DISTANCE) {
+        grabNode.active = false;
+        grabNode.constraintIndex = -1;
+        return;
+      }
+
+      activeSegmentIndex = hit.constraintIndex;
+      activeSegmentDistance = hit.distance;
+
+      if (
+        !grabNode.active ||
+        grabNode.constraintIndex !== hit.constraintIndex ||
+        Math.abs(grabNode.t - hit.t) > 0.42
+      ) {
+        grabNode.active = true;
+        grabNode.constraintIndex = hit.constraintIndex;
+        grabNode.t = hit.t;
+        grabNode.x = hit.x;
+        grabNode.y = hit.y;
+        grabNode.vx = 0;
+        grabNode.vy = 0;
+      } else {
+        grabNode.t += (hit.t - grabNode.t) * 0.24;
+      }
+
+      const pullToMouseX = pointer.x - grabNode.x;
+      const pullToMouseY = pointer.y - grabNode.y;
+      grabNode.vx += pullToMouseX * GRAB_NODE_SPRING;
+      grabNode.vy += pullToMouseY * GRAB_NODE_SPRING;
+      grabNode.vx += pointer.vx * GRAB_NODE_DRAG_PUSH;
+      grabNode.vy += pointer.vy * GRAB_NODE_DRAG_PUSH;
+      grabNode.vx *= GRAB_NODE_DAMPING;
+      grabNode.vy *= GRAB_NODE_DAMPING;
+      grabNode.x += grabNode.vx;
+      grabNode.y += grabNode.vy;
+
+      const grabbed = constraints[grabNode.constraintIndex];
+      const a = points[grabbed.a];
+      const b = points[grabbed.b];
+
+      const segmentX = a.x + (b.x - a.x) * grabNode.t;
+      const segmentY = a.y + (b.y - a.y) * grabNode.t;
+      const pullX = grabNode.x - segmentX;
+      const pullY = grabNode.y - segmentY;
+
+      const weightA = 1 - grabNode.t;
+      const weightB = grabNode.t;
+
+      if (!a.pinned) {
+        a.vx += pullX * SEGMENT_GRAB_SPRING * weightA;
+        a.vy += pullY * SEGMENT_GRAB_SPRING * weightA;
+        a.vx += grabNode.vx * SEGMENT_DRAG_PUSH * weightA;
+        a.vy += grabNode.vy * SEGMENT_DRAG_PUSH * weightA;
+      }
+
+      if (!b.pinned) {
+        b.vx += pullX * SEGMENT_GRAB_SPRING * weightB;
+        b.vy += pullY * SEGMENT_GRAB_SPRING * weightB;
+        b.vx += grabNode.vx * SEGMENT_DRAG_PUSH * weightB;
+        b.vy += grabNode.vy * SEGMENT_DRAG_PUSH * weightB;
+      }
+
+      for (const point of points) {
+        if (point.pinned) continue;
+
+        const distance = Math.hypot(point.x - grabNode.x, point.y - grabNode.y);
+        if (distance > NEARBY_PUSH_RADIUS) continue;
+
+        const falloff = 1 - distance / NEARBY_PUSH_RADIUS;
+        const influence = falloff * falloff;
+        point.vx += grabNode.vx * influence * NEARBY_PUSH;
+        point.vy += grabNode.vy * influence * NEARBY_PUSH;
+      }
+    }
+
+    function integratePoints() {
+      for (const point of points) {
+        if (point.pinned) continue;
+
+        point.vx += (point.baseX - point.x) * BASE_SPRING;
+        point.vy += (point.baseY - point.y) * BASE_SPRING;
+
+        point.vx *= VELOCITY_DAMPING;
+        point.vy *= VELOCITY_DAMPING;
+
+        point.x += point.vx;
+        point.y += point.vy;
+
+        point.x = clamp(point.x, -32, width + 32);
+        point.y = clamp(point.y, -32, height + 32);
+      }
+    }
+
+    function solveConstraints() {
+      for (let iteration = 0; iteration < CONSTRAINT_ITERATIONS; iteration += 1) {
+        for (const constraint of constraints) {
+          const a = points[constraint.a];
+          const b = points[constraint.b];
+
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const distance = Math.hypot(dx, dy);
+          if (distance < 0.0001) continue;
+
+          const diff = (distance - constraint.restLength) / distance;
+
+          if (a.pinned && b.pinned) continue;
+
+          if (a.pinned) {
+            b.x -= dx * diff * CONSTRAINT_STIFFNESS;
+            b.y -= dy * diff * CONSTRAINT_STIFFNESS;
+          } else if (b.pinned) {
+            a.x += dx * diff * CONSTRAINT_STIFFNESS;
+            a.y += dy * diff * CONSTRAINT_STIFFNESS;
+          } else {
+            const correctionX = dx * diff * 0.5 * CONSTRAINT_STIFFNESS;
+            const correctionY = dy * diff * 0.5 * CONSTRAINT_STIFFNESS;
+            a.x += correctionX;
+            a.y += correctionY;
+            b.x -= correctionX;
+            b.y -= correctionY;
+          }
+        }
+      }
+
+      for (const constraint of constraints) {
+        const a = points[constraint.a];
+        const b = points[constraint.b];
+        const distance = Math.hypot(b.x - a.x, b.y - a.y);
+        const rawTension =
+          Math.abs(distance - constraint.restLength) / Math.max(constraint.restLength, 0.0001);
+        constraint.tension = clamp(rawTension, 0, MAX_TENSION);
+      }
+    }
+
+    function drawMesh() {
+      ctx.lineCap = "round";
+
+      for (let index = 0; index < constraints.length; index += 1) {
+        const constraint = constraints[index];
+        const a = points[constraint.a];
+        const b = points[constraint.b];
+
+        let alpha = theme.baseAlpha + Math.min(constraint.tension * theme.tensionBoost, 0.3);
+
+        if (index === activeSegmentIndex && activeSegmentDistance < SEGMENT_GRAB_DISTANCE) {
+          const boost = 1 - activeSegmentDistance / SEGMENT_GRAB_DISTANCE;
+          alpha += boost * theme.grabBoost;
+        }
+
+        if (alpha < 0.012) continue;
+
+        const lineWidth = theme.lineWidth + Math.min(constraint.tension * 0.9, 0.7) * 0.24;
+
+        ctx.lineWidth = lineWidth;
+        ctx.strokeStyle = `rgba(${theme.line}, ${alpha})`;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+
+      for (const point of points) {
+        const radius = point.pinned ? 0.7 : 0.55;
+        const alpha = point.pinned ? theme.pointAlpha * 0.85 : theme.pointAlpha;
+
+        ctx.fillStyle = `rgba(${theme.point}, ${alpha})`;
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
 
     function animate(now: number) {
@@ -187,57 +544,12 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
       ctx.clearRect(0, 0, width, height);
 
-      const pointerSpeed = Math.hypot(pointer.vx, pointer.vy);
-      const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 620;
-      const motionBoost = clamp(pointerSpeed * 5.5, 0, 1);
-      const haloStrength = pointerRecentlyActive
-        ? haloTheme.activeStrength
-        : haloTheme.idleStrength;
-      const viewportScale = clamp(Math.min(width, height) / 900, 0.72, 1.24);
+      const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 520;
 
-      const drawHalo = (
-        centerX: number,
-        centerY: number,
-        radius: number,
-        centerAlpha: number,
-        edgeAlpha: number
-      ) => {
-        const gradient = ctx.createRadialGradient(
-          centerX,
-          centerY,
-          0,
-          centerX,
-          centerY,
-          radius
-        );
-
-        const centerOpacity = centerAlpha * haloStrength * haloTheme.alphaScale;
-        const edgeOpacity = edgeAlpha * haloStrength * haloTheme.alphaScale;
-
-        gradient.addColorStop(0, `rgba(${haloTheme.inner}, ${centerOpacity})`);
-        gradient.addColorStop(0.36, `rgba(${haloTheme.middle}, ${edgeOpacity})`);
-        gradient.addColorStop(0.72, `rgba(${haloTheme.outer}, ${edgeOpacity * 0.52})`);
-        gradient.addColorStop(1, `rgba(${haloTheme.outer}, 0)`);
-
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-        ctx.fill();
-      };
-
-      HALO_CIRCLES.forEach((circle) => {
-        const radius =
-          (circle.baseRadius + motionBoost * circle.radiusBoost) *
-          viewportScale *
-          HALO_SIZE_MULTIPLIER;
-        drawHalo(
-          pointer.x,
-          pointer.y,
-          radius,
-          isDark ? circle.centerAlphaDark : circle.centerAlphaLight,
-          isDark ? circle.edgeAlphaDark : circle.edgeAlphaLight
-        );
-      });
+      applyMouseInteraction(pointerRecentlyActive);
+      integratePoints();
+      solveConstraints();
+      drawMesh();
 
       rafId = window.requestAnimationFrame(animate);
     }
@@ -250,11 +562,13 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
     window.addEventListener("pointermove", updatePointer, { passive: true });
     window.addEventListener("pointerleave", deactivatePointer);
+    window.addEventListener("blur", deactivatePointer);
 
     return () => {
       resizeObserver.disconnect();
       window.removeEventListener("pointermove", updatePointer);
       window.removeEventListener("pointerleave", deactivatePointer);
+      window.removeEventListener("blur", deactivatePointer);
       window.cancelAnimationFrame(rafId);
     };
   }, [isDark]);
