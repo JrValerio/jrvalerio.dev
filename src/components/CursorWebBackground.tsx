@@ -53,6 +53,8 @@ const VELOCITY_DAMPING = 0.9;
 const CONSTRAINT_ITERATIONS = 7;
 const CONSTRAINT_STIFFNESS = 0.92;
 const MAX_TENSION = 1.3;
+const RELEASE_TENSION = 0.55;
+const RELEASE_COOLDOWN_MS = 260;
 
 const SEGMENT_GRAB_DISTANCE = 72;
 const SEGMENT_GRAB_SPRING = 0.1;
@@ -243,6 +245,7 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
     let constraints: MeshConstraint[] = [];
     let activeSegmentIndex = -1;
     let activeSegmentDistance = Number.POSITIVE_INFINITY;
+    let grabCooldownUntil = 0;
 
     const grabNode: GrabNodeState = {
       active: false,
@@ -285,6 +288,7 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       grabNode.vy = 0;
       grabNode.x = centerX;
       grabNode.y = centerY;
+      grabCooldownUntil = 0;
 
       const mesh = createWebMesh(width, height);
       points = mesh.points;
@@ -293,13 +297,16 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
     function updatePointer(event: PointerEvent) {
       const rect = canvasEl.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+      const rawX = event.clientX - rect.left;
+      const rawY = event.clientY - rect.top;
 
-      if (x < 0 || x > width || y < 0 || y > height) {
+      if (rawX < 0 || rawX > width || rawY < 0 || rawY > height) {
         pointer.active = false;
         return;
       }
+
+      const x = clamp(rawX, 0, width);
+      const y = clamp(rawY, 0, height);
 
       if (!pointer.active) {
         pointer.x = x;
@@ -323,6 +330,7 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       grabNode.constraintIndex = -1;
       grabNode.vx = 0;
       grabNode.vy = 0;
+      grabCooldownUntil = 0;
     }
 
     function findNearestSegment(mouseX: number, mouseY: number): SegmentHit | null {
@@ -349,11 +357,17 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       return bestHit;
     }
 
-    function applyMouseInteraction(pointerRecentlyActive: boolean) {
+    function applyMouseInteraction(pointerRecentlyActive: boolean, now: number) {
       activeSegmentIndex = -1;
       activeSegmentDistance = Number.POSITIVE_INFINITY;
 
       if (!pointerRecentlyActive) {
+        grabNode.active = false;
+        grabNode.constraintIndex = -1;
+        return;
+      }
+
+      if (now < grabCooldownUntil) {
         grabNode.active = false;
         grabNode.constraintIndex = -1;
         return;
@@ -368,6 +382,15 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
       activeSegmentIndex = hit.constraintIndex;
       activeSegmentDistance = hit.distance;
+
+      if (constraints[hit.constraintIndex].tension > RELEASE_TENSION) {
+        grabNode.active = false;
+        grabNode.constraintIndex = -1;
+        activeSegmentIndex = -1;
+        activeSegmentDistance = Number.POSITIVE_INFINITY;
+        grabCooldownUntil = now + RELEASE_COOLDOWN_MS;
+        return;
+      }
 
       if (
         !grabNode.active ||
@@ -546,7 +569,7 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
 
       const pointerRecentlyActive = pointer.active || now - pointer.lastMoveAt < 520;
 
-      applyMouseInteraction(pointerRecentlyActive);
+      applyMouseInteraction(pointerRecentlyActive, now);
       integratePoints();
       solveConstraints();
       drawMesh();
