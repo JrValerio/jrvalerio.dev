@@ -55,6 +55,7 @@ const CONSTRAINT_STIFFNESS = 0.92;
 const MAX_TENSION = 1.3;
 const RELEASE_TENSION = 0.55;
 const RELEASE_COOLDOWN_MS = 260;
+const SNAP_IMPULSE = 0.55;
 
 const SEGMENT_GRAB_DISTANCE = 72;
 const SEGMENT_GRAB_SPRING = 0.1;
@@ -384,6 +385,31 @@ export default function CursorWebBackground({ isDark }: CursorWebBackgroundProps
       activeSegmentDistance = hit.distance;
 
       if (constraints[hit.constraintIndex].tension > RELEASE_TENSION) {
+        if (SNAP_IMPULSE > 0) {
+          const snapped = constraints[hit.constraintIndex];
+          const a = points[snapped.a];
+          const b = points[snapped.b];
+
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const length = Math.hypot(dx, dy) || 1;
+          const nx = dx / length;
+          const ny = dy / length;
+
+          const impulseA = (1 - hit.t) * SNAP_IMPULSE;
+          const impulseB = hit.t * SNAP_IMPULSE;
+
+          if (!a.pinned) {
+            a.vx -= nx * impulseA * 18;
+            a.vy -= ny * impulseA * 18;
+          }
+
+          if (!b.pinned) {
+            b.vx += nx * impulseB * 18;
+            b.vy += ny * impulseB * 18;
+          }
+        }
+
         grabNode.active = false;
         grabNode.constraintIndex = -1;
         activeSegmentIndex = -1;
