@@ -120,6 +120,62 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         <p className="jr-body max-w-3xl text-[var(--jr-muted)]">{currentProject.solution}</p>
       </Section>
 
+      <Section title="Architecture" subtitle="Camadas principais da solucao em producao.">
+        <div className="grid gap-3">
+          {currentProject.architecture.map((item) => (
+            <article
+              key={`${currentProject.slug}-${item.layer}`}
+              className="rounded-lg border border-[var(--jr-border)] bg-[var(--jr-surface)] px-4 py-4"
+            >
+              <p className="jr-meta mb-2">{item.layer}</p>
+              <p className="text-sm text-[var(--jr-text)]">{item.detail}</p>
+            </article>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Key Features" subtitle="Capacidades centrais entregues no produto.">
+        <ul className="grid gap-2">
+          {currentProject.keyFeatures.map((feature) => (
+            <li
+              key={`${currentProject.slug}-${feature}`}
+              className="rounded-lg border border-[var(--jr-border)] bg-[var(--jr-surface)] px-4 py-3 text-sm text-[var(--jr-text)]"
+            >
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section
+        title="Technical Challenges"
+        subtitle="Decisoes tecnicas para equilibrar qualidade, entrega e escalabilidade."
+      >
+        <ul className="grid gap-2">
+          {currentProject.technicalChallenges.map((challenge) => (
+            <li
+              key={`${currentProject.slug}-${challenge}`}
+              className="rounded-lg border border-[var(--jr-border)] bg-[var(--jr-surface)] px-4 py-3 text-sm text-[var(--jr-text)]"
+            >
+              {challenge}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section title="Tech Stack" subtitle="Ferramentas principais usadas na implementacao.">
+        <div className="flex flex-wrap gap-2">
+          {currentProject.stack.map((item) => (
+            <span
+              key={`${currentProject.slug}-stack-${item}`}
+              className="rounded-full border border-[var(--jr-border)] px-3 py-1 text-xs text-[var(--jr-muted)]"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </Section>
+
       <Section title="Impact" subtitle="Resultado e valor de negocio percebido.">
         <p className="jr-body max-w-3xl text-[var(--jr-muted)]">{currentProject.impact}</p>
         <ul className="mt-6 grid gap-2">

@@ -15,7 +15,7 @@ export default function V2HomePage() {
   return (
     <>
       <Hero />
-      <Work limit={3} />
+      <Work limit={4} />
       <About />
       <Stack />
       <Contact />
