@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Section from "../../../../components/UI/Section";
 import CaseStudyViewTracker from "../../../../components/CaseStudyViewTracker";
+import Metrics from "../../../../components/Metrics";
 import ProjectOutboundLinks from "../../../../components/ProjectOutboundLinks";
 import { getProjectBySlug, projects } from "../../../../data/projects";
 import type { Project } from "../../../../data/projects";
@@ -88,6 +89,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </p>
           </div>
 
+          <Metrics metrics={currentProject.metrics} />
+
           <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-xl border border-[var(--jr-border)]">
             <Image
               src={currentProject.cover}
@@ -132,6 +135,18 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </article>
           ))}
         </div>
+
+        {currentProject.architectureDiagram ? (
+          <div className="mt-8 overflow-hidden rounded-xl border border-[var(--jr-border)] bg-[var(--jr-surface)] p-4">
+            <Image
+              src={currentProject.architectureDiagram}
+              alt={`Diagrama de arquitetura do projeto ${currentProject.title}`}
+              width={900}
+              height={400}
+              className="h-auto w-full"
+            />
+          </div>
+        ) : null}
       </Section>
 
       <Section title="Key Features" subtitle="Capacidades centrais entregues no produto.">
@@ -188,7 +203,22 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </li>
           ))}
         </ul>
+      </Section>
 
+      <Section title="Next Iteration" subtitle="Evolucoes previstas para os proximos ciclos.">
+        <ul className="grid gap-2">
+          {currentProject.nextIteration.map((item) => (
+            <li
+              key={`${currentProject.slug}-next-${item}`}
+              className="rounded-lg border border-[var(--jr-border)] bg-[var(--jr-surface)] px-4 py-3 text-sm text-[var(--jr-text)]"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section title="Links" subtitle="Acesso direto ao produto e ao codigo fonte.">
         <ProjectOutboundLinks
           slug={currentProject.slug}
           category={currentProject.category}

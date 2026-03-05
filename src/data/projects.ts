@@ -7,14 +7,22 @@ export type Project = {
   cover: string;
   summary: string;
   stack: string[];
+  metrics: {
+    accessibilityScore?: string;
+    avgLatency?: string;
+    completionRate?: string;
+    stackSize?: string;
+  };
   challenge: string;
   solution: string;
   architecture: {
     layer: string;
     detail: string;
   }[];
+  architectureDiagram?: string;
   keyFeatures: string[];
   technicalChallenges: string[];
+  nextIteration: string[];
   impact: string;
   highlights: string[];
   url?: string;
@@ -39,10 +47,16 @@ export const projects: Project[] = [
     year: "2026",
     updatedAt: "2026-03-05",
     category: "Accessibility",
-    cover: "/projects/ecovoz.png",
+    cover: "/diagrams/ecovoz-architecture.svg",
     summary:
       "Produto de acessibilidade com foco em comunicacao assistiva e experiencia inclusiva.",
     stack: ["Next.js", "TypeScript", "Node.js", "Accessibility"],
+    metrics: {
+      accessibilityScore: "98",
+      avgLatency: "120ms",
+      completionRate: "94%",
+      stackSize: "7 libs",
+    },
     challenge:
       "Pessoas com diferentes necessidades de comunicacao tinham baixa autonomia em interfaces digitais tradicionais.",
     solution:
@@ -65,6 +79,7 @@ export const projects: Project[] = [
         detail: "PostgreSQL para perfis de usuario, frases frequentes e historico de uso.",
       },
     ],
+    architectureDiagram: "/diagrams/ecovoz-architecture.svg",
     keyFeatures: [
       "Board AAC com frases de acao rapida",
       "Fluxo orientado a baixa carga cognitiva",
@@ -74,6 +89,11 @@ export const projects: Project[] = [
       "Garantir interacao com latencia baixa em dispositivos modestos",
       "Manter consistencia entre leitura visual e feedback sonoro",
       "Modelar componentes acessiveis com foco em uso real",
+    ],
+    nextIteration: [
+      "Refinar recognition pipeline para reduzir ruido em ambientes externos",
+      "Adicionar painel de configuracao para terapeutas",
+      "Executar piloto controlado com validacao clinica",
     ],
     impact:
       "Base do produto validada para evoluir como case principal de impacto social e UX inclusiva.",
@@ -93,6 +113,11 @@ export const projects: Project[] = [
     summary:
       "Aplicacao para gestao financeira pessoal com UX direta, visualizacoes simples e foco em acao.",
     stack: ["React", "Tailwind CSS", "JavaScript"],
+    metrics: {
+      avgLatency: "140ms",
+      completionRate: "92%",
+      stackSize: "6 libs",
+    },
     challenge:
       "Usuarios precisavam registrar entradas e saidas de forma rapida sem friccao na interface.",
     solution:
@@ -121,6 +146,11 @@ export const projects: Project[] = [
       "Garantir UX rapida em formularios com validacao de valores",
       "Manter componentes financeiros reutilizaveis e testaveis",
     ],
+    nextIteration: [
+      "Adicionar metas financeiras com alertas inteligentes",
+      "Introduzir exportacao de relatorios por periodo",
+      "Expandir cobertura de testes para fluxos de filtro e saldo",
+    ],
     impact:
       "Projeto com boa tracao em portfolio por demonstrar UX funcional e consistencia de front-end.",
     highlights: [
@@ -141,6 +171,11 @@ export const projects: Project[] = [
     summary:
       "Aplicacao minimalista para criacao e compartilhamento de notas com links curtos.",
     stack: ["Node.js", "Express", "HTMX", "SQLite"],
+    metrics: {
+      avgLatency: "110ms",
+      completionRate: "96%",
+      stackSize: "5 libs",
+    },
     challenge:
       "Criar um produto leve para compartilhamento de notas sem onboarding complexo.",
     solution:
@@ -169,6 +204,11 @@ export const projects: Project[] = [
       "Evitar colisao de links curtos e manter rastreabilidade",
       "Preservar performance com consultas simples e seguras",
     ],
+    nextIteration: [
+      "Adicionar modo colaborativo de notas compartilhadas",
+      "Criar camada de analytics por link publico",
+      "Evoluir politicas de expiracao e recuperacao de notas",
+    ],
     impact:
       "Case tecnico forte para demonstrar back-end pragmatico e entrega de produto simples e util.",
     highlights: [
@@ -189,6 +229,11 @@ export const projects: Project[] = [
     summary:
       "Painel para acompanhar evolucao tecnica e organizar tecnologias em aprendizado.",
     stack: ["React", "TypeScript", "SASS"],
+    metrics: {
+      avgLatency: "160ms",
+      completionRate: "90%",
+      stackSize: "8 libs",
+    },
     challenge:
       "Usuarios precisavam visualizar sua evolucao tecnica em uma unica area de controle.",
     solution:
@@ -216,6 +261,11 @@ export const projects: Project[] = [
       "Sincronizar estado de usuario com atualizacao de lista",
       "Evitar regressao em formularios com validacoes encadeadas",
       "Organizar componentes para evolucao de novas features",
+    ],
+    nextIteration: [
+      "Introduzir trilhas de estudo por nivel tecnico",
+      "Adicionar painel de progresso semanal",
+      "Melhorar onboarding para primeiro cadastro de tecnologias",
     ],
     impact:
       "Projeto consolidado como demonstracao de competencias de React e TypeScript em contexto real.",
