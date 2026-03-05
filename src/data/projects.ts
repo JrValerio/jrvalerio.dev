@@ -1,3 +1,23 @@
+export type ProjectMetrics = {
+  accessibilityScore?: string;
+  avgLatency?: string;
+  completionRate?: string;
+  stackSize?: string;
+};
+
+export type Tech =
+  | "Accessibility"
+  | "Express"
+  | "HTMX"
+  | "JavaScript"
+  | "Next.js"
+  | "Node.js"
+  | "React"
+  | "SASS"
+  | "SQLite"
+  | "Tailwind CSS"
+  | "TypeScript";
+
 export type Project = {
   slug: string;
   title: string;
@@ -6,13 +26,8 @@ export type Project = {
   category: string;
   cover: string;
   summary: string;
-  stack: string[];
-  metrics: {
-    accessibilityScore?: string;
-    avgLatency?: string;
-    completionRate?: string;
-    stackSize?: string;
-  };
+  stack: Tech[];
+  metrics?: ProjectMetrics;
   challenge: string;
   solution: string;
   architecture: {
@@ -40,7 +55,7 @@ export type ArchivedProject = {
   repo?: string;
 };
 
-export const projects: Project[] = [
+const projectEntries: Project[] = [
   {
     slug: "ecovoz",
     title: "EcoVoz",
@@ -278,6 +293,10 @@ export const projects: Project[] = [
     repo: "https://github.com/JrValerio/Kenzie-Hub",
   },
 ];
+
+export const projects: Project[] = [...projectEntries].sort((a, b) =>
+  b.updatedAt.localeCompare(a.updatedAt)
+);
 
 export function getProjectBySlug(slug: string) {
   return projects.find((project) => project.slug === slug);
