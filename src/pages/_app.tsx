@@ -5,6 +5,7 @@ import Head from "next/head";
 import { ThemeProvider } from "next-themes";
 import { appWithTranslation } from "next-i18next";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/react";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
 import nextI18NextConfig from "../../next-i18next.config";
@@ -38,6 +39,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         toastOptions={{ style: { zIndex: 999999 } }}
       />
       {getLayout(<Component {...pageProps} />)}
+      <Analytics />
     </ThemeProvider>
   );
 }

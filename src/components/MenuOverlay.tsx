@@ -44,6 +44,7 @@ export default function MenuOverlay({ open, onClose }: MenuOverlayProps) {
     { href: "/projetos", label: t("header.projects") },
     { href: "/contato", label: t("header.contact") },
     { href: "/cv", label: t("header.cv", "CV") },
+    { href: "/v2", label: "V2" },
   ];
   const activeLocale = router.locale ?? "pt";
 
