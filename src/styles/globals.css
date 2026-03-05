@@ -157,6 +157,47 @@ html, body {
   color: var(--jr-accent);
 }
 
+@keyframes jrRevealUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.jr-reveal {
+  opacity: 0;
+  animation: jrRevealUp 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.jr-reveal-delay-1 {
+  animation-delay: 80ms;
+}
+
+.jr-reveal-delay-2 {
+  animation-delay: 170ms;
+}
+
+.jr-reveal-delay-3 {
+  animation-delay: 260ms;
+}
+
+.jr-reveal-delay-4 {
+  animation-delay: 350ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jr-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @media (max-width: 768px) {
   .jr-container {
     padding-left: 20px;
