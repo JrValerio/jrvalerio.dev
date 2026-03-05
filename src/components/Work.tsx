@@ -19,7 +19,7 @@ export default function Work({
 
   return (
     <Section id="work" title={title} subtitle={subtitle}>
-      <div className="grid gap-4 md:grid-cols-2">
+      <div>
         {items.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">EcoVoz Architecture Diagram</title>
+  <desc id="desc">Flow from user to frontend, interaction layer, api gateway, ai engine and database.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#10151a"/>
+    </linearGradient>
+    <style>
+      .box { fill: #111111; stroke: #2a2f36; stroke-width: 2; rx: 14; }
+      .title { fill: #eaeaea; font: 700 22px Arial, sans-serif; }
+      .text { fill: #9ca3af; font: 500 15px Arial, sans-serif; }
+      .arrow { stroke: #4ade80; stroke-width: 3; marker-end: url(#arrowhead); }
+      .label { fill: #4ade80; font: 600 13px Arial, sans-serif; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="#4ade80"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="520" fill="url(#bg)"/>
+
+  <rect class="box" x="80" y="170" width="180" height="120"/>
+  <text class="title" x="130" y="220">User</text>
+  <text class="text" x="116" y="250">Voice / Touch</text>
+
+  <rect class="box" x="320" y="120" width="220" height="120"/>
+  <text class="title" x="355" y="170">Frontend</text>
+  <text class="text" x="350" y="198">Next.js + TypeScript</text>
+
+  <rect class="box" x="320" y="280" width="220" height="120"/>
+  <text class="title" x="342" y="330">Interaction</text>
+  <text class="text" x="348" y="358">Web Speech + MediaPipe</text>
+
+  <rect class="box" x="600" y="120" width="220" height="120"/>
+  <text class="title" x="625" y="170">API Gateway</text>
+  <text class="text" x="652" y="198">Node.js</text>
+
+  <rect class="box" x="600" y="280" width="220" height="120"/>
+  <text class="title" x="640" y="330">AI Engine</text>
+  <text class="text" x="653" y="358">Python</text>
+
+  <rect class="box" x="880" y="200" width="220" height="120"/>
+  <text class="title" x="924" y="250">Database</text>
+  <text class="text" x="938" y="278">PostgreSQL</text>
+
+  <line class="arrow" x1="260" y1="230" x2="320" y2="180"/>
+  <line class="arrow" x1="260" y1="230" x2="320" y2="340"/>
+  <line class="arrow" x1="540" y1="180" x2="600" y2="180"/>
+  <line class="arrow" x1="540" y1="340" x2="600" y2="340"/>
+  <line class="arrow" x1="820" y1="180" x2="880" y2="240"/>
+  <line class="arrow" x1="820" y1="340" x2="880" y2="280"/>
+
+  <text class="label" x="442" y="112">Presentation Layer</text>
+  <text class="label" x="406" y="272">Multimodal Interaction Layer</text>
+  <text class="label" x="673" y="112">Service Layer</text>
+  <text class="label" x="662" y="272">Inference Layer</text>
+  <text class="label" x="940" y="192">Persistence</text>
+</svg>

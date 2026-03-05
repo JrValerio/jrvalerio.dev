@@ -9,14 +9,16 @@ export default function About() {
     >
       <div className="max-w-3xl space-y-4">
         <p className="jr-body text-[var(--jr-muted)]">
-          Sou desenvolvedor Full-Stack com foco em React, Next.js, TypeScript e Node.js.
-          Gosto de transformar problemas de negocio em interfaces objetivas e sistemas
-          confiaveis.
+          Full-stack developer focado em construir tecnologia acessivel com React, Next.js,
+          TypeScript e Node.js.
         </p>
         <p className="jr-body text-[var(--jr-muted)]">
-          Minha direcao de carreira combina produto, engenharia e performance. O objetivo e
-          entregar experiencias que parecem simples para o usuario, mas sao robustas por
-          baixo.
+          Criador do EcoVoz, uma plataforma de comunicacao assistiva multimodal orientada a
+          impacto real.
+        </p>
+        <p className="jr-body text-[var(--jr-muted)]">
+          Baseado no Brasil, com foco em engenharia de produto, performance e experiencia do
+          usuario.
         </p>
       </div>
     </Section>

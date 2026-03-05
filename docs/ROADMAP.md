@@ -29,16 +29,18 @@ Delivered:
   - Tech Stack
   - Impact
 
-## v1.3 - Premium UX Layer (Planned)
+## v1.3 - Premium UX Layer (Completed)
 
 Objective:
 - Improve perceived quality with refined interaction and visual consistency.
 
-Planned scope:
-- Hero motion polish and micro-interactions.
-- Timeline and section transition refinements.
-- Subtle shader/noise background treatment.
-- Consistent spacing and typography calibration.
+Delivered:
+- Hero motion polish with subtle hover interactions on primary links.
+- Work section converted to a cleaner minimal list style.
+- Case study metrics block rendered from structured domain data.
+- EcoVoz architecture diagram added under `/public/diagrams`.
+- Next Iteration section added to each case study page.
+- About and Stack sections simplified for clearer scanning.
 
 ## v1.4 - Performance and Scalability (Planned)
 

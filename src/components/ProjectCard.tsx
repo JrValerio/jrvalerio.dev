@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import Card from "./UI/Card";
 import type { Project } from "../data/projects";
 import { trackEvent } from "../lib/analytics";
 
@@ -12,42 +10,20 @@ type ProjectCardProps = {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Card className="group flex h-full flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:border-[var(--jr-accent)]">
-      <div>
-        <div className="relative mb-5 aspect-[16/9] overflow-hidden rounded-lg border border-[var(--jr-border)]">
-          <Image
-            src={project.cover}
-            alt={`Preview do projeto ${project.title}`}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            loading="lazy"
-          />
+    <article className="group border-b border-[var(--jr-border)] py-8 transition-colors duration-300 hover:border-[var(--jr-accent)]">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="max-w-3xl">
+          <p className="jr-meta mb-2">{project.category}</p>
+          <h3 className="text-2xl font-semibold tracking-tight text-[var(--jr-text)] transition-transform duration-300 group-hover:translate-x-1">
+            {project.title}
+          </h3>
+          <p className="jr-body mt-4 text-[var(--jr-muted)]">{project.summary}</p>
+          <p className="jr-meta mt-4">{project.stack.join(" • ")}</p>
         </div>
-
-        <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <p className="jr-meta mb-2">{project.category}</p>
-            <h3 className="text-2xl font-semibold text-[var(--jr-text)]">{project.title}</h3>
-          </div>
-          <span className="jr-meta">{project.year}</span>
-        </div>
-
-        <p className="jr-body text-[var(--jr-muted)]">{project.summary}</p>
-
-        <div className="mt-5 flex flex-wrap gap-2">
-          {project.stack.map((tech) => (
-            <span
-              key={`${project.slug}-${tech}`}
-              className="rounded-full border border-[var(--jr-border)] px-3 py-1 text-xs text-[var(--jr-muted)]"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
+        <span className="jr-meta">{project.year}</span>
       </div>
 
-      <div className="mt-8 flex flex-wrap items-center gap-5">
+      <div className="mt-6 flex flex-wrap items-center gap-5">
         <Link
           href={`/v2/projetos/${project.slug}`}
           prefetch
@@ -99,6 +75,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </a>
         ) : null}
       </div>
-    </Card>
+    </article>
   );
 }

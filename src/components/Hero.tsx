@@ -11,7 +11,7 @@ export default function Hero() {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
             className="jr-hero-title"
           >
             Amaro Junior
@@ -20,7 +20,7 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.6 }}
+            transition={{ delay: 0.12, duration: 0.7, ease: "easeOut" }}
             className="jr-hero-subtitle mt-6"
           >
             Full-Stack Developer
@@ -29,7 +29,7 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+            transition={{ delay: 0.24, duration: 0.7, ease: "easeOut" }}
             className="jr-body mt-6 max-w-xl text-[var(--jr-muted)]"
           >
             I build technology that helps people communicate. Creator of EcoVoz.
@@ -38,28 +38,30 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.45, duration: 0.6 }}
+            transition={{ delay: 0.36, duration: 0.7, ease: "easeOut" }}
             className="mt-10 flex flex-wrap gap-6"
           >
-            <a href="#work" className="jr-link">
+            <motion.a whileHover={{ y: -1 }} href="#work" className="jr-link">
               View Work
-            </a>
-            <a
+            </motion.a>
+            <motion.a
+              whileHover={{ y: -1 }}
               href="https://github.com/jrvalerio"
               target="_blank"
               rel="noopener noreferrer"
               className="jr-link"
             >
               GitHub
-            </a>
-            <a
+            </motion.a>
+            <motion.a
+              whileHover={{ y: -1 }}
               href="https://linkedin.com/in/jrvalerio"
               target="_blank"
               rel="noopener noreferrer"
               className="jr-link"
             >
               LinkedIn
-            </a>
+            </motion.a>
           </motion.div>
         </div>
       </Container>
