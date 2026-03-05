@@ -31,6 +31,7 @@ export default function Header({ onMenuOpen }: HeaderProps) {
       className:
         "text-teal-700 dark:text-teal-300 font-semibold underline underline-offset-4 hover:text-teal-500 dark:hover:text-teal-200",
     },
+    { href: "/v2", label: "V2" },
   ];
 
   const languages = ["pt", "en", "es"];

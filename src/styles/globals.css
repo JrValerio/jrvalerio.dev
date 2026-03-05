@@ -1,6 +1,15 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @import "tailwindcss";
 
+:root {
+  --jr-background: #0a0a0a;
+  --jr-surface: #111111;
+  --jr-text: #eaeaea;
+  --jr-muted: #9ca3af;
+  --jr-accent: #4ade80;
+  --jr-border: #1f1f1f;
+}
+
 html, body {
   height: 100%;
   width: 100%;
@@ -75,5 +84,88 @@ html, body {
 .animate-bgZoomMove {
   animation: bgZoomMove 30s ease-in-out infinite alternate;
   will-change: transform;
+}
+
+.jr-theme {
+  background-color: var(--jr-background);
+  color: var(--jr-text);
+  font-family: var(--font-geist), "Inter", system-ui, sans-serif;
+}
+
+.jr-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.jr-section {
+  border-top: 1px solid var(--jr-border);
+  padding-top: 88px;
+  padding-bottom: 88px;
+}
+
+.jr-hero-title {
+  font-size: clamp(2.3rem, 7vw, 3.5rem);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--jr-text);
+}
+
+.jr-hero-subtitle {
+  font-size: clamp(1.25rem, 2.8vw, 1.75rem);
+  line-height: 1.2;
+  color: var(--jr-muted);
+}
+
+.jr-section-title {
+  font-size: clamp(1.7rem, 4vw, 2rem);
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--jr-text);
+}
+
+.jr-section-subtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--jr-muted);
+  max-width: 680px;
+}
+
+.jr-body {
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.jr-meta {
+  font-size: 0.875rem;
+  color: var(--jr-muted);
+  letter-spacing: 0.04em;
+}
+
+.jr-link {
+  font-size: 0.95rem;
+  color: var(--jr-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: color 150ms ease-in-out;
+}
+
+.jr-link:hover {
+  color: var(--jr-accent);
+}
+
+@media (max-width: 768px) {
+  .jr-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .jr-section {
+    padding-top: 68px;
+    padding-bottom: 68px;
+  }
 }
   
