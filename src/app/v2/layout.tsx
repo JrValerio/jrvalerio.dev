@@ -6,7 +6,6 @@ const navLinks = [
   { href: "/v2/projetos", label: "Projetos" },
   { href: "/v2/sobre", label: "Sobre" },
   { href: "/v2/contato", label: "Contato" },
-  { href: "/", label: "Versao Atual" },
 ];
 
 export default function V2Layout({ children }: { children: ReactNode }) {

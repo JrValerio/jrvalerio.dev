@@ -11,6 +11,15 @@ module.exports = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/v2",
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     return [
       {
