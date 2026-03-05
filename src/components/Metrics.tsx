@@ -1,10 +1,7 @@
+import type { ProjectMetrics } from "../data/projects";
+
 type MetricsProps = {
-  metrics: {
-    accessibilityScore?: string;
-    avgLatency?: string;
-    completionRate?: string;
-    stackSize?: string;
-  };
+  metrics?: ProjectMetrics;
 };
 
 const metricLabels = {
@@ -15,6 +12,8 @@ const metricLabels = {
 } as const;
 
 export default function Metrics({ metrics }: MetricsProps) {
+  if (!metrics) return null;
+
   const entries = Object.entries(metrics).filter(([, value]) => Boolean(value)) as Array<
     [keyof typeof metricLabels, string]
   >;
