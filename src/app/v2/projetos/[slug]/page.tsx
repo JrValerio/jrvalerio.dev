@@ -1,22 +1,13 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Section from "../../../../components/UI/Section";
 import CaseStudyViewTracker from "../../../../components/CaseStudyViewTracker";
+import Metrics from "../../../../components/Metrics";
 import ProjectOutboundLinks from "../../../../components/ProjectOutboundLinks";
 import { getProjectBySlug, projects } from "../../../../data/projects";
 import type { Project } from "../../../../data/projects";
-
-const Metrics = dynamic(() => import("../../../../components/Metrics"), {
-  loading: () => (
-    <div className="mt-8 grid gap-3 sm:grid-cols-2">
-      <div className="h-20 animate-pulse rounded-lg bg-[var(--jr-surface)]" />
-      <div className="h-20 animate-pulse rounded-lg bg-[var(--jr-surface)]" />
-    </div>
-  ),
-});
 
 type PageProps = {
   params: Promise<{ slug: string }>;

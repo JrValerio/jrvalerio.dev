@@ -22,7 +22,7 @@ export type Project = {
   slug: string;
   title: string;
   year: string;
-  updatedAt: string;
+  updatedAt: Date;
   category: string;
   cover: string;
   summary: string;
@@ -60,7 +60,7 @@ const projectEntries: Project[] = [
     slug: "ecovoz",
     title: "EcoVoz",
     year: "2026",
-    updatedAt: "2026-03-05",
+    updatedAt: new Date("2026-03-05"),
     category: "Accessibility",
     cover: "/diagrams/ecovoz-architecture.svg",
     summary:
@@ -122,7 +122,7 @@ const projectEntries: Project[] = [
     slug: "control-finance",
     title: "Control Finance",
     year: "2025",
-    updatedAt: "2025-11-10",
+    updatedAt: new Date("2025-11-10"),
     category: "Fintech",
     cover: "/projects/control-finance.jpg",
     summary:
@@ -180,7 +180,7 @@ const projectEntries: Project[] = [
     slug: "postit",
     title: "Post-it Share App",
     year: "2025",
-    updatedAt: "2025-08-20",
+    updatedAt: new Date("2025-08-20"),
     category: "Productivity",
     cover: "/projects/postit.jpg",
     summary:
@@ -238,7 +238,7 @@ const projectEntries: Project[] = [
     slug: "kenzie-hub",
     title: "Kenzie Hub",
     year: "2024",
-    updatedAt: "2024-10-05",
+    updatedAt: new Date("2024-10-05"),
     category: "Education",
     cover: "/projects/kenzie-hub.jpg",
     summary:
@@ -295,7 +295,7 @@ const projectEntries: Project[] = [
 ];
 
 export const projects: Project[] = [...projectEntries].sort((a, b) =>
-  b.updatedAt.localeCompare(a.updatedAt)
+  b.updatedAt.getTime() - a.updatedAt.getTime()
 );
 
 export function getProjectBySlug(slug: string) {
