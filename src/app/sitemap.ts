@@ -25,6 +25,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/v2/archive`,
+      lastModified: siteLastModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
       url: `${baseUrl}/v2/sobre`,
       lastModified: siteLastModified,
       changeFrequency: "monthly",

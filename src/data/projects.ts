@@ -9,8 +9,25 @@ export type Project = {
   stack: string[];
   challenge: string;
   solution: string;
+  architecture: {
+    layer: string;
+    detail: string;
+  }[];
+  keyFeatures: string[];
+  technicalChallenges: string[];
   impact: string;
   highlights: string[];
+  url?: string;
+  repo?: string;
+};
+
+export type ArchivedProject = {
+  slug: string;
+  title: string;
+  year: string;
+  category: string;
+  summary: string;
+  stack: string[];
   url?: string;
   repo?: string;
 };
@@ -30,6 +47,34 @@ export const projects: Project[] = [
       "Pessoas com diferentes necessidades de comunicacao tinham baixa autonomia em interfaces digitais tradicionais.",
     solution:
       "Desenho de fluxo assistivo com foco em legibilidade, navegacao reduzida e componentes com semantica forte.",
+    architecture: [
+      {
+        layer: "Frontend",
+        detail: "Next.js + TypeScript para SSR, acessibilidade semantica e UI responsiva.",
+      },
+      {
+        layer: "Interaction Layer",
+        detail: "Entrada multimodal com voz, teclado e componentes de comunicacao assistiva.",
+      },
+      {
+        layer: "API",
+        detail: "Node.js para orquestracao de intents, sessao e persistencia de contexto.",
+      },
+      {
+        layer: "Data",
+        detail: "PostgreSQL para perfis de usuario, frases frequentes e historico de uso.",
+      },
+    ],
+    keyFeatures: [
+      "Board AAC com frases de acao rapida",
+      "Fluxo orientado a baixa carga cognitiva",
+      "Navegacao reduzida para uso assistivo",
+    ],
+    technicalChallenges: [
+      "Garantir interacao com latencia baixa em dispositivos modestos",
+      "Manter consistencia entre leitura visual e feedback sonoro",
+      "Modelar componentes acessiveis com foco em uso real",
+    ],
     impact:
       "Base do produto validada para evoluir como case principal de impacto social e UX inclusiva.",
     highlights: [
@@ -52,6 +97,30 @@ export const projects: Project[] = [
       "Usuarios precisavam registrar entradas e saidas de forma rapida sem friccao na interface.",
     solution:
       "Experiencia centrada em tarefas com filtros claros, feedback imediato e leitura visual do saldo.",
+    architecture: [
+      {
+        layer: "Frontend",
+        detail: "React + Tailwind para fluxo de lancamentos e leitura de saldo.",
+      },
+      {
+        layer: "State Management",
+        detail: "Estado local e derivado para filtros, categorias e consolidacao de valores.",
+      },
+      {
+        layer: "Persistence",
+        detail: "Camada de armazenamento para manter transacoes e preferencias de visualizacao.",
+      },
+    ],
+    keyFeatures: [
+      "Cadastro de entradas e saidas em poucos passos",
+      "Filtros por tipo de transacao e categoria",
+      "Resumo financeiro com leitura visual direta",
+    ],
+    technicalChallenges: [
+      "Evitar inconsistencias no calculo de saldo em atualizacoes sequenciais",
+      "Garantir UX rapida em formularios com validacao de valores",
+      "Manter componentes financeiros reutilizaveis e testaveis",
+    ],
     impact:
       "Projeto com boa tracao em portfolio por demonstrar UX funcional e consistencia de front-end.",
     highlights: [
@@ -76,6 +145,30 @@ export const projects: Project[] = [
       "Criar um produto leve para compartilhamento de notas sem onboarding complexo.",
     solution:
       "Stack enxuta com server rendering progressivo e foco em velocidade de criacao/compartilhamento.",
+    architecture: [
+      {
+        layer: "Web Layer",
+        detail: "Node.js + Express para rotas simples de criacao e leitura de notas.",
+      },
+      {
+        layer: "Interaction",
+        detail: "HTMX para atualizacoes parciais sem SPA completa.",
+      },
+      {
+        layer: "Data",
+        detail: "SQLite para persistencia local e custo operacional baixo.",
+      },
+    ],
+    keyFeatures: [
+      "Criacao de notas em poucos cliques",
+      "Compartilhamento por link curto",
+      "Fluxo sem cadastro para uso imediato",
+    ],
+    technicalChallenges: [
+      "Balancear simplicidade de UX com robustez minima de backend",
+      "Evitar colisao de links curtos e manter rastreabilidade",
+      "Preservar performance com consultas simples e seguras",
+    ],
     impact:
       "Case tecnico forte para demonstrar back-end pragmatico e entrega de produto simples e util.",
     highlights: [
@@ -100,6 +193,30 @@ export const projects: Project[] = [
       "Usuarios precisavam visualizar sua evolucao tecnica em uma unica area de controle.",
     solution:
       "Dashboard para gerenciar habilidades com foco em estado global e experiencias de formulario.",
+    architecture: [
+      {
+        layer: "Frontend",
+        detail: "React + TypeScript para dashboard com formularios e componentes reutilizaveis.",
+      },
+      {
+        layer: "State",
+        detail: "Gerenciamento de estado para autenticacao e atualizacao de tecnologias.",
+      },
+      {
+        layer: "UX",
+        detail: "Fluxos de cadastro e edicao com feedback de acao e validacao.",
+      },
+    ],
+    keyFeatures: [
+      "Gestao de tecnologias por usuario",
+      "CRUD de niveis de conhecimento",
+      "Dashboard com foco em progresso tecnico",
+    ],
+    technicalChallenges: [
+      "Sincronizar estado de usuario com atualizacao de lista",
+      "Evitar regressao em formularios com validacoes encadeadas",
+      "Organizar componentes para evolucao de novas features",
+    ],
     impact:
       "Projeto consolidado como demonstracao de competencias de React e TypeScript em contexto real.",
     highlights: [
@@ -115,3 +232,66 @@ export const projects: Project[] = [
 export function getProjectBySlug(slug: string) {
   return projects.find((project) => project.slug === slug);
 }
+
+export const archivedProjects: ArchivedProject[] = [
+  {
+    slug: "portfolio-template-jrvalerio",
+    title: "Portfolio Template",
+    year: "2025",
+    category: "Template",
+    summary: "Template de portfolio com foco em deploy rapido e customizacao.",
+    stack: ["React", "CSS", "Vercel"],
+    url: "https://portfolio-template-jr-valerio.vercel.app/",
+    repo: "https://github.com/JrValerio/portfolio-template-JrValerio",
+  },
+  {
+    slug: "template-hamburgueria",
+    title: "Hamburgueria Kenzie",
+    year: "2025",
+    category: "E-commerce",
+    summary: "Projeto de estudo para fluxo de carrinho e catalogo de produtos.",
+    stack: ["React", "Axios", "SASS"],
+    url: "https://template-hamburgueria.vercel.app/",
+    repo: "https://github.com/JrValerio/template-hamburgueria",
+  },
+  {
+    slug: "buscadorcep",
+    title: "Buscador de CEP",
+    year: "2024",
+    category: "Utility",
+    summary: "Consulta de CEP com integracao de API e validacao de entrada.",
+    stack: ["React", "JavaScript", "Axios"],
+    url: "https://buscadorcep-3qzvzd239-amaro-juniors-projects.vercel.app/",
+    repo: "https://github.com/JrValerio/buscadorcep",
+  },
+  {
+    slug: "gitsearchbase",
+    title: "Git Search",
+    year: "2024",
+    category: "Frontend",
+    summary: "Busca de perfis e repositorios com API do GitHub.",
+    stack: ["HTML", "CSS", "JavaScript"],
+    url: "https://jrvalerio.github.io/gitSearchBase/index.html",
+    repo: "https://github.com/JrValerio/gitSearchBase",
+  },
+  {
+    slug: "newsportal",
+    title: "News Portal",
+    year: "2024",
+    category: "Frontend",
+    summary: "Layout editorial responsivo para estudo de composicao visual.",
+    stack: ["HTML", "CSS"],
+    url: "https://jrvalerio.github.io/newsportal/",
+    repo: "https://github.com/JrValerio/newsportal",
+  },
+  {
+    slug: "travelgram",
+    title: "Travelgram",
+    year: "2024",
+    category: "Frontend",
+    summary: "Landing page para conteudo de viagens com foco em UI responsiva.",
+    stack: ["HTML", "CSS"],
+    url: "https://jrvalerio.github.io/travelgram/",
+    repo: "https://github.com/JrValerio/travelgram",
+  },
+];
