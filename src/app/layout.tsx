@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import AppAnalyticsTracker from "../components/AppAnalyticsTracker";
 import "../styles/globals.css";
 
 const geist = Geist({
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR" className={geist.variable}>
       <body>
+        <AppAnalyticsTracker />
         {children}
         <Analytics />
       </body>
