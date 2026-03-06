@@ -7,9 +7,7 @@ type CardProps = {
 
 export default function Card({ children, className }: CardProps) {
   return (
-    <article
-      className={`rounded-xl border border-[var(--jr-border)] bg-[var(--jr-surface)] p-6 ${className ?? ""}`}
-    >
+    <article className={`jr-surface-card p-6 ${className ?? ""}`}>
       {children}
     </article>
   );
