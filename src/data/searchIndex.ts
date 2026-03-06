@@ -78,16 +78,16 @@ function getLocalizedBaseIndex(locale: V2Locale): Omit<SearchIndexItem, "path">[
         keywords: ["control finance", "fintech", "react", "tailwind"],
       },
       {
-        title: "Post-it Share App",
-        description: "Lightweight notes sharing app with short links.",
+        title: "JR Minimal Portfolio",
+        description: "Engineering-first portfolio platform with C4 docs, ADRs and metrics.",
         group: "Project",
-        keywords: ["postit", "node.js", "express", "htmx", "sqlite"],
+        keywords: ["portfolio", "engineering docs", "c4", "adr", "next.js"],
       },
       {
         title: "Kenzie Hub",
-        description: "Dashboard for technical growth and skills management.",
+        description: "Technical evolution case from bootcamp project to more robust architecture.",
         group: "Project",
-        keywords: ["kenzie hub", "education", "react", "typescript", "sass"],
+        keywords: ["kenzie hub", "education", "refactor", "api", "react"],
       },
     ];
   }
@@ -161,16 +161,16 @@ function getLocalizedBaseIndex(locale: V2Locale): Omit<SearchIndexItem, "path">[
         keywords: ["control finance", "fintech", "react", "tailwind"],
       },
       {
-        title: "Post-it Share App",
-        description: "Aplicacion ligera para compartir notas con enlaces cortos.",
+        title: "JR Minimal Portfolio",
+        description: "Portfolio orientado a ingenieria con C4, ADRs y metricas.",
         group: "Project",
-        keywords: ["postit", "node.js", "express", "htmx", "sqlite"],
+        keywords: ["portfolio", "engineering docs", "c4", "adr", "next.js"],
       },
       {
         title: "Kenzie Hub",
-        description: "Dashboard para crecimiento tecnico y gestion de skills.",
+        description: "Caso de evolucion tecnica de proyecto academico para arquitectura mas robusta.",
         group: "Project",
-        keywords: ["kenzie hub", "education", "react", "typescript", "sass"],
+        keywords: ["kenzie hub", "education", "refactor", "api", "react"],
       },
     ];
   }
@@ -243,16 +243,16 @@ function getLocalizedBaseIndex(locale: V2Locale): Omit<SearchIndexItem, "path">[
       keywords: ["control finance", "fintech", "react", "tailwind"],
     },
     {
-      title: "Post-it Share App",
-      description: "Aplicacao leve para compartilhar notas com links curtos.",
+      title: "JR Minimal Portfolio",
+      description: "Portfolio orientado a engenharia com C4, ADRs e metricas.",
       group: "Project",
-      keywords: ["postit", "node.js", "express", "htmx", "sqlite"],
+      keywords: ["portfolio", "engineering docs", "c4", "adr", "next.js"],
     },
     {
       title: "Kenzie Hub",
-      description: "Dashboard para evolucao tecnica e gestao de skills.",
+      description: "Case de evolucao tecnica de projeto academico para arquitetura mais robusta.",
       group: "Project",
-      keywords: ["kenzie hub", "education", "react", "typescript", "sass"],
+      keywords: ["kenzie hub", "education", "refactor", "api", "react"],
     },
   ];
 }
@@ -269,7 +269,7 @@ const basePaths = [
   "/v2/contato",
   "/v2/projetos/ecovoz",
   "/v2/projetos/control-finance",
-  "/v2/projetos/postit",
+  "/v2/projetos/jr-minimal-portfolio",
   "/v2/projetos/kenzie-hub",
 ];
 
