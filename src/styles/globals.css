@@ -142,6 +142,101 @@ body {
   transition: background-color 320ms ease, color 320ms ease;
 }
 
+.jr-theme--framed::before,
+.jr-theme--framed::after {
+  content: none;
+}
+
+.jr-webgl-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.jr-webgl-background > div {
+  z-index: 0 !important;
+}
+
+.jr-webgl-background canvas {
+  opacity: 0.62;
+  filter: saturate(1.03) contrast(1.02);
+}
+
+.dark .jr-webgl-background canvas {
+  opacity: 0.82;
+}
+
+#Frame {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.frame_line {
+  position: absolute;
+  background: color-mix(in srgb, var(--jr-text) 28%, transparent);
+}
+
+.frame_line-top {
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+}
+
+.frame_line-bottom {
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+}
+
+.frame_line-left {
+  left: 20px;
+  top: 20px;
+  bottom: 20px;
+  width: 1px;
+}
+
+.frame_line-right {
+  right: 20px;
+  top: 20px;
+  bottom: 20px;
+  width: 1px;
+}
+
+#Content {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  padding: 60px;
+}
+
+.content_inner {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.jr-shell-header {
+  position: sticky;
+  top: 24px;
+  z-index: 6;
+  border: 1px solid var(--jr-border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--jr-header-bg) 96%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.jr-theme-controls {
+  position: fixed;
+  top: 28px;
+  right: 32px;
+  z-index: 20;
+}
+
 .jr-theme::before {
   content: "";
   position: fixed;
@@ -450,6 +545,43 @@ body {
 }
 
 @media (max-width: 768px) {
+  #Content {
+    padding: 44px 22px 48px;
+  }
+
+  .jr-shell-header {
+    top: 16px;
+  }
+
+  .jr-theme-controls {
+    top: 16px;
+    right: 20px;
+  }
+
+  .frame_line-top {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .frame_line-bottom {
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .frame_line-left {
+    left: 12px;
+    top: 12px;
+    bottom: 12px;
+  }
+
+  .frame_line-right {
+    right: 12px;
+    top: 12px;
+    bottom: 12px;
+  }
+
   .jr-container {
     padding-left: 20px;
     padding-right: 20px;
