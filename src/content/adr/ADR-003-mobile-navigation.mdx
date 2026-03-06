@@ -1,0 +1,22 @@
+---
+id: ADR-003
+title: Responsive header navigation strategy
+date: 2026-03-06
+status: accepted
+tags: [navigation, mobile, accessibility]
+summary: Split header navigation into a client component that adds a mobile menu, active link state and shell-aware scroll locking without promoting the whole layout to the client.
+---
+
+## Context
+
+The shell header worked well on desktop, but the horizontal navigation did not collapse on smaller screens. The fix needed to preserve server rendering for the layout while adding interactive behavior for mobile navigation and command palette access.
+
+## Decision
+
+Extract the header navigation to a dedicated client component. Add a menu button below the desktop breakpoint, close the panel on route changes and `Escape`, mark active links with `aria-current` and lock the shell scroll container while the menu is open.
+
+## Consequences
+
+- Mobile navigation is isolated in a focused client component instead of leaking state into the full shell layout.
+- Accessibility improves through explicit state, keyboard close behavior and active-route semantics.
+- The shell retains its server-first structure while still supporting responsive navigation patterns.

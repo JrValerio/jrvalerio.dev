@@ -1,0 +1,22 @@
+---
+id: ADR-001
+title: Shell scroll container strategy
+date: 2026-03-06
+status: accepted
+tags: [architecture, layout, scroll]
+summary: Move page scrolling to an internal shell container to stabilize the frame, header behavior and viewport handling across routes.
+---
+
+## Context
+
+The framed shell introduced a fixed visual boundary and a stable header, but body scrolling was still competing with that layout. In practice this caused header jitter, frame overlap during long pages and inconsistent behavior on mobile browsers with dynamic viewport chrome.
+
+## Decision
+
+Move page scrolling into `#ContentScroll` inside the V2 shell. Keep the header outside the scrollable region, reset container scroll on route changes and measure scroll depth against the internal container instead of the window when the shell is mounted.
+
+## Consequences
+
+- The frame behaves like a real application shell instead of a decorative layer on top of body scroll.
+- Scroll restoration and telemetry need to target the shell container explicitly.
+- Mobile viewport behavior becomes more predictable because the shell owns the scrolling surface.

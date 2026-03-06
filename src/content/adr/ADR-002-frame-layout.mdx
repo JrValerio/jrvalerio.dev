@@ -1,0 +1,22 @@
+---
+id: ADR-002
+title: Frame layout inset strategy
+date: 2026-03-06
+status: accepted
+tags: [layout, design-system, shell]
+summary: Apply mirrored frame insets and a shell offset variable so the framed layout remains mathematically consistent without colliding with lateral controls.
+---
+
+## Context
+
+The V2 portfolio uses a fixed frame, a lateral control rail and a hero-first landing page. Independent hard-coded offsets were creating drift between the shell, the hero and the visible frame, especially when header and frame lived outside the main content block.
+
+## Decision
+
+Introduce a shared shell offset variable for vertical sizing and explicit left/right frame insets for the framed shell. Keep the Theme Switcher untouched and move the frame inward so content, header and border align inside the same visual box on desktop and mobile.
+
+## Consequences
+
+- Frame geometry is now centralized instead of duplicated across hero and shell rules.
+- The shell can evolve without reintroducing 1-2px overflow issues from viewport math.
+- Symmetric insets preserve the visual balance of the frame while protecting the lateral controls.
