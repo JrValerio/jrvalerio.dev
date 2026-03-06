@@ -1,85 +1,95 @@
-# Portfólio - Amaro Júnior (JrValerio)
+# jrvalerio.dev
 
-![Banner](public/img/perfil.png)
+Personal engineering portfolio of **Amaro Junior**.
 
-> Transformando ideias em código, propósito em projetos e inovação em impacto.
+This repository is not only a website. It is an **engineering documentation artifact** built to show product thinking, architecture decisions, and measurable quality gates.
 
-## Sobre o Projeto
+## Overview
 
-Este repositório apresenta meu portfólio profissional como desenvolvedor Full Stack. Aqui demonstro minhas habilidades em React, Next.js, TypeScript, Tailwind CSS e internacionalização (i18n) com suporte completo para português, inglês e espanhol.
+Main public sections:
 
-O layout é responsivo, moderno e com foco em acessibilidade, performance e integração com GitHub, LinkedIn e outros canais profissionais.
+- Home
+- Projects (technical case studies)
+- Archive
+- Architecture
+- Engineering Decisions
+- Metrics
+- Principles
+- About
+- Contact
 
----
+The portfolio is implemented in a hybrid migration model (`pages` + `app`) with the main experience in `/v2`.
 
-## Principais features
+## Engineering Evolution (Stacked PR rollout)
 
-* Hero section impactante com efeito de partículas animadas (tsparticles)
-* Layout responsivo, dark mode e visual adaptativo
-* Internacionalização (pt/en/es) pronta para ampliar oportunidades globais
-* Sessões organizadas: Sobre, Projetos, CV, Contato
-* Integração real com GitHub e LinkedIn
-* Estrutura para expansão futura (blog, cases, etc)
+V2 was introduced through stacked pull requests with clear scope boundaries:
 
----
+1. `feat(v2): foundation shell, i18n routing, theme system and analytics base`
+2. `feat(v2): information architecture and public documentation pages`
+3. `feat(v2): case study engine with typed domain and reading telemetry`
+4. `feat(v2): live case-study metrics dashboard with PostHog fallback`
 
-## Tecnologias & Ferramentas
+This keeps review focused, risk controlled, and history clean.
 
-* [Next.js](https://nextjs.org/) 14+
-* [React](https://react.dev/)
-* [TypeScript](https://www.typescriptlang.org/)
-* [Tailwind CSS](https://tailwindcss.com/)
-* [tsparticles](https://particles.js.org/) (efeito visual)
-* [next-i18next](https://github.com/i18next/next-i18next) (i18n multi-idiomas)
+## Architecture docs (C4)
 
----
+Architecture documentation lives in [`docs/architecture`](docs/architecture):
 
-## Como rodar localmente
+- [`context.md`](docs/architecture/context.md)
+- [`container.md`](docs/architecture/container.md)
+- [`component.md`](docs/architecture/component.md)
+- [`domain.md`](docs/architecture/domain.md)
+
+## Engineering Decision Log (ADR)
+
+Architecture decisions are documented in [`docs/adr`](docs/adr):
+
+- [`ADR-001-nextjs-platform.md`](docs/adr/ADR-001-nextjs-platform.md)
+- [`ADR-002-case-study-domain.md`](docs/adr/ADR-002-case-study-domain.md)
+- [`ADR-003-analytics-observability.md`](docs/adr/ADR-003-analytics-observability.md)
+- [`ADR-004-i18n-routing.md`](docs/adr/ADR-004-i18n-routing.md)
+
+## Current technical capabilities
+
+- Typed case study domain model
+- Locale-aware routing (`pt-BR`, `en-GB`, `es`)
+- Command palette + global search
+- Reading telemetry for case studies (view, depth, completion, sections, outbound clicks)
+- Metrics dashboard with PostHog live query + safe fallback
+- Bundle budget gates in CI
+- OG image generation route
+
+## Tech stack
+
+- Next.js (App Router + Pages Router in migration)
+- React + TypeScript
+- Tailwind CSS
+- next-themes
+- Fuse.js + cmdk
+- Vercel Analytics
+- PostHog
+- Vitest
+
+## Local development
 
 ```bash
-git clone https://github.com/JrValerio/jrvalerio.dev.git
-cd jrvalerio.dev
 npm install
 npm run dev
 ```
 
-Acesse [http://localhost:3000](http://localhost:3000)
+Validation commands:
 
----
-
-## Estrutura de pastas
-
-```
-├── public/
-│   └── img/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── styles/
-│   └── data/
-├── locales/
-│   ├── pt/
-│   ├── en/
-│   └── es/
-└── ...
+```bash
+npm run typecheck
+npm run lint
+npm run test
+npm run build
+npm run check:bundle
+npm run check:bundle:case
 ```
 
----
+## Contact
 
-## Roadmap e próximos passos
-
-* [ ] SEO e otimização para Google/LinkedIn
-* [ ] Testes automatizados (Jest/React Testing Library)
-* [ ] Adicionar blog e cases reais
-* [ ] Melhorias de acessibilidade (A11y)
-* [ ] Deploy contínuo e integração com Vercel
-
----
-
-## Licença
-
-[MIT](LICENSE)
-
----
-
-> Qualquer dúvida, sugestão ou proposta de parceria: [amarovsjr81@gmail.com](mailto:amarovsjr81@gmail.com)
+- LinkedIn: https://www.linkedin.com/in/jrvalerio/
+- GitHub: https://github.com/JrValerio
+- Email: amarovsjr81@gmail.com
