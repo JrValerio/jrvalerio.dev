@@ -22,7 +22,7 @@
   --jr-font-main: var(--font-geist), "Inter", system-ui, sans-serif;
   --jr-shell-offset: 172px;
   --jr-frame-inset-top: 20px;
-  --jr-frame-inset-right: 20px;
+  --jr-frame-inset-right: 52px;
   --jr-frame-inset-bottom: 20px;
   --jr-frame-inset-left: 52px;
   --jr-shell-content-gap: 16px;
@@ -281,8 +281,13 @@ html[data-theme="dark"] .frame_line {
   padding: 24px 0 var(--jr-shell-scroll-padding-bottom);
   overscroll-behavior: contain;
   scroll-padding-top: 112px;
-  scrollbar-gutter: stable;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
+}
+
+.jr-shell-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .jr-lateral-controls {
@@ -737,7 +742,7 @@ html[data-theme="dark"] .frame_line {
   :root[data-theme="dark"] {
     --jr-shell-offset: 202px;
     --jr-frame-inset-top: 12px;
-    --jr-frame-inset-right: 12px;
+    --jr-frame-inset-right: 36px;
     --jr-frame-inset-bottom: 12px;
     --jr-frame-inset-left: 36px;
     --jr-shell-content-gap: 10px;
