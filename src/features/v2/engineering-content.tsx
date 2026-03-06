@@ -68,7 +68,15 @@ export default function EngineeringContent({ locale, prefixed }: EngineeringCont
                 <time className="jr-meta" dateTime={adr.date}>
                   {messages.engineering.publishedLabel}: {formatAdrDate(adr.date, locale)}
                 </time>
-                <span className="jr-meta">{adr.slug}</span>
+                <div className="flex items-center gap-4">
+                  <span className="jr-meta">{adr.slug}</span>
+                  <Link
+                    href={toLocalePath(`/v2/engineering/${adr.slug}`, locale, prefixed)}
+                    className="jr-link"
+                  >
+                    {messages.engineering.readAdr}
+                  </Link>
+                </div>
               </footer>
             </article>
           ))}

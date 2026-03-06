@@ -15,6 +15,22 @@ export type AdrDocument = {
   summary: string;
   tags: string[];
   slug: string;
+  filePath: string;
+};
+
+export type AdrFullDocument = AdrDocument & {
+  content: string;
+};
+
+export type AdrSectionBlock = {
+  type: "paragraph" | "list";
+  lines: string[];
+};
+
+export type AdrSection = {
+  id: string;
+  title: string;
+  blocks: AdrSectionBlock[];
 };
 
 const ADR_DIRECTORY = path.join(process.cwd(), "src", "content", "adr");
@@ -57,6 +73,42 @@ function getSlugFromFileName(fileName: string) {
   return fileName.replace(/\.(md|mdx)$/, "");
 }
 
+function toSectionId(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function parseSectionBlocks(body: string): AdrSectionBlock[] {
+  return body
+    .split(/\n{2,}/)
+    .map((chunk) => chunk.trim())
+    .filter(Boolean)
+    .map((chunk) => {
+      const lines = chunk
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
+
+      const isList = lines.every((line) => line.startsWith("- "));
+
+      if (isList) {
+        return {
+          type: "list" as const,
+          lines: lines.map((line) => line.replace(/^- /, "")),
+        };
+      }
+
+      return {
+        type: "paragraph" as const,
+        lines: [lines.join(" ")],
+      };
+    });
+}
+
 export const getAllAdrs = cache((): AdrDocument[] => {
   if (!fs.existsSync(ADR_DIRECTORY)) {
     return [];
@@ -78,6 +130,7 @@ export const getAllAdrs = cache((): AdrDocument[] => {
         summary: readRequiredString(data.summary, "summary", filePath),
         tags: readTags(data.tags),
         slug: getSlugFromFileName(fileName),
+        filePath,
       };
     })
     .sort((left, right) => {
@@ -88,3 +141,38 @@ export const getAllAdrs = cache((): AdrDocument[] => {
       return right.date.localeCompare(left.date);
     });
 });
+
+export const getAdrBySlug = cache((slug: string): AdrFullDocument | null => {
+  const adr = getAllAdrs().find((item) => item.slug === slug);
+
+  if (!adr) {
+    return null;
+  }
+
+  const source = fs.readFileSync(adr.filePath, "utf-8");
+  const { content } = matter(source);
+
+  return {
+    ...adr,
+    content,
+  };
+});
+
+export function parseAdrSections(content: string): AdrSection[] {
+  return content
+    .split(/^##\s+/gm)
+    .map((chunk) => chunk.trim())
+    .filter(Boolean)
+    .map((chunk) => {
+      const [titleLine, ...bodyLines] = chunk.split(/\r?\n/);
+      const title = titleLine?.trim() ?? "";
+      const body = bodyLines.join("\n").trim();
+
+      return {
+        id: toSectionId(title),
+        title,
+        blocks: parseSectionBlocks(body),
+      };
+    })
+    .filter((section) => section.title.length > 0);
+}

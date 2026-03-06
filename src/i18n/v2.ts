@@ -112,6 +112,8 @@ export type V2Messages = {
     publishedLabel: string;
     statusLabel: string;
     tagsLabel: string;
+    readAdr: string;
+    backToHub: string;
     status: Record<"proposed" | "accepted" | "deprecated", string>;
     relatedTitle: string;
     relatedSubtitle: string;
@@ -305,6 +307,8 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
       publishedLabel: "Published",
       statusLabel: "Status",
       tagsLabel: "Tags",
+      readAdr: "Read ADR",
+      backToHub: "Back to engineering",
       status: {
         proposed: "Proposed",
         accepted: "Accepted",
@@ -488,6 +492,8 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
       publishedLabel: "Publicado",
       statusLabel: "Status",
       tagsLabel: "Tags",
+      readAdr: "Ler ADR",
+      backToHub: "Voltar para engineering",
       status: {
         proposed: "Proposto",
         accepted: "Aceito",
@@ -671,6 +677,8 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
       publishedLabel: "Publicado",
       statusLabel: "Estado",
       tagsLabel: "Tags",
+      readAdr: "Leer ADR",
+      backToHub: "Volver a ingenieria",
       status: {
         proposed: "Propuesto",
         accepted: "Aceptado",

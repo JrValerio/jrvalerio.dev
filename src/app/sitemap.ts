@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
 import { projects } from "../data/projects";
 import { getSegmentFromLocale, type V2Locale } from "../i18n/v2";
+import { getAllAdrs } from "../lib/adr";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://jrvalerio.dev";
 const siteLastModified = "2026-03-05";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const i18nLocales: V2Locale[] = ["pt-BR", "en-GB", "es"];
+  const adrs = getAllAdrs();
   const localizedV2Paths = [
     "/v2",
     "/v2/projetos",
@@ -89,6 +91,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const adrRoutes: MetadataRoute.Sitemap = adrs.map((adr) => ({
+    url: `${baseUrl}/v2/engineering/${adr.slug}`,
+    lastModified: adr.date,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   const localizedRoutes: MetadataRoute.Sitemap = i18nLocales.flatMap((locale) => {
     const segment = getSegmentFromLocale(locale);
     const localizedStatic = localizedV2Paths.map((path) => ({
@@ -103,9 +112,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }));
+    const localizedAdrs = adrs.map((adr) => ({
+      url: `${baseUrl}/${segment}/v2/engineering/${adr.slug}`,
+      lastModified: adr.date,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }));
 
-    return [...localizedStatic, ...localizedProjects];
+    return [...localizedStatic, ...localizedProjects, ...localizedAdrs];
   });
 
-  return [...staticRoutes, ...projectRoutes, ...localizedRoutes];
+  return [...staticRoutes, ...projectRoutes, ...adrRoutes, ...localizedRoutes];
 }
