@@ -5,6 +5,7 @@ import Frame from "../../components/UI/Frame";
 import LateralControls from "../../components/UI/LateralControls";
 import WebGLBackground from "../../components/background/WebGLBackground";
 import { getV2Messages, toLocalePath, type V2Locale } from "../../i18n/v2";
+import ShellHeaderNav from "./shell-header-nav";
 import ShellScrollRestoration from "./shell-scroll-restoration";
 import ShellScrollShadow from "./shell-scroll-shadow";
 
@@ -17,15 +18,15 @@ type V2LayoutShellProps = {
 export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutShellProps) {
   const messages = getV2Messages(locale);
   const navLinks = [
-    { href: "/v2", label: messages.nav.items.home },
-    { href: "/v2/projetos", label: messages.nav.items.projects },
-    { href: "/v2/archive", label: messages.nav.items.archive },
-    { href: "/v2/architecture", label: messages.nav.items.architecture },
-    { href: "/v2/engineering", label: messages.nav.items.engineering },
-    { href: "/v2/metrics", label: messages.nav.items.metrics },
-    { href: "/v2/principles", label: messages.nav.items.principles },
-    { href: "/v2/sobre", label: messages.nav.items.about },
-    { href: "/v2/contato", label: messages.nav.items.contact },
+    { href: toLocalePath("/v2", locale, prefixed), label: messages.nav.items.home },
+    { href: toLocalePath("/v2/projetos", locale, prefixed), label: messages.nav.items.projects },
+    { href: toLocalePath("/v2/archive", locale, prefixed), label: messages.nav.items.archive },
+    { href: toLocalePath("/v2/architecture", locale, prefixed), label: messages.nav.items.architecture },
+    { href: toLocalePath("/v2/engineering", locale, prefixed), label: messages.nav.items.engineering },
+    { href: toLocalePath("/v2/metrics", locale, prefixed), label: messages.nav.items.metrics },
+    { href: toLocalePath("/v2/principles", locale, prefixed), label: messages.nav.items.principles },
+    { href: toLocalePath("/v2/sobre", locale, prefixed), label: messages.nav.items.about },
+    { href: toLocalePath("/v2/contato", locale, prefixed), label: messages.nav.items.contact },
   ];
 
   return (
@@ -52,20 +53,13 @@ export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutSh
               >
                 {messages.nav.brand}
               </Link>
-              <nav
-                className="ml-4 flex min-w-0 flex-1 flex-wrap items-center justify-end gap-x-3 gap-y-2"
-                aria-label="Navegacao principal v2"
-              >
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={toLocalePath(link.href, locale, prefixed)}
-                    className="whitespace-nowrap text-xs text-[var(--jr-muted)] transition-colors hover:text-[var(--jr-text)] md:text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
+              <ShellHeaderNav
+                navAriaLabel={messages.nav.ariaLabel}
+                navLinks={navLinks}
+                openMenuLabel={messages.nav.openMenu}
+                closeMenuLabel={messages.nav.closeMenu}
+                searchLabel={messages.nav.search}
+              />
             </div>
           </header>
 

@@ -55,6 +55,10 @@ export type V2Messages = {
   };
   nav: {
     brand: string;
+    ariaLabel: string;
+    openMenu: string;
+    closeMenu: string;
+    search: string;
     items: {
       home: string;
       projects: string;
@@ -208,6 +212,10 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
     ...baseMessages,
     nav: {
       brand: "JR Minimal",
+      ariaLabel: "Primary navigation",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
+      search: "Search",
       items: {
         home: "Home",
         projects: "Projects",
@@ -368,6 +376,10 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
     ...baseMessages,
     nav: {
       brand: "JR Minimal",
+      ariaLabel: "Navegacao principal",
+      openMenu: "Abrir menu",
+      closeMenu: "Fechar menu",
+      search: "Buscar",
       items: {
         home: "Home",
         projects: "Projetos",
@@ -528,6 +540,10 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
     ...baseMessages,
     nav: {
       brand: "JR Minimal",
+      ariaLabel: "Navegacion principal",
+      openMenu: "Abrir menu",
+      closeMenu: "Cerrar menu",
+      search: "Buscar",
       items: {
         home: "Inicio",
         projects: "Proyectos",

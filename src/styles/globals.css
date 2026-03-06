@@ -271,6 +271,36 @@ html[data-theme="dark"] .frame_line {
   box-shadow: var(--jr-header-shadow);
 }
 
+.jr-shell-mobile-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  left: 0;
+  z-index: 30;
+  max-height: min(70dvh, 480px);
+  overflow-y: auto;
+  border: 1px solid var(--jr-border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--jr-header-bg) 97%, transparent);
+  backdrop-filter: blur(18px) saturate(1.08);
+  box-shadow: var(--jr-header-shadow);
+  padding: 12px;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.jr-shell-mobile-panel.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.jr-shell-mobile-panel::-webkit-scrollbar {
+  display: none;
+}
+
 .jr-shell-scroll {
   position: relative;
   z-index: 5;
@@ -763,6 +793,12 @@ html[data-theme="dark"] .frame_line {
   .jr-shell-scroll {
     padding-top: 18px;
     scroll-padding-top: 96px;
+  }
+
+  .jr-shell-mobile-panel {
+    top: calc(100% + 10px);
+    left: -2px;
+    right: -2px;
   }
 
   .jr-container {
