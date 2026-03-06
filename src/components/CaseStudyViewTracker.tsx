@@ -1,23 +1,28 @@
 "use client";
 
 import { useEffect } from "react";
-import { trackEvent } from "../lib/analytics";
+import { getOrCreateCaseSessionId, trackCaseView } from "../lib/analytics";
 
 type CaseStudyViewTrackerProps = {
   slug: string;
   category: string;
+  locale?: string;
 };
 
 export default function CaseStudyViewTracker({
   slug,
   category,
+  locale,
 }: CaseStudyViewTrackerProps) {
   useEffect(() => {
-    trackEvent("case_study_view", {
+    const sessionId = getOrCreateCaseSessionId(slug);
+    trackCaseView({
       project_slug: slug,
       project_category: category,
+      locale,
+      session_id: sessionId,
     });
-  }, [slug, category]);
+  }, [slug, category, locale]);
 
   return null;
 }

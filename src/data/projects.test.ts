@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { getProjectBySlug, projects } from "./projects";
+import { ProjectCategory, type ProjectStatus, getProjectBySlug, projects } from "./projects";
+
+const projectStatuses: ProjectStatus[] = ["active", "completed", "experimental"];
 
 describe("projects domain", () => {
   it("ensures slugs are unique", () => {
@@ -20,6 +22,12 @@ describe("projects domain", () => {
       expect(project.slug).toMatch(/^[a-z0-9-]+$/);
       expect(project.title.length).toBeGreaterThan(0);
       expect(project.summary.length).toBeGreaterThan(0);
+      expect(typeof project.year).toBe("number");
+      expect(project.year).toBeGreaterThan(2000);
+      expect(project.category).toBeTypeOf("string");
+      expect(Object.values(ProjectCategory)).toContain(project.category);
+      expect(project.role.length).toBeGreaterThan(0);
+      expect(projectStatuses).toContain(project.status);
       expect(project.challenge.length).toBeGreaterThan(0);
       expect(project.solution.length).toBeGreaterThan(0);
       expect(project.impact.length).toBeGreaterThan(0);
@@ -30,6 +38,12 @@ describe("projects domain", () => {
       expect(project.keyFeatures.length).toBeGreaterThan(0);
       expect(project.technicalChallenges.length).toBeGreaterThan(0);
       expect(project.nextIteration.length).toBeGreaterThan(0);
+      expect(project.timeline?.length).toBeGreaterThan(0);
+      for (const step of project.timeline ?? []) {
+        expect(step.phase.length).toBeGreaterThan(0);
+        expect(step.description.length).toBeGreaterThan(0);
+      }
+      expect(project.lessonsLearned.length).toBeGreaterThan(0);
       expect(project.highlights.length).toBeGreaterThan(0);
     }
   });

@@ -20,6 +20,8 @@ function getProjectReadingTime(project: Project) {
     ...project.keyFeatures,
     ...project.technicalChallenges,
     ...project.nextIteration,
+    ...(project.timeline?.map((step) => `${step.phase} ${step.description}`) ?? []),
+    ...project.lessonsLearned,
     ...project.highlights,
     ...project.architecture.map((item) => item.detail),
   ].join(" ");

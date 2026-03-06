@@ -23,10 +23,7 @@ export default function Metrics({ metrics }: MetricsProps) {
   return (
     <section className="mt-8 grid gap-3 sm:grid-cols-2">
       {entries.map(([key, value]) => (
-        <article
-          key={key}
-          className="rounded-lg border border-[var(--jr-border)] bg-[var(--jr-surface)] px-4 py-4"
-        >
+        <article key={key} className="jr-surface-card px-4 py-4">
           <p className="jr-meta">{metricLabels[key]}</p>
           <p className="mt-2 text-lg font-semibold text-[var(--jr-text)]">{value}</p>
         </article>
