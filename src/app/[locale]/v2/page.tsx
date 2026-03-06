@@ -4,6 +4,7 @@ import Hero from "../../../components/Hero";
 import {
   getLanguageAlternates,
   getLocaleFromSegment,
+  getV2Messages,
   type V2LocaleSegment,
 } from "../../../i18n/v2";
 
@@ -28,9 +29,10 @@ export default async function LocalizedHomePage({ params }: LocalizedHomePagePro
   const { locale: segment } = await params;
   const locale = getLocaleFromSegment(segment as V2LocaleSegment);
   if (!locale) notFound();
+  const messages = getV2Messages(locale);
 
   return (
-    <main className="jr-home-main" aria-label="Home hero">
+    <main className="jr-home-main" aria-label={messages.hero.ariaLabel}>
       <Hero locale={locale} prefixed />
     </main>
   );

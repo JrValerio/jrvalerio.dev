@@ -2,50 +2,21 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useState } from "react";
-import type { V2Locale } from "../../i18n/v2";
+import type { V2Messages } from "../../i18n/v2";
 
 type ThemeSwitcherProps = {
-  locale: V2Locale;
+  messages: V2Messages["themeSwitcher"];
   className?: string;
-};
-
-const labelsByLocale: Record<
-  V2Locale,
-  {
-    light: string;
-    dark: string;
-    monospaced: string;
-    switcher: string;
-  }
-> = {
-  "pt-BR": {
-    light: "Claro",
-    dark: "Escuro",
-    monospaced: "Monoespacado",
-    switcher: "Seletor de tema",
-  },
-  "en-GB": {
-    light: "Light",
-    dark: "Dark",
-    monospaced: "Monospaced",
-    switcher: "Theme switcher",
-  },
-  es: {
-    light: "Claro",
-    dark: "Oscuro",
-    monospaced: "Monoespaciado",
-    switcher: "Selector de tema",
-  },
 };
 
 const MONO_STORAGE_KEY = "jr-mono";
 
-export default function ThemeSwitcher({ locale, className }: ThemeSwitcherProps) {
+export default function ThemeSwitcher({ messages, className }: ThemeSwitcherProps) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mono, setMono] = useState(false);
 
-  const labels = useMemo(() => labelsByLocale[locale], [locale]);
+  const labels = useMemo(() => messages, [messages]);
   const activeTheme = resolvedTheme === "dark" ? "dark" : "light";
 
   useEffect(() => {

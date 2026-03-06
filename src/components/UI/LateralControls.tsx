@@ -11,16 +11,14 @@ import {
 
 type LateralControlsProps = {
   locale: V2Locale;
-  localeMessages: V2Messages["locale"];
-  commandMessages: V2Messages["commandPalette"];
+  messages: Pick<V2Messages, "common" | "locale" | "nav" | "commandPalette" | "themeSwitcher">;
 };
 
 const allLocales: V2Locale[] = ["pt-BR", "en-GB", "es"];
 
 export default function LateralControls({
   locale,
-  localeMessages,
-  commandMessages,
+  messages,
 }: LateralControlsProps) {
   const router = useRouter();
   const pathname = usePathname() || "/v2";
@@ -39,23 +37,26 @@ export default function LateralControls({
   };
 
   return (
-    <aside className="jr-lateral-controls" aria-label="Lateral controls">
+    <aside
+      className="jr-lateral-controls"
+      aria-label={messages.common.lateralControlsAriaLabel}
+    >
       <div className="jr-lateral-controls-inner">
-        <ThemeSwitcher locale={locale} className="jr-lateral-group" />
+        <ThemeSwitcher messages={messages.themeSwitcher} className="jr-lateral-group" />
 
         <div className="jr-lateral-group">
           <button
             type="button"
             className="jr-lateral-btn"
             onClick={onSearchClick}
-            aria-label={commandMessages.placeholder}
-            title={commandMessages.placeholder}
+            aria-label={messages.commandPalette.placeholder}
+            title={messages.commandPalette.placeholder}
           >
-            Search
+            {messages.nav.search}
           </button>
         </div>
 
-        <div className="jr-lateral-group" role="group" aria-label={localeMessages.label}>
+        <div className="jr-lateral-group" role="group" aria-label={messages.locale.label}>
           {allLocales.map((nextLocale) => (
             <button
               key={nextLocale}
@@ -64,7 +65,7 @@ export default function LateralControls({
               className="jr-lateral-btn"
               aria-pressed={nextLocale === locale}
             >
-              {localeMessages.options[nextLocale]}
+              {messages.locale.options[nextLocale]}
             </button>
           ))}
         </div>

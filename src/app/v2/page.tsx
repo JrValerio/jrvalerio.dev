@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "../../components/Hero";
-import { getLanguageAlternates } from "../../i18n/v2";
+import { getLanguageAlternates, getV2Messages } from "../../i18n/v2";
 
 export const metadata: Metadata = {
   alternates: {
@@ -10,8 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function V2HomePage() {
+  const messages = getV2Messages("pt-BR");
+
   return (
-    <main className="jr-home-main" aria-label="Home hero">
+    <main className="jr-home-main" aria-label={messages.hero.ariaLabel}>
       <Hero locale="pt-BR" prefixed={false} />
     </main>
   );

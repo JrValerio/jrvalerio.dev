@@ -33,11 +33,7 @@ export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutSh
     <div className="jr-theme jr-theme--framed min-h-screen">
       <WebGLBackground />
       <Frame />
-      <LateralControls
-        locale={locale}
-        localeMessages={messages.locale}
-        commandMessages={messages.commandPalette}
-      />
+      <LateralControls locale={locale} messages={messages} />
 
       <CommandPalette locale={locale} prefixed={prefixed} messages={messages.commandPalette} />
       <ShellScrollRestoration />

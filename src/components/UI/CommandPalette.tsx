@@ -62,7 +62,7 @@ export default function CommandPalette({ locale, prefixed, messages }: CommandPa
       open={open}
       onOpenChange={setOpen}
       shouldFilter={false}
-      label="Command Menu"
+      label={messages.dialogLabel}
     >
       <div className="border-b border-[var(--jr-border)] px-3 py-2">
         <Command.Input

@@ -1,21 +1,16 @@
+import type { V2Messages } from "../i18n/v2";
 import type { ProjectMetrics } from "../data/projects";
 
 type MetricsProps = {
   metrics?: ProjectMetrics;
+  labels: V2Messages["caseStudy"]["metricLabels"];
 };
 
-const metricLabels = {
-  accessibilityScore: "Accessibility Score",
-  avgLatency: "Avg Response Latency",
-  completionRate: "Interaction Success",
-  stackSize: "Tech Stack",
-} as const;
-
-export default function Metrics({ metrics }: MetricsProps) {
+export default function Metrics({ metrics, labels }: MetricsProps) {
   if (!metrics) return null;
 
   const entries = Object.entries(metrics).filter(([, value]) => Boolean(value)) as Array<
-    [keyof typeof metricLabels, string]
+    [keyof typeof labels, string]
   >;
 
   if (!entries.length) return null;
@@ -27,7 +22,7 @@ export default function Metrics({ metrics }: MetricsProps) {
           key={key}
           className="rounded-lg border border-[var(--jr-border)] bg-[var(--jr-surface)] px-4 py-4"
         >
-          <p className="jr-meta">{metricLabels[key]}</p>
+          <p className="jr-meta">{labels[key]}</p>
           <p className="mt-2 text-lg font-semibold text-[var(--jr-text)]">{value}</p>
         </article>
       ))}

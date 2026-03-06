@@ -1,12 +1,14 @@
 "use client";
 
 import { trackEvent } from "../lib/analytics";
+import type { V2Messages } from "../i18n/v2";
 
 type ProjectOutboundLinksProps = {
   slug: string;
   category: string;
   url?: string;
   repo?: string;
+  labels: Pick<V2Messages["caseStudy"], "liveProduct" | "viewSource">;
 };
 
 export default function ProjectOutboundLinks({
@@ -14,6 +16,7 @@ export default function ProjectOutboundLinks({
   category,
   url,
   repo,
+  labels,
 }: ProjectOutboundLinksProps) {
   return (
     <div className="mt-8 flex flex-wrap gap-4">
@@ -31,7 +34,7 @@ export default function ProjectOutboundLinks({
             })
           }
         >
-          Ver produto
+          {labels.liveProduct}
         </a>
       ) : null}
       {repo ? (
@@ -48,7 +51,7 @@ export default function ProjectOutboundLinks({
             })
           }
         >
-          Ver repositorio
+          {labels.viewSource}
         </a>
       ) : null}
     </div>
