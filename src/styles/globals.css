@@ -19,6 +19,7 @@
   --jr-card-shadow: 0 14px 36px rgba(13, 22, 39, 0.1);
   --jr-overlay: rgba(15, 23, 42, 0.24);
   --jr-font-main: var(--font-geist), "Inter", system-ui, sans-serif;
+  --jr-shell-offset: 172px;
 }
 
 .dark,
@@ -403,16 +404,13 @@ html[data-theme="dark"] .frame_line {
   padding-bottom: 88px;
 }
 
-.jr-hero {
-  min-height: calc(100dvh - 180px);
-}
-
 .jr-home-main {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(100dvh - 172px);
+  height: calc(100dvh - var(--jr-shell-offset));
   min-height: 420px;
+  padding-top: clamp(24px, 5vh, 64px);
   overflow: hidden;
 }
 
@@ -422,12 +420,8 @@ html[data-theme="dark"] .frame_line {
 }
 
 @supports not (height: 100dvh) {
-  .jr-hero {
-    min-height: calc(100vh - 180px);
-  }
-
   .jr-home-main {
-    height: calc(100vh - 172px);
+    height: calc(100vh - var(--jr-shell-offset));
   }
 }
 
@@ -732,12 +726,11 @@ html[data-theme="dark"] .frame_line {
     padding-bottom: 68px;
   }
 
-  .jr-hero {
-    min-height: calc(100dvh - 138px);
+  :root {
+    --jr-shell-offset: 202px;
   }
 
   .jr-home-main {
-    height: calc(100dvh - 202px);
     min-height: 340px;
   }
 }

@@ -12,7 +12,7 @@ export default function Hero({ locale = "pt-BR", prefixed = false }: HeroProps) 
   return (
     <section className="jr-hero flex items-center py-0">
       <Container>
-        <div className="max-w-[760px]">
+        <div className="max-w-[720px]">
           <h1 className="jr-hero-title jr-reveal jr-reveal-delay-1">
             Amaro Junior
           </h1>
