@@ -242,8 +242,8 @@ const projectEntries: Project[] = [
     category: "Education",
     cover: "/projects/kenzie-hub.jpg",
     summary:
-      "Evolucao de projeto academico para aplicacao mais proxima de produto, com backend proprio e maior confiabilidade de entrega.",
-    stack: ["React", "TypeScript", "Node.js", "SASS"],
+      "Evolucao de projeto academico para uma aplicacao mais robusta, com contrato de API controlado, autenticacao e maior confiabilidade de entrega.",
+    stack: ["React", "TypeScript", "Node.js", "Express", "SASS"],
     challenge:
       "O projeto inicial dependia de uma API externa, limitando evolucao de regras de negocio e previsibilidade de deploy.",
     solution:
@@ -260,6 +260,10 @@ const projectEntries: Project[] = [
       {
         layer: "Data",
         detail: "Persistencia relacional para manter usuarios e tecnologias com consistencia.",
+      },
+      {
+        layer: "Reliability",
+        detail: "Testes de integracao e validacoes automatizadas para proteger fluxos criticos.",
       },
     ],
     keyFeatures: [
