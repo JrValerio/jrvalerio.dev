@@ -1,7 +1,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @import "tailwindcss";
 
-:root {
+:root,
+:root[data-theme="light"] {
   --jr-background: #f6f7f9;
   --jr-surface: #ffffff;
   --jr-text: #0f172a;
@@ -17,9 +18,11 @@
   --jr-header-bg: rgba(250, 251, 253, 0.8);
   --jr-card-shadow: 0 14px 36px rgba(15, 23, 42, 0.09);
   --jr-overlay: rgba(15, 23, 42, 0.24);
+  --jr-font-main: var(--font-geist), "Inter", system-ui, sans-serif;
 }
 
-.dark {
+.dark,
+:root[data-theme="dark"] {
   --jr-background: #0b0b0c;
   --jr-surface: #111113;
   --jr-text: #f3f4f6;
@@ -37,13 +40,17 @@
   --jr-overlay: rgba(0, 0, 0, 0.56);
 }
 
+:root[data-mono="true"] {
+  --jr-font-main: var(--font-geist-mono), "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
 html,
 body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: var(--jr-font-main);
   overflow-x: hidden;
 }
 
@@ -138,8 +145,134 @@ body {
   min-height: 100vh;
   background-color: var(--jr-background);
   color: var(--jr-text);
-  font-family: var(--font-geist), "Inter", system-ui, sans-serif;
+  font-family: var(--jr-font-main);
   transition: background-color 320ms ease, color 320ms ease;
+}
+
+.jr-theme--framed::before,
+.jr-theme--framed::after {
+  content: none;
+}
+
+.jr-webgl-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.jr-webgl-background > div {
+  z-index: 0 !important;
+}
+
+.jr-webgl-background canvas {
+  opacity: 0.62;
+  filter: saturate(1.03) contrast(1.02);
+}
+
+.dark .jr-webgl-background canvas,
+html[data-theme="dark"] .jr-webgl-background canvas {
+  opacity: 0.82;
+}
+
+#Frame {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.frame_line {
+  position: absolute;
+  background: color-mix(in srgb, var(--jr-text) 28%, transparent);
+}
+
+.frame_line-top {
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+}
+
+.frame_line-bottom {
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+}
+
+.frame_line-left {
+  left: 20px;
+  top: 20px;
+  bottom: 20px;
+  width: 1px;
+}
+
+.frame_line-right {
+  right: 20px;
+  top: 20px;
+  bottom: 20px;
+  width: 1px;
+}
+
+#Content {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  padding: 60px;
+}
+
+.content_inner {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.jr-shell-header {
+  position: sticky;
+  top: 24px;
+  z-index: 6;
+  border: 1px solid var(--jr-border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--jr-header-bg) 96%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.jr-theme-switcher {
+  position: fixed;
+  left: 6px;
+  bottom: 26px;
+  z-index: 20;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: flex;
+  gap: 0.95rem;
+  padding: 0.5rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--jr-muted);
+  user-select: none;
+}
+
+.jr-theme-switcher-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  cursor: pointer;
+}
+
+.jr-theme-switcher-item input {
+  appearance: none;
+  width: 8px;
+  height: 8px;
+  margin: 0;
+  border: 1px solid currentColor;
+  background: transparent;
+}
+
+.jr-theme-switcher-item input:checked {
+  background: currentColor;
 }
 
 .jr-theme::before {
@@ -450,6 +583,45 @@ body {
 }
 
 @media (max-width: 768px) {
+  #Content {
+    padding: 44px 22px 48px;
+  }
+
+  .jr-shell-header {
+    top: 16px;
+  }
+
+  .jr-theme-switcher {
+    left: 2px;
+    bottom: 18px;
+    font-size: 0.58rem;
+    gap: 0.72rem;
+  }
+
+  .frame_line-top {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .frame_line-bottom {
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .frame_line-left {
+    left: 12px;
+    top: 12px;
+    bottom: 12px;
+  }
+
+  .frame_line-right {
+    right: 12px;
+    top: 12px;
+    bottom: 12px;
+  }
+
   .jr-container {
     padding-left: 20px;
     padding-right: 20px;

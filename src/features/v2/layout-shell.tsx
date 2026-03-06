@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import CommandPalette from "../../components/UI/CommandPalette";
+import Frame from "../../components/UI/Frame";
+import ThemeSwitcher from "../../components/UI/ThemeSwitcher";
 import LocaleSwitcher from "../../components/LocaleSwitcher";
-import V2ThemeToggle from "../../components/V2ThemeToggle";
+import WebGLBackground from "../../components/background/WebGLBackground";
 import { getV2Messages, toLocalePath, type V2Locale } from "../../i18n/v2";
 
 type V2LayoutShellProps = {
@@ -26,41 +28,48 @@ export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutSh
   ];
 
   return (
-    <div className="jr-theme min-h-screen">
+    <div className="jr-theme jr-theme--framed min-h-screen">
+      <WebGLBackground />
+      <Frame />
+      <ThemeSwitcher locale={locale} />
+
       <CommandPalette locale={locale} prefixed={prefixed} messages={messages.commandPalette} />
 
-      <header className="relative z-30 sticky top-0 border-b border-[var(--jr-border)] bg-[var(--jr-header-bg)] backdrop-blur-md">
-        <div className="jr-container flex items-center justify-between py-4">
-          <Link
-            href={toLocalePath("/v2", locale, prefixed)}
-            className="text-sm tracking-[0.16em] uppercase text-[var(--jr-muted)] hover:text-[var(--jr-text)] transition-colors"
-          >
-            {messages.nav.brand}
-          </Link>
-          <nav
-            className="ml-4 flex min-w-0 items-center gap-4 overflow-x-auto whitespace-nowrap"
-            aria-label="Navegacao principal v2"
-          >
-            {navLinks.map((link) => (
+      <div id="Content">
+        <div className="content_inner">
+          <header className="jr-shell-header">
+            <div className="jr-container flex items-center justify-between py-4">
               <Link
-                key={link.href}
-                href={toLocalePath(link.href, locale, prefixed)}
-                className="text-xs md:text-sm text-[var(--jr-muted)] hover:text-[var(--jr-text)] transition-colors"
+                href={toLocalePath("/v2", locale, prefixed)}
+                className="text-sm tracking-[0.16em] uppercase text-[var(--jr-muted)] hover:text-[var(--jr-text)] transition-colors"
               >
-                {link.label}
+                {messages.nav.brand}
               </Link>
-            ))}
+              <nav
+                className="ml-4 flex min-w-0 items-center gap-4 overflow-x-auto whitespace-nowrap"
+                aria-label="Navegacao principal v2"
+              >
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={toLocalePath(link.href, locale, prefixed)}
+                    className="text-xs md:text-sm text-[var(--jr-muted)] hover:text-[var(--jr-text)] transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
 
-            <span className="hidden rounded-md border border-[var(--jr-border)] px-2 py-1 text-[10px] uppercase tracking-wide text-[var(--jr-muted)] lg:inline-flex">
-              {messages.nav.searchHint}
-            </span>
-            <V2ThemeToggle locale={locale} />
-            <LocaleSwitcher locale={locale} messages={messages.locale} />
-          </nav>
+                <span className="hidden rounded-md border border-[var(--jr-border)] px-2 py-1 text-[10px] uppercase tracking-wide text-[var(--jr-muted)] lg:inline-flex">
+                  {messages.nav.searchHint}
+                </span>
+                <LocaleSwitcher locale={locale} messages={messages.locale} />
+              </nav>
+            </div>
+          </header>
+
+          <main className="relative z-[5]">{children}</main>
         </div>
-      </header>
-
-      <main className="relative z-10">{children}</main>
+      </div>
     </div>
   );
 }

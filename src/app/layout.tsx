@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Geist } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import AppAnalyticsTracker from "../components/AppAnalyticsTracker";
 import AppThemeProvider from "../components/AppThemeProvider";
@@ -10,6 +10,11 @@ import "../styles/globals.css";
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-geist",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://jrvalerio.dev";
@@ -52,7 +57,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR" className={geist.variable} suppressHydrationWarning>
+    <html
+      lang="pt-BR"
+      className={`${geist.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
       <body>
         <AppThemeProvider>
           <AppAnalyticsTracker />
