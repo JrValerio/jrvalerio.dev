@@ -15,6 +15,12 @@ type PipelineStep = {
   purpose: string;
 };
 
+type BundleHistoryPoint = {
+  milestone: string;
+  valueKb: number;
+  note: string;
+};
+
 const budgetMetrics: BudgetMetric[] = [
   {
     route: "/v2/page",
@@ -76,6 +82,36 @@ const engineeringMetrics = [
   },
 ];
 
+const bundleHistory: BundleHistoryPoint[] = [
+  {
+    milestone: "Baseline",
+    valueKb: 145,
+    note: "Estado inicial antes das otimizacoes de v1.4.",
+  },
+  {
+    milestone: "Hero optimization",
+    valueKb: 128,
+    note: "Remocao de runtime de animacao no caminho critico.",
+  },
+  {
+    milestone: "Bundle governance",
+    valueKb: 112,
+    note: "Ajustes de payload com budget e auditoria de chunks.",
+  },
+  {
+    milestone: "Current",
+    valueKb: 107,
+    note: "Estado atual com budget gate ativo no CI.",
+  },
+];
+
+const maxHistoryValue = Math.max(...bundleHistory.map((point) => point.valueKb));
+const initialBundleValue = bundleHistory[0]?.valueKb ?? 0;
+const latestBundleValue = bundleHistory[bundleHistory.length - 1]?.valueKb ?? 0;
+const bundleReduction = initialBundleValue - latestBundleValue;
+const bundleReductionPercent =
+  initialBundleValue > 0 ? (bundleReduction / initialBundleValue) * 100 : 0;
+
 export const metadata: Metadata = {
   title: "Metrics",
   description:
@@ -105,6 +141,44 @@ export default function V2MetricsPage() {
               <p className="mt-3 text-sm leading-7 text-[var(--jr-muted)]">{metric.note}</p>
             </article>
           ))}
+        </div>
+      </Section>
+
+      <Section
+        title="Bundle Evolution"
+        subtitle="Historico de reducao do First Load JS no ciclo v1.4."
+      >
+        <p className="jr-body text-[var(--jr-muted)]">
+          Reducao acumulada:{" "}
+          <strong className="text-[var(--jr-text)]">
+            {bundleReduction.toFixed(0)} kB ({bundleReductionPercent.toFixed(1)}%)
+          </strong>{" "}
+          de melhoria entre o baseline e o estado atual.
+        </p>
+
+        <div className="mt-6 grid gap-3">
+          {bundleHistory.map((point) => {
+            const ratio = maxHistoryValue > 0 ? (point.valueKb / maxHistoryValue) * 100 : 0;
+            return (
+              <article
+                key={point.milestone}
+                className="rounded-lg border border-[var(--jr-border)] bg-[var(--jr-surface)] px-4 py-4"
+              >
+                <div className="mb-2 flex items-center justify-between gap-4">
+                  <p className="text-sm font-semibold text-[var(--jr-text)]">{point.milestone}</p>
+                  <p className="jr-meta">{point.valueKb} kB</p>
+                </div>
+                <div className="h-2 overflow-hidden rounded bg-[var(--jr-border)]">
+                  <div
+                    className="h-full rounded bg-[var(--jr-accent)]"
+                    style={{ width: `${ratio}%` }}
+                    aria-hidden="true"
+                  />
+                </div>
+                <p className="mt-2 text-sm text-[var(--jr-muted)]">{point.note}</p>
+              </article>
+            );
+          })}
         </div>
       </Section>
 
