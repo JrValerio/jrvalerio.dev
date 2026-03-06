@@ -1,12 +1,32 @@
 'use client';
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
 type BackgroundCanvasProps = {
   isDark?: boolean;
 };
+
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPreference = () => {
+      setPrefersReducedMotion(mediaQuery.matches);
+    };
+
+    syncPreference();
+    mediaQuery.addEventListener("change", syncPreference);
+
+    return () => {
+      mediaQuery.removeEventListener("change", syncPreference);
+    };
+  }, []);
+
+  return prefersReducedMotion;
+}
 
 const vertexShader = `
   varying vec2 vUv;
@@ -83,7 +103,10 @@ const fragmentShader = `
   }
 `;
 
-function ShaderPlane({ isDark = false }: BackgroundCanvasProps) {
+function ShaderPlane({
+  isDark = false,
+  prefersReducedMotion = false,
+}: BackgroundCanvasProps & { prefersReducedMotion?: boolean }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   const uniforms = useMemo(
@@ -99,7 +122,9 @@ function ShaderPlane({ isDark = false }: BackgroundCanvasProps) {
     if (!meshRef.current) return;
 
     const material = meshRef.current.material as THREE.ShaderMaterial;
-    material.uniforms.uTime.value = state.clock.getElapsedTime() * 0.18;
+    material.uniforms.uTime.value = prefersReducedMotion
+      ? 0
+      : state.clock.getElapsedTime() * 0.18;
     material.uniforms.uResolution.value.set(state.size.width, state.size.height);
     material.uniforms.uDark.value = isDark ? 1 : 0;
   });
@@ -118,15 +143,18 @@ function ShaderPlane({ isDark = false }: BackgroundCanvasProps) {
 }
 
 export default function BackgroundCanvas({ isDark = false }: BackgroundCanvasProps) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none">
       <Canvas
         camera={{ position: [0, 0, 1] }}
         dpr={[1, 1.2]}
+        frameloop={prefersReducedMotion ? "demand" : "always"}
         gl={{ alpha: true, antialias: false, powerPreference: "low-power" }}
         style={{ background: "transparent" }}
       >
-        <ShaderPlane isDark={isDark} />
+        <ShaderPlane isDark={isDark} prefersReducedMotion={prefersReducedMotion} />
       </Canvas>
     </div>
   );

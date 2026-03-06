@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import MenuOverlay from "./MenuOverlay";
-import BackgroundCanvas from "./BackgroundCanvas";
+import WebGLBackground from "./background/WebGLBackground";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -40,7 +40,7 @@ export default function Layout({ children }: LayoutProps) {
         Ir para o conteudo principal
       </a>
 
-      <BackgroundCanvas />
+      <WebGLBackground />
 
       <Header onMenuOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />

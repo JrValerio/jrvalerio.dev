@@ -9,6 +9,10 @@ const BackgroundCanvas = dynamic(() => import("../BackgroundCanvas"), {
 
 export default function WebGLBackground() {
   const { resolvedTheme } = useTheme();
+  if (!resolvedTheme) {
+    return null;
+  }
+
   const isDark = resolvedTheme === "dark";
 
   return (
