@@ -48,7 +48,7 @@ export default function CommandPalette({ locale, prefixed, messages }: CommandPa
   }, []);
 
   useEffect(() => {
-    const onExternalOpen: EventListener = () => setOpen(true);
+    const onExternalOpen = () => setOpen(true);
     window.addEventListener("jr:open-command-palette", onExternalOpen);
     return () => window.removeEventListener("jr:open-command-palette", onExternalOpen);
   }, []);
