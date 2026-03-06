@@ -10,6 +10,12 @@ type CaseAnalyticsParams = {
   session_id?: string;
   source?: "case" | "list";
 };
+type AdrAnalyticsParams = {
+  adr_slug: string;
+  adr_id: string;
+  locale?: string;
+  source?: "engineering";
+};
 
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://app.posthog.com";
@@ -141,6 +147,20 @@ function normalizeCasePayload(
   };
 }
 
+function normalizeAdrPayload(
+  params: AdrAnalyticsParams,
+  extra: EventParams = {}
+): EventParams {
+  return {
+    adr: params.adr_slug,
+    adr_slug: params.adr_slug,
+    adr_id: params.adr_id,
+    locale: params.locale,
+    source: params.source ?? "engineering",
+    ...extra,
+  };
+}
+
 function createSessionId() {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
     return crypto.randomUUID();
@@ -205,6 +225,18 @@ export function trackCaseReadDepth(
     trackEvent(`case_read_${params.milestone}`, payload);
   }
 
+  trackEvent("reading_progress", {
+    ...payload,
+    milestone: params.milestone ?? depthPercent,
+    document_type: "case_study",
+  });
+  if (params.milestone) {
+    trackEvent(`reading_progress_${params.milestone}`, {
+      ...payload,
+      document_type: "case_study",
+    });
+  }
+
   trackEvent("case_study_read_depth", {
     ...payload,
     percent: params.milestone ?? depthPercent,
@@ -224,6 +256,7 @@ export function trackCaseReadComplete(
     depth_percent: Math.round(depth * 100),
   });
   trackEvent("case_read_complete", payload);
+  trackEvent("case_study_complete", payload);
   trackEvent("case_study_read_complete", payload);
 }
 
@@ -250,4 +283,82 @@ export function trackCaseSectionView(
   const payload = normalizeCasePayload(params, { section: params.section });
   trackEvent("case_section_view", payload);
   trackEvent("case_study_section_view", payload);
+  trackEvent("section_view", {
+    ...payload,
+    document_type: "case_study",
+  });
+}
+
+export function trackAdrView(params: AdrAnalyticsParams) {
+  const payload = normalizeAdrPayload(params);
+  trackEvent("adr_view", payload);
+  trackEvent("engineering_doc_view", payload);
+}
+
+export function trackAdrReadStart(
+  params: AdrAnalyticsParams & { estimated_read_minutes: number }
+) {
+  const payload = normalizeAdrPayload(params, {
+    estimated_read_minutes: params.estimated_read_minutes,
+  });
+  trackEvent("adr_read_start", payload);
+  trackEvent("engineering_doc_read_start", payload);
+}
+
+export function trackAdrReadDepth(
+  params: AdrAnalyticsParams & {
+    estimated_read_minutes: number;
+    depth: number;
+    milestone: 25 | 50 | 75 | 100;
+  }
+) {
+  const depth = Math.min(1, Math.max(0, params.depth));
+  const payload = normalizeAdrPayload(params, {
+    estimated_read_minutes: params.estimated_read_minutes,
+    depth,
+    depth_percent: Math.round(depth * 100),
+    milestone: params.milestone,
+  });
+
+  trackEvent("adr_read_depth", payload);
+  trackEvent(`adr_read_${params.milestone}`, payload);
+  trackEvent("reading_progress", {
+    ...payload,
+    document_type: "adr",
+  });
+  trackEvent(`reading_progress_${params.milestone}`, {
+    ...payload,
+    document_type: "adr",
+  });
+}
+
+export function trackAdrReadComplete(
+  params: AdrAnalyticsParams & {
+    estimated_read_minutes: number;
+    depth: number;
+  }
+) {
+  const depth = Math.min(1, Math.max(0, params.depth));
+  const payload = normalizeAdrPayload(params, {
+    estimated_read_minutes: params.estimated_read_minutes,
+    depth,
+    depth_percent: Math.round(depth * 100),
+  });
+  trackEvent("adr_read_complete", payload);
+  trackEvent("reading_complete", {
+    ...payload,
+    document_type: "adr",
+  });
+  trackEvent("engineering_doc_read_complete", payload);
+}
+
+export function trackAdrSectionView(
+  params: AdrAnalyticsParams & { section: string }
+) {
+  const payload = normalizeAdrPayload(params, { section: params.section });
+  trackEvent("adr_section_view", payload);
+  trackEvent("section_view", {
+    ...payload,
+    document_type: "adr",
+  });
 }

@@ -19,12 +19,23 @@ export default function ProjectDetailContent({
   prefixed,
 }: ProjectDetailContentProps) {
   const messages = getV2Messages(locale);
+  const sectionIds = [
+    "challenge",
+    "solution",
+    "architecture",
+    "features",
+    "technical-challenges",
+    "tech-stack",
+    "impact",
+    "next-iteration",
+    "links",
+  ];
 
   return (
     <>
       <section className="border-b border-[var(--jr-border)] py-16">
         <div className="jr-container">
-          <CaseStudyViewTracker slug={project.slug} category={project.category} />
+          <CaseStudyViewTracker project={project} locale={locale} sectionIds={sectionIds} />
 
           <Link href={toLocalePath("/v2/projetos", locale, prefixed)} className="jr-link">
             ← {messages.caseStudy.back}
@@ -62,15 +73,27 @@ export default function ProjectDetailContent({
         </div>
       </section>
 
-      <Section title={messages.caseStudy.challenge} subtitle={messages.caseStudy.challengeSubtitle}>
+      <Section
+        id="challenge"
+        analyticsId="challenge"
+        title={messages.caseStudy.challenge}
+        subtitle={messages.caseStudy.challengeSubtitle}
+      >
         <p className="jr-body max-w-3xl text-[var(--jr-muted)]">{project.challenge}</p>
       </Section>
 
-      <Section title={messages.caseStudy.solution} subtitle={messages.caseStudy.solutionSubtitle}>
+      <Section
+        id="solution"
+        analyticsId="solution"
+        title={messages.caseStudy.solution}
+        subtitle={messages.caseStudy.solutionSubtitle}
+      >
         <p className="jr-body max-w-3xl text-[var(--jr-muted)]">{project.solution}</p>
       </Section>
 
       <Section
+        id="architecture"
+        analyticsId="architecture"
         title={messages.caseStudy.architecture}
         subtitle={messages.caseStudy.architectureSubtitle}
       >
@@ -99,7 +122,12 @@ export default function ProjectDetailContent({
         ) : null}
       </Section>
 
-      <Section title={messages.caseStudy.features} subtitle={messages.caseStudy.featuresSubtitle}>
+      <Section
+        id="features"
+        analyticsId="features"
+        title={messages.caseStudy.features}
+        subtitle={messages.caseStudy.featuresSubtitle}
+      >
         <ul className="grid gap-2">
           {project.keyFeatures.map((feature) => (
             <li
@@ -113,6 +141,8 @@ export default function ProjectDetailContent({
       </Section>
 
       <Section
+        id="technical-challenges"
+        analyticsId="technical-challenges"
         title={messages.caseStudy.technicalChallenges}
         subtitle={messages.caseStudy.technicalChallengesSubtitle}
       >
@@ -128,7 +158,12 @@ export default function ProjectDetailContent({
         </ul>
       </Section>
 
-      <Section title={messages.caseStudy.techStack} subtitle={messages.caseStudy.techStackSubtitle}>
+      <Section
+        id="tech-stack"
+        analyticsId="tech-stack"
+        title={messages.caseStudy.techStack}
+        subtitle={messages.caseStudy.techStackSubtitle}
+      >
         <div className="flex flex-wrap gap-2">
           {project.stack.map((item) => (
             <span
@@ -141,7 +176,12 @@ export default function ProjectDetailContent({
         </div>
       </Section>
 
-      <Section title={messages.caseStudy.impact} subtitle={messages.caseStudy.impactSubtitle}>
+      <Section
+        id="impact"
+        analyticsId="impact"
+        title={messages.caseStudy.impact}
+        subtitle={messages.caseStudy.impactSubtitle}
+      >
         <p className="jr-body max-w-3xl text-[var(--jr-muted)]">{project.impact}</p>
         <ul className="mt-6 grid gap-2">
           {project.highlights.map((highlight) => (
@@ -156,6 +196,8 @@ export default function ProjectDetailContent({
       </Section>
 
       <Section
+        id="next-iteration"
+        analyticsId="next-iteration"
         title={messages.caseStudy.nextIteration}
         subtitle={messages.caseStudy.nextIterationSubtitle}
       >
@@ -171,7 +213,12 @@ export default function ProjectDetailContent({
         </ul>
       </Section>
 
-      <Section title={messages.caseStudy.links} subtitle={messages.caseStudy.linksSubtitle}>
+      <Section
+        id="links"
+        analyticsId="links"
+        title={messages.caseStudy.links}
+        subtitle={messages.caseStudy.linksSubtitle}
+      >
         <ProjectOutboundLinks
           slug={project.slug}
           category={project.category}

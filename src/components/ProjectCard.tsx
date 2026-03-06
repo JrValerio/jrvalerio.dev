@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { Project } from "../data/projects";
 import { trackEvent } from "../lib/analytics";
+import { getProjectReadingTime } from "../lib/project-reading-time";
 import { getV2Messages, toLocalePath, type V2Locale } from "../i18n/v2";
 
 type ProjectCardProps = {
@@ -10,23 +11,6 @@ type ProjectCardProps = {
   locale?: V2Locale;
   prefixed?: boolean;
 };
-
-function getProjectReadingTime(project: Project) {
-  const combinedText = [
-    project.summary,
-    project.challenge,
-    project.solution,
-    project.impact,
-    ...project.keyFeatures,
-    ...project.technicalChallenges,
-    ...project.nextIteration,
-    ...project.highlights,
-    ...project.architecture.map((item) => item.detail),
-  ].join(" ");
-
-  const words = combinedText.trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.ceil(words / 200));
-}
 
 export default function ProjectCard({
   project,

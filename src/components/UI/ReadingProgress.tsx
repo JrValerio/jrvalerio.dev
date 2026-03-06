@@ -1,32 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getScrollMetrics, type ScrollMetrics } from "../../lib/scroll-metrics";
 
 type ReadingProgressProps = {
   ariaLabel: string;
 };
-
-const SHELL_SCROLL_CONTAINER_ID = "ContentScroll";
-
-function getScrollMetrics() {
-  const shellScrollContainer = document.getElementById(SHELL_SCROLL_CONTAINER_ID);
-
-  if (shellScrollContainer) {
-    return {
-      target: shellScrollContainer,
-      maxScroll: shellScrollContainer.scrollHeight - shellScrollContainer.clientHeight,
-      scrollOffset: shellScrollContainer.scrollTop,
-    };
-  }
-
-  return {
-    target: window,
-    maxScroll: document.documentElement.scrollHeight - window.innerHeight,
-    scrollOffset: window.scrollY,
-  };
-}
-
-type ScrollMetrics = ReturnType<typeof getScrollMetrics>;
 
 export default function ReadingProgress({ ariaLabel }: ReadingProgressProps) {
   const [progress, setProgress] = useState(0);

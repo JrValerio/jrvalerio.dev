@@ -2,6 +2,7 @@ import Link from "next/link";
 import ReadingProgress from "../../components/UI/ReadingProgress";
 import Section from "../../components/UI/Section";
 import AdrTableOfContents from "./adr-table-of-contents";
+import AdrReadingTracker from "./adr-reading-tracker";
 import {
   getAdrNavigation,
   parseAdrSections,
@@ -70,6 +71,11 @@ export default function AdrDetailContent({
 
   return (
     <>
+      <AdrReadingTracker
+        adr={adr}
+        locale={locale}
+        sectionIds={sections.map((section) => section.id)}
+      />
       <ReadingProgress ariaLabel={messages.engineering.readingProgressAria} />
 
       <section className="border-b border-[var(--jr-border)] py-16">

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { trackEvent } from "../lib/analytics";
+import { getScrollMetrics } from "../lib/scroll-metrics";
 
 type ScrollDepthTrackerProps = {
   path: string;
@@ -9,28 +10,9 @@ type ScrollDepthTrackerProps = {
 };
 
 const DEPTH_THRESHOLDS = [25, 50, 75, 100] as const;
-const SHELL_SCROLL_CONTAINER_ID = "ContentScroll";
 
 function normalizePath(path: string) {
   return path.split("?")[0]?.split("#")[0] ?? "/";
-}
-
-function getScrollMetrics() {
-  const shellScrollContainer = document.getElementById(SHELL_SCROLL_CONTAINER_ID);
-
-  if (shellScrollContainer) {
-    return {
-      target: shellScrollContainer,
-      maxScroll: shellScrollContainer.scrollHeight - shellScrollContainer.clientHeight,
-      scrollOffset: shellScrollContainer.scrollTop,
-    };
-  }
-
-  return {
-    target: window,
-    maxScroll: document.documentElement.scrollHeight - window.innerHeight,
-    scrollOffset: window.scrollY,
-  };
 }
 
 export default function ScrollDepthTracker({ path, routeType }: ScrollDepthTrackerProps) {
