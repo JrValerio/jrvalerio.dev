@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import Hero from "../../components/Hero";
-import Work from "../../components/Work";
-import EngineeringLinks from "../../components/EngineeringLinks";
-import ContactCta from "../../components/ContactCta";
 import { getLanguageAlternates } from "../../i18n/v2";
 
 export const metadata: Metadata = {
@@ -14,11 +11,8 @@ export const metadata: Metadata = {
 
 export default function V2HomePage() {
   return (
-    <>
+    <main className="jr-home-main" aria-label="Home hero">
       <Hero locale="pt-BR" prefixed={false} />
-      <Work limit={3} locale="pt-BR" prefixed={false} />
-      <EngineeringLinks locale="pt-BR" prefixed={false} />
-      <ContactCta locale="pt-BR" prefixed={false} />
-    </>
+    </main>
   );
 }

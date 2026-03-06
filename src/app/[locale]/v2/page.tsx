@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import ContactCta from "../../../components/ContactCta";
-import EngineeringLinks from "../../../components/EngineeringLinks";
 import Hero from "../../../components/Hero";
-import Work from "../../../components/Work";
 import {
   getLanguageAlternates,
   getLocaleFromSegment,
@@ -33,11 +30,8 @@ export default async function LocalizedHomePage({ params }: LocalizedHomePagePro
   if (!locale) notFound();
 
   return (
-    <>
+    <main className="jr-home-main" aria-label="Home hero">
       <Hero locale={locale} prefixed />
-      <Work limit={3} locale={locale} prefixed />
-      <EngineeringLinks locale={locale} prefixed />
-      <ContactCta locale={locale} prefixed />
-    </>
+    </main>
   );
 }

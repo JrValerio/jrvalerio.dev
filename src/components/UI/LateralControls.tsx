@@ -40,32 +40,34 @@ export default function LateralControls({
 
   return (
     <aside className="jr-lateral-controls" aria-label="Lateral controls">
-      <ThemeSwitcher locale={locale} className="jr-lateral-group" />
+      <div className="jr-lateral-controls-inner">
+        <ThemeSwitcher locale={locale} className="jr-lateral-group" />
 
-      <div className="jr-lateral-group">
-        <button
-          type="button"
-          className="jr-lateral-btn"
-          onClick={onSearchClick}
-          aria-label={commandMessages.placeholder}
-          title={commandMessages.placeholder}
-        >
-          Search
-        </button>
-      </div>
-
-      <div className="jr-lateral-group" role="group" aria-label={localeMessages.label}>
-        {allLocales.map((nextLocale) => (
+        <div className="jr-lateral-group">
           <button
-            key={nextLocale}
             type="button"
-            onClick={() => onLocaleChange(nextLocale)}
             className="jr-lateral-btn"
-            aria-pressed={nextLocale === locale}
+            onClick={onSearchClick}
+            aria-label={commandMessages.placeholder}
+            title={commandMessages.placeholder}
           >
-            {localeMessages.options[nextLocale]}
+            Search
           </button>
-        ))}
+        </div>
+
+        <div className="jr-lateral-group" role="group" aria-label={localeMessages.label}>
+          {allLocales.map((nextLocale) => (
+            <button
+              key={nextLocale}
+              type="button"
+              onClick={() => onLocaleChange(nextLocale)}
+              className="jr-lateral-btn"
+              aria-pressed={nextLocale === locale}
+            >
+              {localeMessages.options[nextLocale]}
+            </button>
+          ))}
+        </div>
       </div>
     </aside>
   );

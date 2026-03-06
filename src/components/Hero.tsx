@@ -10,7 +10,7 @@ export default function Hero({ locale = "pt-BR", prefixed = false }: HeroProps) 
   const messages = getV2Messages(locale);
 
   return (
-    <section className="jr-hero flex items-center border-b border-[var(--jr-border)] py-14 md:py-18">
+    <section className="jr-hero flex items-center py-0">
       <Container>
         <div className="max-w-[760px]">
           <h1 className="jr-hero-title jr-reveal jr-reveal-delay-1">
@@ -27,7 +27,7 @@ export default function Hero({ locale = "pt-BR", prefixed = false }: HeroProps) 
 
           <div className="jr-reveal jr-reveal-delay-4 mt-11 flex flex-wrap gap-6">
             <a
-              href={toLocalePath("/v2#work", locale, prefixed)}
+              href={toLocalePath("/v2/projetos", locale, prefixed)}
               className="jr-link inline-block transition-transform duration-200 hover:-translate-y-0.5"
             >
               {messages.hero.ctaWork}
