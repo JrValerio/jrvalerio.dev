@@ -35,6 +35,17 @@ This keeps review focused, risk controlled, and history clean.
 
 Architecture documentation lives in [`docs/architecture`](docs/architecture):
 
+### Documentation entry points
+
+Architecture:
+- [`docs/architecture`](docs/architecture)
+
+Engineering decisions:
+- [`docs/adr`](docs/adr)
+
+EcoVoz product governance:
+- [`docs/ecovoz`](docs/ecovoz)
+
 - [Full index](docs/architecture/README.md)
 - [`context.md`](docs/architecture/context.md)
 - [`container.md`](docs/architecture/container.md)
