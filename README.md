@@ -35,6 +35,7 @@ This keeps review focused, risk controlled, and history clean.
 
 Architecture documentation lives in [`docs/architecture`](docs/architecture):
 
+- [Full index](docs/architecture/README.md)
 - [`context.md`](docs/architecture/context.md)
 - [`container.md`](docs/architecture/container.md)
 - [`component.md`](docs/architecture/component.md)
@@ -44,6 +45,7 @@ Architecture documentation lives in [`docs/architecture`](docs/architecture):
 
 Architecture decisions are documented in [`docs/adr`](docs/adr):
 
+- [Full index](docs/adr/README.md)
 - [`ADR-001-nextjs-platform.md`](docs/adr/ADR-001-nextjs-platform.md)
 - [`ADR-002-case-study-domain.md`](docs/adr/ADR-002-case-study-domain.md)
 - [`ADR-003-analytics-observability.md`](docs/adr/ADR-003-analytics-observability.md)
