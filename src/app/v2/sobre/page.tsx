@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 export default function V2AboutPage() {
   return (
     <>
-      <About />
-      <Stack />
+      <About locale="pt-BR" />
+      <Stack locale="pt-BR" />
     </>
   );
 }

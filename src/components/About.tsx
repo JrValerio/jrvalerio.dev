@@ -1,25 +1,25 @@
 import Section from "./UI/Section";
+import { getV2Messages, type V2Locale } from "../i18n/v2";
 
-export default function About() {
+type AboutProps = {
+  locale?: V2Locale;
+};
+
+export default function About({ locale = "pt-BR" }: AboutProps) {
+  const messages = getV2Messages(locale);
+
   return (
     <Section
       id="about"
-      title="About"
-      subtitle="Construindo software com foco em acessibilidade, impacto real e qualidade de codigo."
+      title={messages.about.title}
+      subtitle={messages.about.subtitle}
     >
-      <div className="max-w-3xl space-y-4">
-        <p className="jr-body text-[var(--jr-muted)]">
-          Full-stack developer focado em construir tecnologia acessivel com React, Next.js,
-          TypeScript e Node.js.
-        </p>
-        <p className="jr-body text-[var(--jr-muted)]">
-          Criador do EcoVoz, uma plataforma de comunicacao assistiva multimodal orientada a
-          impacto real.
-        </p>
-        <p className="jr-body text-[var(--jr-muted)]">
-          Baseado no Brasil, com foco em engenharia de produto, performance e experiencia do
-          usuario.
-        </p>
+      <div className="jr-prose space-y-4">
+        {messages.about.paragraphs.map((paragraph) => (
+          <p key={paragraph} className="jr-body text-[var(--jr-muted)]">
+            {paragraph}
+          </p>
+        ))}
       </div>
     </Section>
   );

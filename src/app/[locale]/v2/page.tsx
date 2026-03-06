@@ -1,0 +1,43 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import ContactCta from "../../../components/ContactCta";
+import EngineeringLinks from "../../../components/EngineeringLinks";
+import Hero from "../../../components/Hero";
+import Work from "../../../components/Work";
+import {
+  getLanguageAlternates,
+  getLocaleFromSegment,
+  type V2LocaleSegment,
+} from "../../../i18n/v2";
+
+type LocalizedHomePageProps = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: LocalizedHomePageProps): Promise<Metadata> {
+  const { locale: segment } = await params;
+  const locale = getLocaleFromSegment(segment as V2LocaleSegment);
+  if (!locale) return {};
+
+  return {
+    alternates: {
+      canonical: `/${segment}/v2`,
+      languages: getLanguageAlternates("/v2"),
+    },
+  };
+}
+
+export default async function LocalizedHomePage({ params }: LocalizedHomePageProps) {
+  const { locale: segment } = await params;
+  const locale = getLocaleFromSegment(segment as V2LocaleSegment);
+  if (!locale) notFound();
+
+  return (
+    <>
+      <Hero locale={locale} prefixed />
+      <Work limit={3} locale={locale} prefixed />
+      <EngineeringLinks locale={locale} prefixed />
+      <ContactCta locale={locale} prefixed />
+    </>
+  );
+}

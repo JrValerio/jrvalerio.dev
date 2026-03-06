@@ -1,20 +1,26 @@
 import Button from "./UI/Button";
 import Card from "./UI/Card";
 import Section from "./UI/Section";
+import { getV2Messages, type V2Locale } from "../i18n/v2";
 
-export default function Contact() {
+type ContactProps = {
+  locale?: V2Locale;
+};
+
+export default function Contact({ locale = "pt-BR" }: ContactProps) {
+  const messages = getV2Messages(locale);
+
   return (
     <Section
       id="contact"
-      title="Contact"
-      subtitle="Aberto para projetos, times de produto e oportunidades remotas."
+      title={messages.contact.title}
+      subtitle={messages.contact.subtitle}
     >
       <div className="grid gap-4 lg:grid-cols-[2fr,1fr]">
         <Card>
-          <p className="jr-meta mb-3">Let&apos;s build something valuable</p>
+          <p className="jr-meta mb-3">{messages.contact.lead}</p>
           <p className="jr-body max-w-2xl text-[var(--jr-muted)]">
-            Se voce precisa de um desenvolvedor focado em produto, performance e experiencia
-            de usuario, posso contribuir em discovery, implementacao e entrega.
+            {messages.contact.body}
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -24,7 +30,7 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Enviar email
+              {messages.contact.sendEmail}
             </Button>
             <Button
               as="a"
@@ -32,7 +38,7 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Conectar no LinkedIn
+              {messages.contact.connectLinkedIn}
             </Button>
             <Button
               as="a"
@@ -40,18 +46,18 @@ export default function Contact() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Ver GitHub
+              {messages.contact.viewGithub}
             </Button>
           </div>
         </Card>
 
         <Card className="space-y-3">
-          <p className="jr-meta">Disponibilidade</p>
-          <p className="text-sm text-[var(--jr-text)]">Freelance e oportunidades remotas</p>
-          <p className="jr-meta">Resposta</p>
-          <p className="text-sm text-[var(--jr-text)]">Normalmente em ate 24 horas</p>
-          <p className="jr-meta">Localizacao</p>
-          <p className="text-sm text-[var(--jr-text)]">Atibaia, Sao Paulo, Brasil</p>
+          <p className="jr-meta">{messages.contact.availability}</p>
+          <p className="text-sm text-[var(--jr-text)]">{messages.contact.availabilityValue}</p>
+          <p className="jr-meta">{messages.contact.response}</p>
+          <p className="text-sm text-[var(--jr-text)]">{messages.contact.responseValue}</p>
+          <p className="jr-meta">{messages.contact.location}</p>
+          <p className="text-sm text-[var(--jr-text)]">{messages.contact.locationValue}</p>
         </Card>
       </div>
     </Section>

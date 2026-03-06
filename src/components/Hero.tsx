@@ -1,6 +1,14 @@
 import Container from "./UI/Container";
+import { getV2Messages, toLocalePath, type V2Locale } from "../i18n/v2";
 
-export default function Hero() {
+type HeroProps = {
+  locale?: V2Locale;
+  prefixed?: boolean;
+};
+
+export default function Hero({ locale = "pt-BR", prefixed = false }: HeroProps) {
+  const messages = getV2Messages(locale);
+
   return (
     <section className="flex min-h-[88vh] items-center border-b border-[var(--jr-border)] py-20">
       <Container>
@@ -10,19 +18,19 @@ export default function Hero() {
           </h1>
 
           <p className="jr-hero-subtitle jr-reveal jr-reveal-delay-2 mt-6">
-            Full-Stack Developer
+            {messages.hero.role}
           </p>
 
           <p className="jr-body jr-reveal jr-reveal-delay-3 mt-6 max-w-xl text-[var(--jr-muted)]">
-            I build technology that helps people communicate. Creator of EcoVoz.
+            {messages.hero.summary}
           </p>
 
           <div className="jr-reveal jr-reveal-delay-4 mt-10 flex flex-wrap gap-6">
             <a
-              href="#work"
+              href={toLocalePath("/v2#work", locale, prefixed)}
               className="jr-link inline-block transition-transform duration-200 hover:-translate-y-0.5"
             >
-              View Work
+              {messages.hero.ctaWork}
             </a>
             <a
               href="https://github.com/jrvalerio"
@@ -30,7 +38,7 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="jr-link inline-block transition-transform duration-200 hover:-translate-y-0.5"
             >
-              GitHub
+              {messages.hero.ctaGithub}
             </a>
             <a
               href="https://linkedin.com/in/jrvalerio"
@@ -38,7 +46,7 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="jr-link inline-block transition-transform duration-200 hover:-translate-y-0.5"
             >
-              LinkedIn
+              {messages.hero.ctaLinkedIn}
             </a>
           </div>
         </div>

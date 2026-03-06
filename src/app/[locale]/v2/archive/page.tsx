@@ -1,27 +1,42 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Section from "../../../components/UI/Section";
-import { archivedProjects } from "../../../data/projects";
-import { getV2Messages, toLocalePath } from "../../../i18n/v2";
+import { notFound } from "next/navigation";
+import Section from "../../../../components/UI/Section";
+import { archivedProjects } from "../../../../data/projects";
+import {
+  getLocaleFromSegment,
+  getV2Messages,
+  toLocalePath,
+  type V2LocaleSegment,
+} from "../../../../i18n/v2";
 
-export const metadata: Metadata = {
-  title: "Archive",
-  description: "Projetos de estudo e iteracoes anteriores do portfolio.",
-  alternates: {
-    canonical: "/v2/archive",
-  },
+type LocalizedArchivePageProps = {
+  params: Promise<{ locale: string }>;
 };
 
-export default function V2ArchivePage() {
-  const locale = "pt-BR";
-  const prefixed = false;
+export async function generateMetadata({
+  params,
+}: LocalizedArchivePageProps): Promise<Metadata> {
+  const { locale: segment } = await params;
+  const locale = getLocaleFromSegment(segment as V2LocaleSegment);
+  if (!locale) return {};
+
+  return {
+    alternates: {
+      canonical: `/${segment}/v2/archive`,
+    },
+  };
+}
+
+export default async function LocalizedArchivePage({ params }: LocalizedArchivePageProps) {
+  const { locale: segment } = await params;
+  const locale = getLocaleFromSegment(segment as V2LocaleSegment);
+  if (!locale) notFound();
+
   const messages = getV2Messages(locale);
 
   return (
-    <Section
-      title={messages.archive.title}
-      subtitle={messages.archive.subtitle}
-    >
+    <Section title={messages.archive.title} subtitle={messages.archive.subtitle}>
       <div className="grid gap-4 md:grid-cols-2">
         {archivedProjects.map((project) => (
           <article key={project.slug} className="jr-surface-card p-6">
@@ -68,7 +83,7 @@ export default function V2ArchivePage() {
       </div>
 
       <div className="mt-10">
-        <Link href={toLocalePath("/v2/projetos", locale, prefixed)} className="jr-link">
+        <Link href={toLocalePath("/v2/projetos", locale, true)} className="jr-link">
           ← {messages.archive.backToMain}
         </Link>
       </div>

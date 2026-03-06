@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function V2ContactPage() {
-  return <Contact />;
+  return <Contact locale="pt-BR" />;
 }
