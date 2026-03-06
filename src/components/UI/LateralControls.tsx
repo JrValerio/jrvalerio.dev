@@ -23,10 +23,10 @@ export default function LateralControls({
   commandMessages,
 }: LateralControlsProps) {
   const router = useRouter();
-  const pathname = usePathname() ?? "/v2";
+  const pathname = usePathname() || "/v2";
 
   const onSearchClick = () => {
-    window.dispatchEvent(new Event("jr:open-command-palette"));
+    window.dispatchEvent(new CustomEvent("jr:open-command-palette"));
   };
 
   const onLocaleChange = (nextLocale: V2Locale) => {

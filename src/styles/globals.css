@@ -261,6 +261,11 @@ html[data-theme="dark"] .jr-webgl-background canvas {
   gap: 0.72rem;
 }
 
+.jr-lateral-group:not(:last-child)::after {
+  content: "•";
+  opacity: 0.45;
+}
+
 .jr-theme-switcher {
   display: inline-flex;
   align-items: center;
