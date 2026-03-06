@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ReadingProgress from "../../components/UI/ReadingProgress";
 import Section from "../../components/UI/Section";
 import {
   parseAdrSections,
@@ -66,6 +67,8 @@ export default function AdrDetailContent({
 
   return (
     <>
+      <ReadingProgress ariaLabel={messages.engineering.readingProgressAria} />
+
       <section className="border-b border-[var(--jr-border)] py-16">
         <div className="jr-container">
           <Link href={toLocalePath("/v2/engineering", locale, prefixed)} className="jr-link">
@@ -105,7 +108,13 @@ export default function AdrDetailContent({
       </section>
 
       {sections.map((section) => (
-        <Section key={section.id} id={section.id} title={section.title}>
+        <Section
+          key={section.id}
+          id={section.id}
+          title={section.title}
+          headingAnchorHref={`#${section.id}`}
+          headingAnchorLabel={`${messages.engineering.sectionAnchorLabel}: ${section.title}`}
+        >
           <div className="grid gap-4">
             {section.blocks.map((block, index) =>
               renderBlock(block, `${section.id}-${index}`)

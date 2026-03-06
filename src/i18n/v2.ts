@@ -114,6 +114,8 @@ export type V2Messages = {
     tagsLabel: string;
     readAdr: string;
     backToHub: string;
+    readingProgressAria: string;
+    sectionAnchorLabel: string;
     status: Record<"proposed" | "accepted" | "deprecated", string>;
     relatedTitle: string;
     relatedSubtitle: string;
@@ -309,6 +311,8 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
       tagsLabel: "Tags",
       readAdr: "Read ADR",
       backToHub: "Back to engineering",
+      readingProgressAria: "ADR reading progress",
+      sectionAnchorLabel: "Section link",
       status: {
         proposed: "Proposed",
         accepted: "Accepted",
@@ -494,6 +498,8 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
       tagsLabel: "Tags",
       readAdr: "Ler ADR",
       backToHub: "Voltar para engineering",
+      readingProgressAria: "Progresso de leitura do ADR",
+      sectionAnchorLabel: "Link da secao",
       status: {
         proposed: "Proposto",
         accepted: "Aceito",
@@ -679,6 +685,8 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
       tagsLabel: "Tags",
       readAdr: "Leer ADR",
       backToHub: "Volver a ingenieria",
+      readingProgressAria: "Progreso de lectura del ADR",
+      sectionAnchorLabel: "Enlace de seccion",
       status: {
         proposed: "Propuesto",
         accepted: "Aceptado",

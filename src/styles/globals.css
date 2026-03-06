@@ -560,6 +560,31 @@ html[data-theme="dark"] .frame_line {
   color: var(--jr-text);
 }
 
+.jr-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.jr-section-anchor {
+  opacity: 0;
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--jr-muted);
+  text-decoration: none;
+  transform: translateY(1px);
+  transition: opacity 150ms ease, color 150ms ease;
+}
+
+.jr-section:hover .jr-section-anchor,
+.jr-section-anchor:focus-visible {
+  opacity: 1;
+}
+
+.jr-section-anchor:hover {
+  color: var(--jr-accent);
+}
+
 .jr-section-subtitle {
   font-size: 1rem;
   line-height: 1.6;
@@ -659,6 +684,25 @@ html[data-theme="dark"] .frame_line {
 
 .jr-link:hover {
   color: var(--jr-accent);
+}
+
+.jr-reading-progress {
+  position: fixed;
+  top: calc(var(--jr-frame-inset-top) + var(--jr-shell-content-gap));
+  left: calc(var(--jr-frame-inset-left) + var(--jr-shell-content-gap));
+  right: calc(var(--jr-frame-inset-right) + var(--jr-shell-content-gap));
+  z-index: 26;
+  height: 2px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.jr-reading-progress__bar {
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  background: color-mix(in srgb, var(--jr-accent) 88%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--jr-accent) 28%, transparent);
 }
 
 .jr-adr-card {
