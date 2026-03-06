@@ -6,6 +6,7 @@ import type { V2Locale } from "../../i18n/v2";
 
 type ThemeSwitcherProps = {
   locale: V2Locale;
+  className?: string;
 };
 
 const labelsByLocale: Record<
@@ -39,7 +40,7 @@ const labelsByLocale: Record<
 
 const MONO_STORAGE_KEY = "jr-mono";
 
-export default function ThemeSwitcher({ locale }: ThemeSwitcherProps) {
+export default function ThemeSwitcher({ locale, className }: ThemeSwitcherProps) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mono, setMono] = useState(false);
@@ -73,8 +74,12 @@ export default function ThemeSwitcher({ locale }: ThemeSwitcherProps) {
 
   if (!mounted) return null;
 
+  const switcherClassName = className
+    ? `jr-theme-switcher ${className}`
+    : "jr-theme-switcher";
+
   return (
-    <aside className="jr-theme-switcher" aria-label={labels.switcher}>
+    <div className={switcherClassName} aria-label={labels.switcher}>
       <label className="jr-theme-switcher-item">
         <input
           type="radio"
@@ -99,6 +104,6 @@ export default function ThemeSwitcher({ locale }: ThemeSwitcherProps) {
         <input type="checkbox" checked={mono} onChange={onMonoChange} />
         <span>{labels.monospaced}</span>
       </label>
-    </aside>
+    </div>
   );
 }
