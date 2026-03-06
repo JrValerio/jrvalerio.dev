@@ -806,6 +806,32 @@ html[data-theme="dark"] .frame_line {
   color: var(--jr-muted);
 }
 
+.jr-adr-pagination {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.jr-adr-pagination-link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 100%;
+  padding: 18px;
+  text-decoration: none;
+}
+
+.jr-adr-pagination-link--next {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.jr-adr-pagination-title {
+  color: var(--jr-text);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
 .jr-adr-footer {
   display: flex;
   flex-wrap: wrap;

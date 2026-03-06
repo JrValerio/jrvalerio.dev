@@ -3,6 +3,7 @@ import ReadingProgress from "../../components/UI/ReadingProgress";
 import Section from "../../components/UI/Section";
 import AdrTableOfContents from "./adr-table-of-contents";
 import {
+  getAdrNavigation,
   parseAdrSections,
   type AdrFullDocument,
   type AdrSectionBlock,
@@ -65,6 +66,7 @@ export default function AdrDetailContent({
 }: AdrDetailContentProps) {
   const messages = getV2Messages(locale);
   const sections = parseAdrSections(adr.content);
+  const navigation = getAdrNavigation(adr.slug);
 
   return (
     <>
@@ -131,6 +133,41 @@ export default function AdrDetailContent({
           </div>
         </Section>
       ))}
+
+      {navigation.previous || navigation.next ? (
+        <section className="jr-section">
+          <div className="jr-container">
+            <nav
+              className="jr-adr-pagination"
+              aria-label={messages.engineering.paginationLabel}
+            >
+              {navigation.previous ? (
+                <Link
+                  href={toLocalePath(`/v2/engineering/${navigation.previous.slug}`, locale, prefixed)}
+                  className="jr-surface-card jr-adr-pagination-link"
+                >
+                  <span className="jr-meta">{messages.engineering.previousAdr}</span>
+                  <span className="jr-adr-pagination-title">
+                    ← {navigation.previous.id} {navigation.previous.title}
+                  </span>
+                </Link>
+              ) : null}
+
+              {navigation.next ? (
+                <Link
+                  href={toLocalePath(`/v2/engineering/${navigation.next.slug}`, locale, prefixed)}
+                  className="jr-surface-card jr-adr-pagination-link jr-adr-pagination-link--next"
+                >
+                  <span className="jr-meta">{messages.engineering.nextAdr}</span>
+                  <span className="jr-adr-pagination-title">
+                    {navigation.next.id} {navigation.next.title} →
+                  </span>
+                </Link>
+              ) : null}
+            </nav>
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }

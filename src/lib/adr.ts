@@ -33,6 +33,11 @@ export type AdrSection = {
   blocks: AdrSectionBlock[];
 };
 
+export type AdrNavigation = {
+  previous: AdrDocument | null;
+  next: AdrDocument | null;
+};
+
 const ADR_DIRECTORY = path.join(process.cwd(), "src", "content", "adr");
 
 function readRequiredString(value: unknown, field: string, filePath: string) {
@@ -71,6 +76,11 @@ function readTags(value: unknown) {
 
 function getSlugFromFileName(fileName: string) {
   return fileName.replace(/\.(md|mdx)$/, "");
+}
+
+function getAdrSequenceNumber(adrId: string) {
+  const match = adrId.match(/ADR-(\d+)/i);
+  return match ? Number.parseInt(match[1] ?? "0", 10) : Number.MAX_SAFE_INTEGER;
 }
 
 function toSectionId(value: string) {
@@ -155,6 +165,39 @@ export const getAdrBySlug = cache((slug: string): AdrFullDocument | null => {
   return {
     ...adr,
     content,
+  };
+});
+
+export const getAdrReadingOrder = cache((): AdrDocument[] => {
+  return [...getAllAdrs()].sort((left, right) => {
+    const sequenceDifference = getAdrSequenceNumber(left.id) - getAdrSequenceNumber(right.id);
+
+    if (sequenceDifference !== 0) {
+      return sequenceDifference;
+    }
+
+    if (left.date !== right.date) {
+      return left.date.localeCompare(right.date);
+    }
+
+    return left.slug.localeCompare(right.slug);
+  });
+});
+
+export const getAdrNavigation = cache((slug: string): AdrNavigation => {
+  const orderedAdrs = getAdrReadingOrder();
+  const currentIndex = orderedAdrs.findIndex((adr) => adr.slug === slug);
+
+  if (currentIndex === -1) {
+    return {
+      previous: null,
+      next: null,
+    };
+  }
+
+  return {
+    previous: orderedAdrs[currentIndex - 1] ?? null,
+    next: orderedAdrs[currentIndex + 1] ?? null,
   };
 });
 

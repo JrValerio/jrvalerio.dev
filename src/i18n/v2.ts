@@ -117,6 +117,9 @@ export type V2Messages = {
     readingProgressAria: string;
     sectionAnchorLabel: string;
     tableOfContents: string;
+    paginationLabel: string;
+    previousAdr: string;
+    nextAdr: string;
     status: Record<"proposed" | "accepted" | "deprecated", string>;
     relatedTitle: string;
     relatedSubtitle: string;
@@ -315,6 +318,9 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
       readingProgressAria: "ADR reading progress",
       sectionAnchorLabel: "Section link",
       tableOfContents: "Table of contents",
+      paginationLabel: "ADR navigation",
+      previousAdr: "Previous ADR",
+      nextAdr: "Next ADR",
       status: {
         proposed: "Proposed",
         accepted: "Accepted",
@@ -503,6 +509,9 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
       readingProgressAria: "Progresso de leitura do ADR",
       sectionAnchorLabel: "Link da secao",
       tableOfContents: "Indice",
+      paginationLabel: "Navegacao entre ADRs",
+      previousAdr: "ADR anterior",
+      nextAdr: "Proximo ADR",
       status: {
         proposed: "Proposto",
         accepted: "Aceito",
@@ -691,6 +700,9 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
       readingProgressAria: "Progreso de lectura del ADR",
       sectionAnchorLabel: "Enlace de seccion",
       tableOfContents: "Indice",
+      paginationLabel: "Navegacion entre ADRs",
+      previousAdr: "ADR anterior",
+      nextAdr: "ADR siguiente",
       status: {
         proposed: "Propuesto",
         accepted: "Aceptado",
