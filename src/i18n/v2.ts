@@ -231,7 +231,7 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
     },
     hero: {
       role: "Full-Stack Developer",
-      summary: "I build technology that helps people communicate. Creator of EcoVoz.",
+      summary: "Building accessibility systems and AI-powered tools. Creator of EcoVoz.",
       ctaWork: "View Work",
       ctaGithub: "GitHub",
       ctaLinkedIn: "LinkedIn",
@@ -391,7 +391,7 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
     },
     hero: {
       role: "Full-Stack Developer",
-      summary: "Construo tecnologia que ajuda pessoas a se comunicarem. Criador do EcoVoz.",
+      summary: "Construindo sistemas de acessibilidade e ferramentas com IA. Criador do EcoVoz.",
       ctaWork: "Ver projetos",
       ctaGithub: "GitHub",
       ctaLinkedIn: "LinkedIn",
@@ -551,7 +551,7 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
     },
     hero: {
       role: "Desarrollador Full-Stack",
-      summary: "Construyo tecnologia que ayuda a las personas a comunicarse. Creador de EcoVoz.",
+      summary: "Construyendo sistemas de accesibilidad y herramientas impulsadas por IA. Creador de EcoVoz.",
       ctaWork: "Ver proyectos",
       ctaGithub: "GitHub",
       ctaLinkedIn: "LinkedIn",
