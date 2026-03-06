@@ -758,6 +758,15 @@ html[data-theme="dark"] .frame_line {
   color: var(--jr-accent);
 }
 
+.jr-adr-toc-link.is-active {
+  color: var(--jr-accent);
+  font-weight: 500;
+}
+
+.jr-adr-toc-link.is-active .jr-adr-toc-index {
+  color: var(--jr-accent);
+}
+
 .jr-adr-toc-index {
   min-width: 2.2ch;
   color: color-mix(in srgb, var(--jr-muted) 88%, transparent);
