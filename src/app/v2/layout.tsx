@@ -7,6 +7,7 @@ const navLinks = [
   { href: "/v2/archive", label: "Archive" },
   { href: "/v2/architecture", label: "Architecture" },
   { href: "/v2/engineering", label: "Engineering" },
+  { href: "/v2/metrics", label: "Metrics" },
   { href: "/v2/sobre", label: "Sobre" },
   { href: "/v2/contato", label: "Contato" },
 ];
