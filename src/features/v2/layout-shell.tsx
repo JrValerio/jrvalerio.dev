@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import CommandPalette from "../../components/UI/CommandPalette";
 import Frame from "../../components/UI/Frame";
+import ThemeSwitcher from "../../components/UI/ThemeSwitcher";
 import LocaleSwitcher from "../../components/LocaleSwitcher";
-import V2ThemeToggle from "../../components/V2ThemeToggle";
 import WebGLBackground from "../../components/background/WebGLBackground";
 import { getV2Messages, toLocalePath, type V2Locale } from "../../i18n/v2";
 
@@ -31,12 +31,9 @@ export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutSh
     <div className="jr-theme jr-theme--framed min-h-screen">
       <WebGLBackground />
       <Frame />
+      <ThemeSwitcher locale={locale} />
 
       <CommandPalette locale={locale} prefixed={prefixed} messages={messages.commandPalette} />
-
-      <div className="jr-theme-controls">
-        <V2ThemeToggle locale={locale} />
-      </div>
 
       <div id="Content">
         <div className="content_inner">

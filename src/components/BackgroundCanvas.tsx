@@ -1,8 +1,12 @@
 'use client';
 
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useEffect, useMemo, useRef } from 'react';
-import * as THREE from 'three';
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useEffect, useMemo, useRef } from "react";
+import * as THREE from "three";
+
+type BackgroundCanvasProps = {
+  isDark?: boolean;
+};
 
 const vertexShader = `
   varying vec2 vUv;
@@ -16,6 +20,7 @@ const fragmentShader = `
   uniform float uTime;
   uniform vec2 uResolution;
   uniform vec2 uMouse;
+  uniform float uDark;
   varying vec2 vUv;
 
   mat2 rot(float a) {
@@ -75,9 +80,17 @@ const fragmentShader = `
     float bloom = smoothstep(0.55, 0.0, distToMouse);
     float grain = (hash(gl_FragCoord.xy + t * 120.0) - 0.5) * 0.04;
 
-    vec3 baseDark = vec3(0.035, 0.04, 0.065);
-    vec3 baseMid = vec3(0.09, 0.11, 0.17);
-    vec3 accent = vec3(0.44, 0.5, 0.74);
+    vec3 lightBase = vec3(0.94, 0.95, 0.98);
+    vec3 lightMid = vec3(0.84, 0.87, 0.93);
+    vec3 lightAccent = vec3(0.41, 0.52, 0.77);
+
+    vec3 darkBase = vec3(0.035, 0.04, 0.065);
+    vec3 darkMid = vec3(0.09, 0.11, 0.17);
+    vec3 darkAccent = vec3(0.44, 0.5, 0.74);
+
+    vec3 baseDark = mix(lightBase, darkBase, uDark);
+    vec3 baseMid = mix(lightMid, darkMid, uDark);
+    vec3 accent = mix(lightAccent, darkAccent, uDark);
 
     float tone = smoothstep(0.12, 0.9, flow * 0.7 + flowB * 0.45);
     vec3 color = mix(baseDark, baseMid, tone);
@@ -86,11 +99,12 @@ const fragmentShader = `
     color += bloom * vec3(0.08, 0.1, 0.16);
     color += grain;
 
-    gl_FragColor = vec4(color, 0.92);
+    float alpha = mix(0.82, 0.92, uDark);
+    gl_FragColor = vec4(color, alpha);
   }
 `;
 
-function ShaderPlane() {
+function ShaderPlane({ isDark = false }: BackgroundCanvasProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const mouseTarget = useRef(new THREE.Vector2(0.5, 0.5));
   const mouseCurrent = useRef(new THREE.Vector2(0.5, 0.5));
@@ -100,8 +114,9 @@ function ShaderPlane() {
       uTime: { value: 0 },
       uResolution: { value: new THREE.Vector2(0, 0) },
       uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+      uDark: { value: isDark ? 1 : 0 },
     }),
-    []
+    [isDark]
   );
 
   useEffect(() => {
@@ -134,6 +149,7 @@ function ShaderPlane() {
     const material = meshRef.current.material as THREE.ShaderMaterial;
     material.uniforms.uTime.value = state.clock.getElapsedTime() * 0.035;
     material.uniforms.uResolution.value.set(state.size.width, state.size.height);
+    material.uniforms.uDark.value = isDark ? 1 : 0;
 
     mouseCurrent.current.lerp(mouseTarget.current, 0.05);
     material.uniforms.uMouse.value.copy(mouseCurrent.current);
@@ -152,16 +168,16 @@ function ShaderPlane() {
   );
 }
 
-export default function BackgroundCanvas() {
+export default function BackgroundCanvas({ isDark = false }: BackgroundCanvasProps) {
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none">
       <Canvas
         camera={{ position: [0, 0, 1] }}
         dpr={[1, 1.5]}
-        gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
-        style={{ background: 'transparent' }}
+        gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+        style={{ background: "transparent" }}
       >
-        <ShaderPlane />
+        <ShaderPlane isDark={isDark} />
       </Canvas>
     </div>
   );
