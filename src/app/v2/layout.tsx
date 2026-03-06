@@ -5,6 +5,7 @@ const navLinks = [
   { href: "/v2", label: "Home" },
   { href: "/v2/projetos", label: "Projetos" },
   { href: "/v2/archive", label: "Archive" },
+  { href: "/v2/architecture", label: "Architecture" },
   { href: "/v2/engineering", label: "Engineering" },
   { href: "/v2/sobre", label: "Sobre" },
   { href: "/v2/contato", label: "Contato" },
@@ -21,7 +22,10 @@ export default function V2Layout({ children }: { children: ReactNode }) {
           >
             JR Minimal
           </Link>
-          <nav className="flex items-center gap-5" aria-label="Navegacao principal v2">
+          <nav
+            className="ml-4 flex min-w-0 items-center gap-4 overflow-x-auto whitespace-nowrap"
+            aria-label="Navegacao principal v2"
+          >
             {navLinks.map((link) => (
               <Link
                 key={link.href}
