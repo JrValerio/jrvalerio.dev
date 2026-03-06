@@ -238,7 +238,7 @@ html[data-theme="dark"] .jr-webgl-background canvas {
   backdrop-filter: blur(12px);
 }
 
-.jr-theme-switcher {
+.jr-lateral-controls {
   position: fixed;
   left: 6px;
   bottom: 26px;
@@ -253,6 +253,18 @@ html[data-theme="dark"] .jr-webgl-background canvas {
   text-transform: uppercase;
   color: var(--jr-muted);
   user-select: none;
+}
+
+.jr-lateral-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem;
+}
+
+.jr-theme-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem;
 }
 
 .jr-theme-switcher-item {
@@ -273,6 +285,25 @@ html[data-theme="dark"] .jr-webgl-background canvas {
 
 .jr-theme-switcher-item input:checked {
   background: currentColor;
+}
+
+.jr-lateral-btn {
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.jr-lateral-btn:hover {
+  color: var(--jr-text);
+}
+
+.jr-lateral-btn[aria-pressed="true"] {
+  color: var(--jr-text);
 }
 
 .jr-theme::before {
@@ -591,7 +622,7 @@ html[data-theme="dark"] .jr-webgl-background canvas {
     top: 16px;
   }
 
-  .jr-theme-switcher {
+  .jr-lateral-controls {
     left: 2px;
     bottom: 18px;
     font-size: 0.58rem;

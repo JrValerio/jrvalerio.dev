@@ -2,8 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import CommandPalette from "../../components/UI/CommandPalette";
 import Frame from "../../components/UI/Frame";
-import ThemeSwitcher from "../../components/UI/ThemeSwitcher";
-import LocaleSwitcher from "../../components/LocaleSwitcher";
+import LateralControls from "../../components/UI/LateralControls";
 import WebGLBackground from "../../components/background/WebGLBackground";
 import { getV2Messages, toLocalePath, type V2Locale } from "../../i18n/v2";
 
@@ -31,7 +30,11 @@ export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutSh
     <div className="jr-theme jr-theme--framed min-h-screen">
       <WebGLBackground />
       <Frame />
-      <ThemeSwitcher locale={locale} />
+      <LateralControls
+        locale={locale}
+        localeMessages={messages.locale}
+        commandMessages={messages.commandPalette}
+      />
 
       <CommandPalette locale={locale} prefixed={prefixed} messages={messages.commandPalette} />
 
@@ -58,11 +61,6 @@ export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutSh
                     {link.label}
                   </Link>
                 ))}
-
-                <span className="hidden rounded-md border border-[var(--jr-border)] px-2 py-1 text-[10px] uppercase tracking-wide text-[var(--jr-muted)] lg:inline-flex">
-                  {messages.nav.searchHint}
-                </span>
-                <LocaleSwitcher locale={locale} messages={messages.locale} />
               </nav>
             </div>
           </header>
