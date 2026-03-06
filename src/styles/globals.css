@@ -724,7 +724,9 @@ html[data-theme="dark"] .frame_line {
 }
 
 @media (max-width: 768px) {
-  :root {
+  :root,
+  :root[data-theme="light"],
+  :root[data-theme="dark"] {
     --jr-shell-offset: 202px;
     --jr-frame-inset-top: 12px;
     --jr-frame-inset-right: 12px;
