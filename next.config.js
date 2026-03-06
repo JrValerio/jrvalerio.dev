@@ -17,6 +17,26 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/pt-br",
+        destination: "/pt-br/v2",
+        permanent: false,
+      },
+      {
+        source: "/en-gb",
+        destination: "/en-gb/v2",
+        permanent: false,
+      },
+      {
+        source: "/es",
+        destination: "/es-intl/v2",
+        permanent: false,
+      },
+      {
+        source: "/es-intl",
+        destination: "/es-intl/v2",
+        permanent: false,
+      },
+      {
         source: "/",
         destination: "/v2",
         permanent: false,

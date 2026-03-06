@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import { Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import AppAnalyticsTracker from "../components/AppAnalyticsTracker";
+import AppThemeProvider from "../components/AppThemeProvider";
+import "reactflow/dist/style.css";
 import "../styles/globals.css";
 
 const geist = Geist({
@@ -50,11 +52,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR" className={geist.variable}>
+    <html lang="pt-BR" className={geist.variable} suppressHydrationWarning>
       <body>
-        <AppAnalyticsTracker />
-        {children}
-        <Analytics />
+        <AppThemeProvider>
+          <AppAnalyticsTracker />
+          {children}
+          <Analytics />
+        </AppThemeProvider>
       </body>
     </html>
   );
