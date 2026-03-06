@@ -26,7 +26,9 @@ export default function LateralControls({
   const pathname = usePathname() || "/v2";
 
   const onSearchClick = () => {
-    window.dispatchEvent(new CustomEvent("jr:open-command-palette"));
+    window.requestAnimationFrame(() => {
+      window.dispatchEvent(new CustomEvent("jr:open-command-palette"));
+    });
   };
 
   const onLocaleChange = (nextLocale: V2Locale) => {

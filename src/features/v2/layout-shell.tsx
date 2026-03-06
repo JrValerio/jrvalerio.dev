@@ -41,22 +41,22 @@ export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutSh
       <div id="Content">
         <div className="content_inner">
           <header className="jr-shell-header">
-            <div className="jr-container flex items-center justify-between py-4">
+            <div className="mx-auto flex w-full max-w-[1120px] items-center justify-between px-4 py-4 md:px-6">
               <Link
                 href={toLocalePath("/v2", locale, prefixed)}
-                className="text-sm tracking-[0.16em] uppercase text-[var(--jr-muted)] hover:text-[var(--jr-text)] transition-colors"
+                className="shrink-0 text-sm tracking-[0.16em] uppercase text-[var(--jr-muted)] transition-colors hover:text-[var(--jr-text)]"
               >
                 {messages.nav.brand}
               </Link>
               <nav
-                className="ml-4 flex min-w-0 items-center gap-4 overflow-x-auto whitespace-nowrap"
+                className="ml-4 flex min-w-0 flex-1 flex-wrap items-center justify-end gap-x-3 gap-y-2"
                 aria-label="Navegacao principal v2"
               >
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={toLocalePath(link.href, locale, prefixed)}
-                    className="text-xs md:text-sm text-[var(--jr-muted)] hover:text-[var(--jr-text)] transition-colors"
+                    className="whitespace-nowrap text-xs text-[var(--jr-muted)] transition-colors hover:text-[var(--jr-text)] md:text-sm"
                   >
                     {link.label}
                   </Link>
