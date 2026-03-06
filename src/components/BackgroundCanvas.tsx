@@ -49,12 +49,26 @@ const fragmentShader = `
   float fbm(vec2 p) {
     float value = 0.0;
     float amp = 0.5;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 5; i++) {
       value += amp * noise(p);
       p = rot(0.65) * p * 2.0 + 0.17;
       amp *= 0.5;
     }
     return value;
+  }
+
+  vec2 domainWarp(vec2 p, float t) {
+    vec2 q = vec2(
+      fbm(p + vec2(0.0, t * 0.18)),
+      fbm(p + vec2(5.2, -t * 0.14))
+    );
+
+    vec2 r = vec2(
+      fbm(p + 2.0 * q + vec2(1.7, t * 0.11)),
+      fbm(p + 2.0 * q + vec2(8.3, -t * 0.17))
+    );
+
+    return r;
   }
 
   void main() {
@@ -66,19 +80,27 @@ const fragmentShader = `
     mouse.x *= aspect;
 
     float t = uTime;
-    vec2 flowUv = rot(0.35 + sin(t * 0.25) * 0.1) * uv;
-    float flowA = fbm(flowUv * 1.7 + vec2(t * 0.35, -t * 0.18));
-    float flowB = fbm(flowUv * 3.6 - vec2(t * 0.22, t * 0.27));
-    float flow = mix(flowA, flowB, 0.45);
+    vec2 flowUv = rot(0.32 + sin(t * 0.24) * 0.1) * uv;
+    vec2 warp = domainWarp(flowUv * 1.35, t);
+    vec2 warpedUv = flowUv + (warp - 0.5) * 0.68;
 
-    vec2 silkUv = uv + vec2(flow * 0.55, flowB * 0.35);
+    float distToMouse = length(uv - mouse);
+    float mouseWarp = smoothstep(1.0, 0.0, distToMouse) * 0.08;
+    warpedUv += (uv - mouse) * mouseWarp;
+
+    float flowA = fbm(warpedUv * 1.8 + vec2(t * 0.33, -t * 0.16));
+    float flowB = fbm(warpedUv * 3.2 - vec2(t * 0.21, t * 0.25));
+    float flow = mix(flowA, flowB, 0.5);
+
+    vec2 silkUv = warpedUv + vec2(flow * 0.48, flowB * 0.31);
     float silk = abs(sin((silkUv.y + fbm(silkUv * 2.3 + t * 0.2) * 0.75) * 30.0));
     silk = pow(1.0 - silk, 3.5);
 
-    float distToMouse = length(uv - mouse);
     float cursorGlow = smoothstep(0.95, 0.0, distToMouse);
     float bloom = smoothstep(0.55, 0.0, distToMouse);
-    float grain = (hash(gl_FragCoord.xy + t * 120.0) - 0.5) * 0.04;
+    float grainFine = (hash(gl_FragCoord.xy * 0.95 + t * 180.0) - 0.5) * 0.028;
+    float grainCoarse = (hash(gl_FragCoord.yx * 0.45 - t * 110.0) - 0.5) * 0.02;
+    float filmGrain = grainFine + grainCoarse;
 
     vec3 lightBase = vec3(0.94, 0.95, 0.98);
     vec3 lightMid = vec3(0.84, 0.87, 0.93);
@@ -97,7 +119,10 @@ const fragmentShader = `
     color += silk * accent * 0.2;
     color += cursorGlow * accent * 0.16;
     color += bloom * vec3(0.08, 0.1, 0.16);
-    color += grain;
+
+    float vignette = smoothstep(1.6, 0.22, length(uv));
+    color *= mix(0.88, 1.03, vignette);
+    color += filmGrain;
 
     float alpha = mix(0.82, 0.92, uDark);
     gl_FragColor = vec4(color, alpha);
