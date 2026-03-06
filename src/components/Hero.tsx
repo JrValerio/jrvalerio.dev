@@ -10,22 +10,22 @@ export default function Hero({ locale = "pt-BR", prefixed = false }: HeroProps) 
   const messages = getV2Messages(locale);
 
   return (
-    <section className="flex min-h-[88vh] items-center border-b border-[var(--jr-border)] py-20">
+    <section className="flex min-h-[82vh] items-center border-b border-[var(--jr-border)] py-24 md:py-28">
       <Container>
-        <div className="max-w-3xl">
+        <div className="max-w-[760px]">
           <h1 className="jr-hero-title jr-reveal jr-reveal-delay-1">
             Amaro Junior
           </h1>
 
-          <p className="jr-hero-subtitle jr-reveal jr-reveal-delay-2 mt-6">
+          <p className="jr-hero-role jr-reveal jr-reveal-delay-2 mt-3">
             {messages.hero.role}
           </p>
 
-          <p className="jr-body jr-reveal jr-reveal-delay-3 mt-6 max-w-xl text-[var(--jr-muted)]">
+          <p className="jr-hero-summary jr-reveal jr-reveal-delay-3 mt-7">
             {messages.hero.summary}
           </p>
 
-          <div className="jr-reveal jr-reveal-delay-4 mt-10 flex flex-wrap gap-6">
+          <div className="jr-reveal jr-reveal-delay-4 mt-11 flex flex-wrap gap-6">
             <a
               href={toLocalePath("/v2#work", locale, prefixed)}
               className="jr-link inline-block transition-transform duration-200 hover:-translate-y-0.5"
