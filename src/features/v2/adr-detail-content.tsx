@@ -104,6 +104,22 @@ export default function AdrDetailContent({
               <p className="text-sm text-[var(--jr-text)]">{formatAdrDate(adr.date, locale)}</p>
             </div>
           </div>
+
+          {sections.length ? (
+            <nav className="jr-adr-toc" aria-label={messages.engineering.tableOfContents}>
+              <p className="jr-meta mb-4">{messages.engineering.tableOfContents}</p>
+              <ol className="jr-adr-toc-list">
+                {sections.map((section, index) => (
+                  <li key={section.id}>
+                    <a href={`#${section.id}`} className="jr-adr-toc-link">
+                      <span className="jr-adr-toc-index">{String(index + 1).padStart(2, "0")}.</span>
+                      <span>{section.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          ) : null}
         </div>
       </section>
 

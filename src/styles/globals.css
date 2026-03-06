@@ -730,6 +730,39 @@ html[data-theme="dark"] .frame_line {
   color: var(--jr-muted);
 }
 
+.jr-adr-toc {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--jr-border);
+}
+
+.jr-adr-toc-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jr-adr-toc-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  color: var(--jr-muted);
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 150ms ease-in-out;
+}
+
+.jr-adr-toc-link:hover {
+  color: var(--jr-accent);
+}
+
+.jr-adr-toc-index {
+  min-width: 2.2ch;
+  color: color-mix(in srgb, var(--jr-muted) 88%, transparent);
+}
+
 .jr-adr-status {
   flex-shrink: 0;
   border: 1px solid var(--jr-border);

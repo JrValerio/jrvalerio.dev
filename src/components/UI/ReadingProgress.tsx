@@ -26,19 +26,26 @@ function getScrollMetrics() {
   };
 }
 
+type ScrollMetrics = ReturnType<typeof getScrollMetrics>;
+
 export default function ReadingProgress({ ariaLabel }: ReadingProgressProps) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const updateProgress = () => {
-      const { maxScroll, scrollOffset } = getScrollMetrics();
+    const syncProgress = (metrics: ScrollMetrics) => {
+      const { maxScroll, scrollOffset } = metrics;
       const nextValue = maxScroll > 0 ? Math.min(1, Math.max(0, scrollOffset / maxScroll)) : 0;
       setProgress(nextValue);
     };
 
-    const { target } = getScrollMetrics();
+    const updateProgress = () => {
+      syncProgress(getScrollMetrics());
+    };
 
-    updateProgress();
+    const metrics = getScrollMetrics();
+    const { target } = metrics;
+
+    syncProgress(metrics);
     target.addEventListener("scroll", updateProgress, { passive: true });
     window.addEventListener("resize", updateProgress);
 
