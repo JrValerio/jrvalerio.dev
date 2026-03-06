@@ -49,6 +49,15 @@ Architecture decisions are documented in [`docs/adr`](docs/adr):
 - [`ADR-003-analytics-observability.md`](docs/adr/ADR-003-analytics-observability.md)
 - [`ADR-004-i18n-routing.md`](docs/adr/ADR-004-i18n-routing.md)
 
+## EcoVoz Strategy Docs
+
+EcoVoz strategy, roadmap, and governance documents live in [`docs/ecovoz`](docs/ecovoz):
+
+- [`README.md`](docs/ecovoz/README.md)
+- [`ROADMAP.md`](docs/ecovoz/ROADMAP.md)
+- [`PLAN.md`](docs/ecovoz/PLAN.md)
+- [`BUSINESS-RULES.md`](docs/ecovoz/BUSINESS-RULES.md)
+
 ## Current technical capabilities
 
 - Typed case study domain model
