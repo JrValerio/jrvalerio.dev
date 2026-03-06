@@ -81,7 +81,7 @@ export default function PrinciplesContent({ locale, prefixed }: PrinciplesConten
 
         <div className="mt-8 flex flex-wrap gap-5">
           <Link href={toLocalePath("/v2/engineering", locale, prefixed)} className="jr-link">
-            Engineering Decisions
+            Engineering
           </Link>
           <Link href={toLocalePath("/v2/metrics", locale, prefixed)} className="jr-link">
             Metrics

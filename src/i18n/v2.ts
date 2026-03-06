@@ -106,6 +106,21 @@ export type V2Messages = {
     open: string;
     docs: Array<{ key: "architecture" | "engineering" | "metrics" | "principles"; title: string; description: string }>;
   };
+  engineering: {
+    title: string;
+    subtitle: string;
+    publishedLabel: string;
+    statusLabel: string;
+    tagsLabel: string;
+    status: Record<"proposed" | "accepted" | "deprecated", string>;
+    relatedTitle: string;
+    relatedSubtitle: string;
+    relatedLinks: {
+      architecture: string;
+      metrics: string;
+      principles: string;
+    };
+  };
   contactCta: {
     title: string;
     subtitle: string;
@@ -269,8 +284,8 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
         },
         {
           key: "engineering",
-          title: "Engineering Decisions",
-          description: "ADRs with context, decisions, trade-offs and impact.",
+          title: "Engineering",
+          description: "ADR hub with architecture decisions, trade-offs and technical notes.",
         },
         {
           key: "metrics",
@@ -283,6 +298,25 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
           description: "Engineering principles guiding architecture, quality and delivery.",
         },
       ],
+    },
+    engineering: {
+      title: "Engineering",
+      subtitle: "Architecture decisions and technical notes from the evolution of the portfolio.",
+      publishedLabel: "Published",
+      statusLabel: "Status",
+      tagsLabel: "Tags",
+      status: {
+        proposed: "Proposed",
+        accepted: "Accepted",
+        deprecated: "Deprecated",
+      },
+      relatedTitle: "Related Docs",
+      relatedSubtitle: "Complementary pages that document architecture, metrics and engineering principles.",
+      relatedLinks: {
+        architecture: "Architecture",
+        metrics: "Metrics",
+        principles: "Principles",
+      },
     },
     contactCta: {
       title: "Contact",
@@ -433,8 +467,8 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
         },
         {
           key: "engineering",
-          title: "Engineering Decisions",
-          description: "ADRs com contexto, decisoes, trade-offs e impacto.",
+          title: "Engineering",
+          description: "Hub de ADRs com decisoes de arquitetura, trade-offs e notas tecnicas.",
         },
         {
           key: "metrics",
@@ -447,6 +481,25 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
           description: "Principios de engenharia que orientam arquitetura, qualidade e entrega.",
         },
       ],
+    },
+    engineering: {
+      title: "Engineering",
+      subtitle: "Decisoes de arquitetura e notas tecnicas que documentam a evolucao do portfolio.",
+      publishedLabel: "Publicado",
+      statusLabel: "Status",
+      tagsLabel: "Tags",
+      status: {
+        proposed: "Proposto",
+        accepted: "Aceito",
+        deprecated: "Descontinuado",
+      },
+      relatedTitle: "Docs Relacionadas",
+      relatedSubtitle: "Paginas complementares com arquitetura, metricas e principios de engenharia.",
+      relatedLinks: {
+        architecture: "Architecture",
+        metrics: "Metrics",
+        principles: "Principles",
+      },
     },
     contactCta: {
       title: "Contato",
@@ -597,8 +650,8 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
         },
         {
           key: "engineering",
-          title: "Decisiones de Ingenieria",
-          description: "ADRs con contexto, decisiones, trade-offs e impacto.",
+          title: "Ingenieria",
+          description: "Hub de ADRs con decisiones de arquitectura, trade-offs y notas tecnicas.",
         },
         {
           key: "metrics",
@@ -611,6 +664,25 @@ export const v2Messages: Record<V2Locale, V2Messages> = {
           description: "Principios de ingenieria que guian arquitectura, calidad y entrega.",
         },
       ],
+    },
+    engineering: {
+      title: "Ingenieria",
+      subtitle: "Decisiones de arquitectura y notas tecnicas que documentan la evolucion del portfolio.",
+      publishedLabel: "Publicado",
+      statusLabel: "Estado",
+      tagsLabel: "Tags",
+      status: {
+        proposed: "Propuesto",
+        accepted: "Aceptado",
+        deprecated: "Descontinuado",
+      },
+      relatedTitle: "Docs Relacionadas",
+      relatedSubtitle: "Paginas complementarias con arquitectura, metricas y principios de ingenieria.",
+      relatedLinks: {
+        architecture: "Arquitectura",
+        metrics: "Metricas",
+        principles: "Principios",
+      },
     },
     contactCta: {
       title: "Contacto",

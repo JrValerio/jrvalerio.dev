@@ -117,7 +117,7 @@ export default function ArchitectureContent({ locale, prefixed }: ArchitectureCo
       <Section title="Related Docs" subtitle="Paginas tecnicas complementares do portfolio v2.">
         <div className="flex flex-wrap gap-5">
           <Link href={toLocalePath("/v2/engineering", locale, prefixed)} className="jr-link">
-            Engineering Decisions
+            Engineering
           </Link>
           <Link href={toLocalePath("/v2/projetos", locale, prefixed)} className="jr-link">
             Case Studies

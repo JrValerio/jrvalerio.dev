@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import V2EngineeringPage from "../../../v2/engineering/page";
+import EngineeringContent from "../../../../features/v2/engineering-content";
 import { getLocaleFromSegment, type V2LocaleSegment } from "../../../../i18n/v2";
 
 type LocalizedEngineeringPageProps = {
@@ -28,5 +28,5 @@ export default async function LocalizedEngineeringPage({
   const locale = getLocaleFromSegment(segment as V2LocaleSegment);
   if (!locale) notFound();
 
-  return <V2EngineeringPage />;
+  return <EngineeringContent locale={locale} prefixed />;
 }

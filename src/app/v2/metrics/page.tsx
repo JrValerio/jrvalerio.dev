@@ -240,7 +240,7 @@ export default function V2MetricsPage() {
             Architecture
           </Link>
           <Link href="/v2/engineering" className="jr-link">
-            Engineering Decisions
+            Engineering
           </Link>
         </div>
       </Section>
