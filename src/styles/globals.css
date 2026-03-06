@@ -447,8 +447,28 @@ html[data-theme="dark"] .frame_line {
 }
 
 .jr-home-main .jr-hero {
+  position: relative;
+  isolation: isolate;
   min-height: 100%;
   width: 100%;
+}
+
+.jr-home-main .jr-hero::before {
+  content: "";
+  position: absolute;
+  inset: clamp(16px, 3vw, 44px) clamp(20px, 5vw, 88px);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 36px;
+  background:
+    radial-gradient(64% 58% at 50% 40%, var(--jr-spotlight), transparent 72%),
+    radial-gradient(44% 38% at 52% 46%, var(--jr-spotlight-soft), transparent 82%);
+  opacity: 0.95;
+}
+
+.jr-home-main .jr-hero > .jr-container {
+  position: relative;
+  z-index: 1;
 }
 
 @supports not (height: 100dvh) {
