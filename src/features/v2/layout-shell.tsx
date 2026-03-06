@@ -6,6 +6,7 @@ import LateralControls from "../../components/UI/LateralControls";
 import WebGLBackground from "../../components/background/WebGLBackground";
 import { getV2Messages, toLocalePath, type V2Locale } from "../../i18n/v2";
 import ShellScrollRestoration from "./shell-scroll-restoration";
+import ShellScrollShadow from "./shell-scroll-shadow";
 
 type V2LayoutShellProps = {
   children: ReactNode;
@@ -39,6 +40,7 @@ export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutSh
 
       <CommandPalette locale={locale} prefixed={prefixed} messages={messages.commandPalette} />
       <ShellScrollRestoration />
+      <ShellScrollShadow />
 
       <div id="Content">
         <div className="content_inner">

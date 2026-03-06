@@ -17,6 +17,7 @@
   --jr-grain-opacity: 0.2;
   --jr-header-bg: rgba(250, 252, 255, 0.86);
   --jr-card-shadow: 0 14px 36px rgba(13, 22, 39, 0.1);
+  --jr-header-shadow: 0 10px 24px rgba(13, 22, 39, 0.08), 0 1px 0 rgba(13, 22, 39, 0.05);
   --jr-overlay: rgba(15, 23, 42, 0.24);
   --jr-font-main: var(--font-geist), "Inter", system-ui, sans-serif;
   --jr-shell-offset: 172px;
@@ -44,6 +45,7 @@
   --jr-grain-opacity: 0.14;
   --jr-header-bg: rgba(9, 11, 16, 0.9);
   --jr-card-shadow: 0 18px 48px rgba(0, 0, 0, 0.38);
+  --jr-header-shadow: 0 14px 30px rgba(0, 0, 0, 0.34), 0 1px 0 rgba(234, 240, 251, 0.08);
   --jr-overlay: rgba(0, 0, 0, 0.56);
 }
 
@@ -261,6 +263,12 @@ html[data-theme="dark"] .frame_line {
   border-radius: 12px;
   background: color-mix(in srgb, var(--jr-header-bg) 94%, transparent);
   backdrop-filter: blur(14px) saturate(1.08);
+  transition: box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+#Content[data-scrolled="true"] .jr-shell-header {
+  border-color: var(--jr-border-strong);
+  box-shadow: var(--jr-header-shadow);
 }
 
 .jr-shell-scroll {
