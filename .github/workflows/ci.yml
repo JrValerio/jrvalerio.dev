@@ -37,3 +37,6 @@ jobs:
 
       - name: Bundle budget
         run: npm run check:bundle
+
+      - name: Bundle budget (case study)
+        run: npm run check:bundle:case

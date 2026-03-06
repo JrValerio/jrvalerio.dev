@@ -42,6 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/v2/engineering`,
+      lastModified: siteLastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 
   const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
