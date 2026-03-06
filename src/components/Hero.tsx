@@ -10,7 +10,7 @@ export default function Hero({ locale = "pt-BR", prefixed = false }: HeroProps) 
   const messages = getV2Messages(locale);
 
   return (
-    <section className="flex min-h-[82vh] items-center border-b border-[var(--jr-border)] py-24 md:py-28">
+    <section className="jr-hero flex items-center border-b border-[var(--jr-border)] py-14 md:py-18">
       <Container>
         <div className="max-w-[760px]">
           <h1 className="jr-hero-title jr-reveal jr-reveal-delay-1">
