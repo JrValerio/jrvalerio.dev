@@ -65,7 +65,7 @@ const fragmentShader = `
 
     for (int i = 0; i < 4; i++) {
       value += amplitude * noise(p);
-      p = p * 2.0 + vec2(13.1, 7.7);
+      p = p * 2.08 + vec2(13.1, 7.7);
       amplitude *= 0.5;
     }
 
@@ -74,32 +74,71 @@ const fragmentShader = `
 
   void main() {
     float aspect = uResolution.x / max(uResolution.y, 1.0);
-    vec2 p = (vUv - 0.5) * vec2(aspect, 1.0) * 2.15;
-    float t = uTime;
+    vec2 p = (vUv - 0.5) * vec2(aspect, 1.0);
+    float t = uTime * 0.55;
 
-    float fieldA = fbm(p + vec2(t * 0.06, -t * 0.04));
-    float fieldB = fbm(p * 1.7 - vec2(t * 0.03, t * 0.05));
-    float field = mix(fieldA, fieldB, 0.42);
+    vec2 drift = vec2(
+      sin(t * 0.23) * 0.18 + cos(t * 0.11) * 0.04,
+      cos(t * 0.19) * 0.12 + sin(t * 0.07) * 0.03
+    );
 
-    float grain = (hash(gl_FragCoord.xy + t * 240.0) - 0.5) * 0.04;
+    vec2 warpA = vec2(
+      fbm(p * 1.8 + drift + vec2(1.7, 9.2)),
+      fbm(p * 1.8 - drift + vec2(8.3, 2.8))
+    );
 
-    vec3 lightBase = vec3(0.93, 0.94, 0.97);
-    vec3 lightMid = vec3(0.85, 0.88, 0.94);
+    vec2 warpB = vec2(
+      fbm(p * 2.6 + warpA * 1.4 + vec2(4.9, 1.2)),
+      fbm(p * 2.4 - warpA * 1.2 + vec2(7.1, 6.4))
+    );
 
-    vec3 darkBase = vec3(0.07, 0.09, 0.13);
-    vec3 darkMid = vec3(0.12, 0.15, 0.22);
+    vec2 flow = drift + (warpA - 0.5) * 0.9 + (warpB - 0.5) * 0.45;
 
-    vec3 base = mix(lightBase, darkBase, uDark);
-    vec3 mid = mix(lightMid, darkMid, uDark);
+    vec2 rightArcPosition = (p - vec2(0.42, -0.28) + flow * 0.22) * vec2(0.82, 1.34);
+    float rightArc = 1.0 - smoothstep(0.54, 1.16, length(rightArcPosition));
 
-    vec3 color = mix(base, mid, smoothstep(0.16, 0.86, field));
-    color += grain;
+    vec2 leftMassPosition = (p - vec2(-0.36, 0.16) - flow * 0.18) * vec2(1.12, 0.96);
+    float leftMass = 1.0 - smoothstep(0.28, 0.92, length(leftMassPosition));
 
-    float vignette = smoothstep(1.35, 0.2, length(p));
-    color *= mix(0.9, 1.03, vignette);
+    float field = fbm(p * 2.1 + flow * 1.6 + vec2(2.7, 0.6));
+    float detail = fbm(p * 3.8 - flow * 1.1 + vec2(9.4, 3.1));
+    float bands = smoothstep(
+      0.18,
+      0.92,
+      fbm(vec2(p.x * 3.1 + flow.x * 0.8, p.y * 0.35 - t * 0.03 + 2.0))
+    );
 
-    float alpha = mix(0.58, 0.72, uDark);
-    gl_FragColor = vec4(color, alpha);
+    float mass = max(rightArc * 0.95, leftMass * 0.82);
+    float density = smoothstep(0.26, 0.86, field * 0.72 + detail * 0.28 + mass * 0.95);
+    density *= mix(0.55, 1.0, bands);
+
+    float calmCenter = 1.0 - smoothstep(0.0, 0.42, length((p - vec2(0.05, 0.12)) * vec2(0.8, 1.0)));
+    density *= 1.0 - calmCenter * 0.55;
+    density = clamp(density, 0.0, 1.0);
+
+    float coarseGrain = hash(floor(gl_FragCoord.xy * 0.75) + vec2(t * 67.0, t * 41.0));
+    float fineGrain = hash(gl_FragCoord.xy * 1.7 + vec2(t * 143.0, -t * 89.0));
+    float farGrain = hash(gl_FragCoord.xy * 0.45 + vec2(t * 37.0));
+
+    float particleMask = smoothstep(0.72 - density * 0.4, 0.98, coarseGrain);
+    float particleMix = mix(0.45, 1.0, step(0.35, fineGrain));
+    float farParticles = smoothstep(0.992, 1.0, farGrain) * 0.25;
+    float particles = particleMask * particleMix + farParticles;
+
+    float haze = density * smoothstep(0.14, 0.78, field) * 0.12;
+
+    vec3 lightBase = vec3(0.94, 0.94, 0.93);
+    vec3 darkBase = vec3(0.04, 0.04, 0.05);
+    vec3 lightDots = vec3(0.08, 0.08, 0.09);
+    vec3 darkDots = vec3(0.93, 0.92, 0.90);
+
+    vec3 background = mix(lightBase, darkBase, uDark);
+    vec3 dotColor = mix(lightDots, darkDots, uDark);
+
+    float particleAlpha = mix(0.18, 0.72, density) * particles;
+    vec3 color = mix(background, dotColor, particleAlpha + haze);
+
+    gl_FragColor = vec4(color, 1.0);
   }
 `;
 
@@ -151,6 +190,7 @@ export default function BackgroundCanvas({ isDark = false }: BackgroundCanvasPro
         camera={{ position: [0, 0, 1] }}
         dpr={[1, 1.2]}
         frameloop={prefersReducedMotion ? "demand" : "always"}
+        performance={{ min: 0.5 }}
         gl={{ alpha: true, antialias: false, powerPreference: "low-power" }}
         style={{ background: "transparent" }}
       >
