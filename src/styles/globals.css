@@ -189,13 +189,13 @@ body {
 }
 
 .jr-webgl-background canvas {
-  opacity: 0.34;
+  opacity: 0.72;
   filter: saturate(1) contrast(1);
 }
 
 .dark .jr-webgl-background canvas,
 html[data-theme="dark"] .jr-webgl-background canvas {
-  opacity: 0.44;
+  opacity: 0.72;
 }
 
 #Frame {

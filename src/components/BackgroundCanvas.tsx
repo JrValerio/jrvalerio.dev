@@ -163,6 +163,7 @@ const fragmentShader = `
     float particles = particlesNear + particlesFar;
 
     float haze = density * smoothstep(0.28, 0.82, field) * 0.06;
+    float depthFade = smoothstep(1.2, 0.2, length(p));
 
     vec3 lightBase = vec3(0.94, 0.94, 0.93);
     vec3 darkBase = vec3(0.04, 0.04, 0.05);
@@ -172,7 +173,7 @@ const fragmentShader = `
     vec3 background = mix(lightBase, darkBase, uDark);
     vec3 dotColor = mix(lightDots, darkDots, uDark);
 
-    float particleAlpha = mix(0.08, 0.64, density) * particles;
+    float particleAlpha = mix(0.08, 0.64, density) * particles * depthFade;
     vec3 color = mix(background, dotColor, particleAlpha + haze);
 
     gl_FragColor = vec4(color, 1.0);
