@@ -175,6 +175,15 @@ body {
   pointer-events: none;
 }
 
+.jr-webgl-background--framed {
+  position: fixed;
+  top: var(--jr-frame-inset-top);
+  right: var(--jr-frame-inset-right);
+  bottom: var(--jr-frame-inset-bottom);
+  left: var(--jr-frame-inset-left);
+  overflow: hidden;
+}
+
 .jr-webgl-background > div {
   z-index: 0 !important;
 }

@@ -31,7 +31,7 @@ export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutSh
 
   return (
     <div className="jr-theme jr-theme--framed min-h-screen">
-      <WebGLBackground />
+      <WebGLBackground framed />
       <Frame />
       <LateralControls locale={locale} messages={messages} />
 
