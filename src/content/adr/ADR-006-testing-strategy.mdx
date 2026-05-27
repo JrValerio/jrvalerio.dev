@@ -1,0 +1,81 @@
+---
+id: ADR-006
+title: Testing strategy — Vitest, Playwright and Lighthouse CI
+date: 2026-05-27
+status: accepted
+tags: [testing, quality, ci, lighthouse, playwright, vitest]
+summary: Adopt a three-layer testing strategy — component tests with Vitest + Testing Library, E2E journeys with Playwright, and Lighthouse CI for performance and accessibility gates.
+---
+
+## Context
+
+Phase 1 retired the Pages Router and 9 legacy dependencies. With the architecture simplified to a single App Router tree, the project has zero component tests, zero E2E coverage and no automated Lighthouse gates. The existing CI pipeline has 7 steps — lint, typecheck, unit test (2 files / 7 assertions), build, and two bundle budget checks.
+
+A portfolio is both a product (recruiter / hiring-manager experience) and a demonstration of engineering craft. Missing test coverage and no measurable accessibility or performance contracts undermine both purposes.
+
+## Decision
+
+Add three quality layers in sequence:
+
+### Layer 1 — Lighthouse CI (Phase 2a)
+
+Run Lighthouse against the production build (`npm run build && npm run start`) in a dedicated CI job that gates on `quality` passing.
+
+**Configuration file:** `.lighthouserc.js`
+
+**URL audited:** `/v2` (home — heaviest bundle, WebGL background, largest reputational risk)
+
+**Thresholds:**
+
+| Category       | Assertion | Min score | Rationale |
+|----------------|-----------|-----------|-----------|
+| Performance    | warn      | 0.85      | WebGL background is intentional cost; warn-only avoids false failures |
+| Accessibility  | error     | 0.95      | EcoVoz (a11y project) is the flagship case study |
+| SEO            | error     | 0.95      | `generateMetadata` + OG images are a portfolio signal |
+| Best Practices | error     | 0.90      | Localhost in CI caps HTTPS score at ~0.96; 0.90 avoids false failures |
+
+**Server ready detection:** `startServerReadyPattern: "Ready in"` — matches Next.js 15's `✓ Ready in Xms` output, stable across patch versions.
+
+### Layer 2 — Component Tests with Vitest + Testing Library (Phase 2b)
+
+Extend the existing Vitest setup with `@testing-library/react`, `@testing-library/user-event`, and `happy-dom`.
+
+Target files:
+- `src/components/__tests__/Hero.test.tsx`
+- `src/components/__tests__/ProjectCard.test.tsx`
+- `src/components/__tests__/CommandPalette.test.tsx`
+- `src/features/v2/__tests__/shell-header-nav.test.tsx`
+- `src/i18n/__tests__/routing.test.ts` (expand existing coverage)
+
+Target count: ≥ 40 component test assertions (from current 7).
+
+### Layer 3 — E2E Journeys with Playwright (Phase 2c)
+
+Install `@playwright/test` and `@axe-core/playwright`. Eight critical journey specs:
+
+| Spec | What it guards |
+|------|---------------|
+| `navigation.spec.ts` | Home → Projetos → EcoVoz case study → back |
+| `locale-switching.spec.ts` | URL prefix changes, content updates |
+| `command-palette.spec.ts` | Ctrl+K opens, search navigates, Escape closes |
+| `theme-toggle.spec.ts` | Theme persists across routes via cookie |
+| `contact-links.spec.ts` | External links have correct href and target |
+| `accessibility.spec.ts` | axe-core on `/v2`, `/v2/projetos`, `/v2/projetos/ecovoz` |
+| `sitemap.spec.ts` | `/robots.txt` and `/sitemap.xml` return 200 |
+| `og-image.spec.ts` | `/api/og?title=test` returns 200 with image content-type |
+
+## Consequences
+
+- CI grows from 7 steps to 11 (+ Lighthouse job, + component test expansion, + Playwright job).
+- Lighthouse Performance is warn-only, intentionally — this is reviewed rather than blocking. If WebGL is later removed or lazy-loaded, upgrade to `error`.
+- The `numberOfRuns: 1` setting trades statistical reliability for speed. For a solo portfolio project this is acceptable; increase to 3 for a team project.
+- `temporary-public-storage` upload gives shareable report URLs per CI run without requiring a Lighthouse CI server.
+- Playwright adds ~5 minutes to CI; scope to chromium-only to keep wall time under 10 minutes total.
+
+## Alternatives Considered
+
+**Single test layer (Vitest only):** Rejected — component tests cannot catch routing regressions, locale switching bugs or accessibility violations that only manifest in a real browser.
+
+**Jest instead of Vitest:** Rejected — project already uses Vitest; switching adds churn with no material benefit for a Next.js 15 + React 19 codebase.
+
+**Cypress instead of Playwright:** Rejected — Playwright has better Next.js 15 + App Router compatibility, first-class TypeScript, and built-in axe-core integration via `@axe-core/playwright`.

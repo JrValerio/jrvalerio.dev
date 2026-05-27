@@ -25,5 +25,8 @@ Thumbs.db
 # VSCode configs (opcional)
 .vscode/
 
+# Lighthouse CI local reports
+.lighthouseci/
+
 # Artefatos locais
 *.zip
