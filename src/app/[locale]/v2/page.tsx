@@ -8,6 +8,8 @@ import {
   type V2LocaleSegment,
 } from "../../../i18n/v2";
 
+export const dynamic = "force-static";
+
 type LocalizedHomePageProps = {
   params: Promise<{ locale: string }>;
 };

@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import PrinciplesContent from "../../../../features/v2/principles-content";
 import { getLocaleFromSegment, type V2LocaleSegment } from "../../../../i18n/v2";
 
+export const dynamic = "force-static";
+
 type LocalizedPrinciplesPageProps = {
   params: Promise<{ locale: string }>;
 };

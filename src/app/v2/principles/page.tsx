@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import PrinciplesContent from "../../../features/v2/principles-content";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Engineering Principles",
   description:

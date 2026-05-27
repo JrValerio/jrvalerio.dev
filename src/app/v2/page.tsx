@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Hero from "../../components/Hero";
 import { getLanguageAlternates, getV2Messages } from "../../i18n/v2";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   alternates: {
     canonical: "/v2",

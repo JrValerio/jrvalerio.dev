@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Contact from "../../../components/Contact";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   alternates: {
     canonical: "/v2/contato",

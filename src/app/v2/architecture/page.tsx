@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import ArchitectureContent from "../../../features/v2/architecture-content";
+// ReactFlow CSS is scoped to this page only — removed from global layout.tsx
+import "reactflow/dist/style.css";
+
+export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Architecture",

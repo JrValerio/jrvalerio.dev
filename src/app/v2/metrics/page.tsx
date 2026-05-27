@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import MetricsContent from "../../../features/v2/metrics-content";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Metrics",
   description:

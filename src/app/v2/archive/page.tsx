@@ -4,6 +4,8 @@ import Section from "../../../components/UI/Section";
 import { archivedProjects } from "../../../data/projects";
 import { getV2Messages, toLocalePath } from "../../../i18n/v2";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Archive",
   description: "Projetos de estudo e iteracoes anteriores do portfolio.",

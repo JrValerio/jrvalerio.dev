@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ArchitectureContent from "../../../../features/v2/architecture-content";
 import { getLocaleFromSegment, type V2LocaleSegment } from "../../../../i18n/v2";
+// ReactFlow CSS scoped to this page only — matches v2/architecture/page.tsx
+import "reactflow/dist/style.css";
+
+export const dynamic = "force-static";
 
 type LocalizedArchitecturePageProps = {
   params: Promise<{ locale: string }>;

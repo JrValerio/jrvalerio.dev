@@ -4,6 +4,8 @@ import About from "../../../../components/About";
 import Stack from "../../../../components/Stack";
 import { getLocaleFromSegment, type V2LocaleSegment } from "../../../../i18n/v2";
 
+export const dynamic = "force-static";
+
 type LocalizedAboutPageProps = {
   params: Promise<{ locale: string }>;
 };

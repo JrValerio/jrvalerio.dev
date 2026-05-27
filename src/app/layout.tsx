@@ -4,7 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import AppAnalyticsTracker from "../components/AppAnalyticsTracker";
 import AppThemeProvider from "../components/AppThemeProvider";
-import "reactflow/dist/style.css";
+// NOTE: reactflow/dist/style.css was moved to the architecture page only.
+// It was previously imported here (global), loading ~40 KB of CSS on every route.
 import "../styles/globals.css";
 
 const geist = Geist({

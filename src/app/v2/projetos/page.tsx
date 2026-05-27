@@ -4,6 +4,8 @@ import Work from "../../../components/Work";
 import Container from "../../../components/UI/Container";
 import { getV2Messages, toLocalePath } from "../../../i18n/v2";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   alternates: {
     canonical: "/v2/projetos",

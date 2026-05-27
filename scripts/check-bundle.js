@@ -5,7 +5,10 @@ const zlib = require("zlib");
 const BUILD_DIR = ".next";
 const MANIFEST_FILE = "app-build-manifest.json";
 const DEFAULT_ROUTE = "/v2/page";
-const DEFAULT_LIMIT_KB = 110;
+// Baseline after Pages Router retirement (Phase 1): 100.14 kB measured 2026-05.
+// Previous limit was 110 kB when next-i18next/jspdf/html2canvas were in the tree.
+// Buffer: 5 kB above measured baseline.
+const DEFAULT_LIMIT_KB = 105;
 
 function readJsonFile(filePath) {
   if (!fs.existsSync(filePath)) {

@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Contact from "../../../../components/Contact";
 import { getLocaleFromSegment, type V2LocaleSegment } from "../../../../i18n/v2";
 
+export const dynamic = "force-static";
+
 type LocalizedContactPageProps = {
   params: Promise<{ locale: string }>;
 };
