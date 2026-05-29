@@ -54,7 +54,6 @@ Rationale for `motion` over `framer-motion`:
 
 ## Consequences
 
-- Hero LCP candidate (`p.jr-hero-summary`) is now eligible (no `opacity: 0`). Render delay of 4–9 s is caused by font loading + WebGL TBT — not by animation.
-- **Real next LCP lever:** `font-display: swap` + `<link rel="preload">` for the hero font. Estimated improvement: 4 s → ~1.5 s. Deferred to a separate commit.
-- LHCI performance threshold raise from 0.55 → 0.70 is deferred until font loading is optimised (font loading is 94% of the hero render delay per Lighthouse LCP phase breakdown).
+- Hero LCP candidate (`p.jr-hero-summary`) is now eligible (no `opacity: 0`). Render delay of 4–9 s is caused by **WebGL background recomposition** (Three.js lazy chunks fire long tasks at t≈5 s on 4G throttle, triggering a full page recomposition that resets Chrome's LCP timestamps). `next/font/google` is already in use — font loading is not the bottleneck.
+- LHCI performance threshold raise from 0.55 → 0.70 requires reducing the WebGL initialization long-task. Scope TBD after Phase 3 (Commits 4–5) are merged.
 - `.jr-reveal` CSS block removed; replaced with `.jr-slide-in` (transform-only, `prefers-reduced-motion` via `@media` query).

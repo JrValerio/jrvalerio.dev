@@ -42,9 +42,17 @@ Root-cause analysis of the two main drivers:
 
 1. **TBT 980–1180 ms** — `@react-three/fiber` (~1085–1310 ms JS execution) + WebGL context initialization (unattributable 655 ms long task). Even with Three.js fully deferred via `dynamic({ ssr: false })` at the shell level, this long task runs during the Lighthouse measurement window. It is inherent to having a WebGL background.
 
-2. **LCP 4–9 s** (on throttled CPU) — Phase 3 investigation revealed two layers: (a) `.jr-reveal { opacity: 0 }` excluded `p.jr-hero-summary` from LCP candidacy entirely, making Chrome measure the smaller `102×20 px` brand link instead; (b) once `opacity: 0` was removed, the real LCP candidate (`p.jr-hero-summary`) has a 4–9 s render delay caused by **font loading + WebGL TBT** (94% of the delay per Lighthouse phase breakdown). Motion-based animations were tried but made LCP worse (8–10 s) because motion applies `initial` state inline styles during SSR, keeping the LCP candidate unsettled until animation completes. Current state: `opacity: 0` removed, hero uses CSS transform-only animation (`.jr-slide-in`), LCP candidate restored. See ADR-004 for full investigation log.
+2. **LCP 4–9 s** (on throttled CPU) — Phase 3 investigation (2026-05-29) revealed the actual chain:
 
-The threshold of 0.55 catches genuine regressions without flagging the WebGL + font-loading baseline. **Raise to 0.70 after font optimization** (`font-display: swap` + `<link rel="preload">` for the hero font) reduces hero render delay from 4–9 s → ~1.5 s.
+   (a) `.jr-reveal { opacity: 0 }` excluded `p.jr-hero-summary` from LCP candidacy, making Chrome measure the smaller `102×20 px` brand link instead. This masked the real bottleneck.
+
+   (b) Once `opacity: 0` was removed, `p.jr-hero-summary` became the LCP candidate with a 4–9 s render delay. `next/font/google` is already in use (font-display score: 1, no issues). Font loading is **not** the bottleneck.
+
+   (c) Lighthouse long-task data shows the real cause: the WebGL background's lazy-loaded Three.js chunks (`@react-three/fiber`) fire long tasks at **t=4930 ms** (629 ms) and **t=5844 ms** (235 ms). When these chunks initialize, the browser recomposes the entire page. Chrome's LCP algorithm re-records the timestamp for all visible elements — including `p.jr-hero-summary` — at the time of that recomposition. The 4–9 s render delay *is* the WebGL recomposition latency.
+
+   This was always true; `opacity: 0` was accidentally hiding it by providing an earlier LCP candidate.
+
+The threshold of 0.55 catches genuine regressions without flagging the WebGL recomposition baseline. **Raise to 0.70 requires reducing the WebGL initialization long-task** (e.g., moving the canvas to a separate compositor layer, or removing the WebGL background from LCP-affecting routes).
 
 **Server ready detection:** `startServerReadyPattern: "Ready in"` — matches Next.js 15's `✓ Ready in Xms` output, stable across patch versions.
 
