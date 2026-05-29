@@ -38,7 +38,9 @@ describe("Button — native button variant", () => {
 describe("Button — anchor variant", () => {
   it("renders an anchor element when as='a'", () => {
     render(<Button as="a" href="/projects">View</Button>);
-    expect(screen.getByRole("link", { name: "View" })).toBeInTheDocument();
+    const link = screen.getByRole("link", { name: "View" });
+    expect(link).toBeInTheDocument();
+    expect(link).not.toHaveAttribute("as");
   });
 
   it("sets the href attribute", () => {

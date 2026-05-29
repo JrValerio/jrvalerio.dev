@@ -26,7 +26,7 @@ export default function Button(props: Props) {
     "inline-flex items-center justify-center border border-[var(--jr-border)] px-6 py-3 text-sm text-[var(--jr-text)] transition-colors hover:border-[var(--jr-accent)] hover:text-[var(--jr-accent)]";
 
   if (props.as === "a") {
-    const { className, children, href, ...rest } = props;
+    const { as: _as, className, children, href, ...rest } = props;
     return (
       <a href={href} className={`${baseClass} ${className ?? ""}`} {...rest}>
         {children}
