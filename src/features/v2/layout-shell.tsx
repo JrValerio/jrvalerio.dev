@@ -3,7 +3,16 @@ import Link from "next/link";
 import CommandPalette from "../../components/UI/CommandPalette";
 import Frame from "../../components/UI/Frame";
 import LateralControls from "../../components/UI/LateralControls";
-import WebGLBackground from "../../components/background/WebGLBackground";
+/**
+ * WebGLBackgroundDynamic defers the Three.js / @react-three/fiber chunk
+ * (~860 kB uncompressed) out of the critical JS parse budget.
+ * next/dynamic({ ssr: false }) must live inside a "use client" component
+ * (Next.js 15 restriction), so the wrapper lives in WebGLBackgroundDynamic.
+ *
+ * Before: @react-three/fiber execution: ~1085 ms on throttled CPU → TBT ~980 ms → score 0.63.
+ * After:  Three.js loads after React hydration, unblocking first paint.
+ */
+import WebGLBackground from "../../components/background/WebGLBackgroundDynamic";
 import { getV2Messages, toLocalePath, type V2Locale } from "../../i18n/v2";
 import ShellHeaderNav from "./shell-header-nav";
 import ShellScrollRestoration from "./shell-scroll-restoration";
