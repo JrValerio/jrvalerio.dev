@@ -42,9 +42,9 @@ Root-cause analysis of the two main drivers:
 
 1. **TBT 980–1180 ms** — `@react-three/fiber` (~1085–1310 ms JS execution) + WebGL context initialization (unattributable 655 ms long task). Even with Three.js fully deferred via `dynamic({ ssr: false })` at the shell level, this long task runs during the Lighthouse measurement window. It is inherent to having a WebGL background.
 
-2. **LCP 4.5 s** (on throttled CPU) — The hero `<h1>` has `.jr-reveal` CSS class which sets `opacity: 0` as its initial state. Chrome's LCP algorithm does not count opacity-zero elements as candidates; the first *visible* element becomes LCP. On throttled hardware where JS blocking prevents paint for ~4 s, the small header brand link (`102×20 px`) becomes the LCP element at 4.5 s. In real production (unthrottled), LCP is estimated 1–2 s. This will be fixed in **Phase 3** when Framer Motion replaces `jr-reveal` with animations that start from `opacity: 1`.
+2. **LCP 4–9 s** (on throttled CPU) — Phase 3 investigation revealed two layers: (a) `.jr-reveal { opacity: 0 }` excluded `p.jr-hero-summary` from LCP candidacy entirely, making Chrome measure the smaller `102×20 px` brand link instead; (b) once `opacity: 0` was removed, the real LCP candidate (`p.jr-hero-summary`) has a 4–9 s render delay caused by **font loading + WebGL TBT** (94% of the delay per Lighthouse phase breakdown). Motion-based animations were tried but made LCP worse (8–10 s) because motion applies `initial` state inline styles during SSR, keeping the LCP candidate unsettled until animation completes. Current state: `opacity: 0` removed, hero uses CSS transform-only animation (`.jr-slide-in`), LCP candidate restored. See ADR-004 for full investigation log.
 
-The threshold of 0.55 catches genuine regressions (a new heavy synchronous import would push the score below 0.50) without flagging the baseline WebGL cost on every push. **Raise to 0.70 after Phase 3** once the opacity:0 LCP issue is resolved.
+The threshold of 0.55 catches genuine regressions without flagging the WebGL + font-loading baseline. **Raise to 0.70 after font optimization** (`font-display: swap` + `<link rel="preload">` for the hero font) reduces hero render delay from 4–9 s → ~1.5 s.
 
 **Server ready detection:** `startServerReadyPattern: "Ready in"` — matches Next.js 15's `✓ Ready in Xms` output, stable across patch versions.
 

@@ -1,0 +1,60 @@
+---
+id: ADR-004
+title: Animation library — motion (successor to framer-motion)
+date: 2026-05-29
+status: accepted
+tags: [animation, performance, accessibility, bundle]
+summary: Adopt motion v12 for below-fold and navigation animations. Hero uses CSS transform-only animation — motion on above-the-fold content causes 8–10 s LCP due to SSR inline styles keeping Chrome's LCP candidate unsettled.
+---
+
+## Context
+
+The V2 shell used a CSS-only reveal system (`.jr-reveal`, `.jr-reveal-delay-N`) with `opacity: 0` as the initial state. Chrome's LCP algorithm excludes `opacity: 0` elements from candidacy, causing a 4.5 s LCP against the small `102×20 px` brand link rather than the hero heading. The original fix hypothesis was to replace the CSS with JS-driven animations (motion) that "start from opacity: 1."
+
+**What investigation revealed (Lighthouse runs, 2026-05-29):**
+
+Removing `opacity: 0` restores `p.jr-hero-summary` as the LCP candidate. Its render delay is **4–9 s** on 4× CPU throttle regardless of animation approach (motion or CSS). The delay is caused by font loading + WebGL TBT (~655 ms long task). This was always the real bottleneck — `opacity: 0` was masking it.
+
+**Why motion on above-the-fold content makes LCP worse:**
+
+Motion applies `initial` state styles as SSR inline styles (e.g. `style="transform:translateY(12px)"` or `style="opacity:0"`). Chrome's LCP algorithm records the timestamp of the **last significant repaint** of the candidate element. For animated elements, this means LCP = time the animation settles. With dynamic feature loading, the domAnimation chunk arrived late on 4G throttle, pushing LCP to 8–10 s (vs 4–9 s CSS baseline).
+
+**Correct scope for motion:** Hero (above the fold) → CSS only. Below-fold reveals and page transitions → motion.
+
+## Decision
+
+Adopt **`motion` v12** (`npm i motion`) for **below-fold and navigation animations only**.
+
+Rationale for `motion` over `framer-motion`:
+- Same public API (`AnimatePresence`, `motion.div`, `useReducedMotion`, variants).
+- Better tree-shaking; `framer-motion` is now a re-export shim.
+
+**Scope by component:**
+
+| Component | Approach | Rationale |
+|---|---|---|
+| Hero (above fold) | CSS `.jr-slide-in` (transform only) | No SSR inline styles; LCP not delayed |
+| `ProjectCard` | motion `whileInView` | Below fold; LCP not at stake |
+| `layout-shell` | motion `AnimatePresence` | Only fires on navigation, not initial load |
+
+**Mandatory patterns:**
+
+1. No motion on LCP-candidate elements. Above-the-fold headings and hero text must use CSS animations.
+
+2. `useReducedMotion()` before any animated state on interactive components. Skip animation entirely when true.
+
+3. `viewport={{ once: true }}` on all `whileInView` — no re-triggering on scroll-back.
+
+4. After motion is added to a route's initial bundle, re-run `npm run check:bundle` and update the gate.
+
+**Bundle gate:**
+
+- `/v2/page` (hero, no motion in initial bundle): 100.39 kB — gate stays **105 kB**.
+- Routes that load motion (ProjectCard, layout-shell): gate set after measurement at ~138–140 kB.
+
+## Consequences
+
+- Hero LCP candidate (`p.jr-hero-summary`) is now eligible (no `opacity: 0`). Render delay of 4–9 s is caused by font loading + WebGL TBT — not by animation.
+- **Real next LCP lever:** `font-display: swap` + `<link rel="preload">` for the hero font. Estimated improvement: 4 s → ~1.5 s. Deferred to a separate commit.
+- LHCI performance threshold raise from 0.55 → 0.70 is deferred until font loading is optimised (font loading is 94% of the hero render delay per Lighthouse LCP phase breakdown).
+- `.jr-reveal` CSS block removed; replaced with `.jr-slide-in` (transform-only, `prefers-reduced-motion` via `@media` query).

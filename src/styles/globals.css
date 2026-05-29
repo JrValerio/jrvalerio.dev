@@ -910,44 +910,26 @@ html[data-theme="dark"] .frame_line {
   background: color-mix(in srgb, var(--jr-accent) 12%, transparent);
 }
 
-@keyframes jrRevealUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Hero stagger — transform-only so the <h1> is never opacity:0 and Chrome's
+   LCP algorithm can measure it at first CSS paint, not after animation settles.
+   opacity:0 was the old jr-reveal bug that caused 4.5 s LCP (see ADR-006). */
+@keyframes jrSlideUp {
+  from { transform: translateY(10px); }
+  to   { transform: translateY(0); }
 }
 
-.jr-reveal {
-  opacity: 0;
-  animation: jrRevealUp 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  will-change: transform, opacity;
+.jr-slide-in {
+  animation: jrSlideUp 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.jr-reveal-delay-1 {
-  animation-delay: 0ms;
-}
-
-.jr-reveal-delay-2 {
-  animation-delay: 120ms;
-}
-
-.jr-reveal-delay-3 {
-  animation-delay: 240ms;
-}
-
-.jr-reveal-delay-4 {
-  animation-delay: 360ms;
-}
+.jr-slide-in-1 { animation-delay: 0ms; }
+.jr-slide-in-2 { animation-delay: 100ms; }
+.jr-slide-in-3 { animation-delay: 200ms; }
+.jr-slide-in-4 { animation-delay: 300ms; }
 
 @media (prefers-reduced-motion: reduce) {
-  .jr-reveal {
+  .jr-slide-in {
     animation: none;
-    opacity: 1;
-    transform: none;
   }
 
   .jr-theme::before,
