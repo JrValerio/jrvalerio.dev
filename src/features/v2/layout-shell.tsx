@@ -15,6 +15,7 @@ import LateralControls from "../../components/UI/LateralControls";
 import WebGLBackground from "../../components/background/WebGLBackgroundDynamic";
 import { getV2Messages, toLocalePath, type V2Locale } from "../../i18n/v2";
 import ShellHeaderNav from "./shell-header-nav";
+import PageTransition from "./page-transition";
 import ShellScrollRestoration from "./shell-scroll-restoration";
 import ShellScrollShadow from "./shell-scroll-shadow";
 
@@ -69,7 +70,9 @@ export default function V2LayoutShell({ children, locale, prefixed }: V2LayoutSh
           </header>
 
           <div id="ContentScroll" className="jr-shell-scroll">
-            <main className="relative z-[5]">{children}</main>
+            <main className="relative z-[5]">
+              <PageTransition>{children}</PageTransition>
+            </main>
           </div>
         </div>
       </div>

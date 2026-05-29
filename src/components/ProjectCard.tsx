@@ -37,7 +37,7 @@ export default function ProjectCard({
       variants={cardVariants}
       initial={shouldReduce ? "visible" : "hidden"}
       whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={{ once: true, amount: 0.3 }}
     >
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="max-w-3xl">
