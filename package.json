@@ -7,6 +7,7 @@
         "analyze": "cross-env ANALYZE=true next build",
         "check:bundle": "node scripts/check-bundle.js",
         "check:bundle:case": "cross-env BUNDLE_ROUTE=/v2/projetos/[slug]/page BUNDLE_LIMIT_KB=120 node scripts/check-bundle.js",
+        "check:bundle:projetos": "cross-env BUNDLE_ROUTE=/v2/projetos/page BUNDLE_LIMIT_KB=160 node scripts/check-bundle.js",
         "start": "next start",
         "lint": "next lint",
         "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",
