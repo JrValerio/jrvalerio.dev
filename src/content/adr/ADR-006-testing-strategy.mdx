@@ -52,7 +52,9 @@ Root-cause analysis of the two main drivers:
 
    This was always true; `opacity: 0` was accidentally hiding it by providing an earlier LCP candidate.
 
-The threshold of 0.55 catches genuine regressions without flagging the WebGL recomposition baseline. **Raise to 0.70 requires reducing the WebGL initialization long-task** (e.g., moving the canvas to a separate compositor layer, or removing the WebGL background from LCP-affecting routes).
+**Phase 3.3 partial fix (measured 2026-05-29):** `requestIdleCallback` added to `WebGLBackgroundDynamic` with `{ timeout: 2000 }`. Three.js only begins loading after the browser signals idle time. Best-case run: LCP 4.6 s → 3.0 s, score 49 → 73. Worst-case run still 7.8 s (rIC timeout of 2 s fires in the same window as natural chunk loading under heavy throttle). The long tasks shifted from t=4930 ms to t=5079 ms — marginal delay. The recomposition still occurs; only its timing improved.
+
+The threshold of 0.55 catches genuine regressions without flagging the WebGL baseline. **Raise to 0.70 requires either**: (a) a longer idle delay so Three.js loads well after LCP closes (~3–4 s timeout), or (b) IntersectionObserver gating so the canvas only loads on user scroll. Neither is implemented yet — the current rIC approach is a partial improvement, not the full fix.
 
 **Server ready detection:** `startServerReadyPattern: "Ready in"` — matches Next.js 15's `✓ Ready in Xms` output, stable across patch versions.
 

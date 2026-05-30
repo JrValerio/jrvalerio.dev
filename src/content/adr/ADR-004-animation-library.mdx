@@ -45,6 +45,12 @@ Rationale for `motion` over `framer-motion`:
 
 3. `viewport={{ once: true }}` on all `whileInView` — no re-triggering on scroll-back.
 
+   `viewport.amount` guidance (from `whileInView` field experience):
+   - `0.1` — fires almost immediately; all cards in a short list trigger simultaneously on fast scroll
+   - `0.3` — 30 % of element visible; solid default for card lists (confirmed via Playwright)
+   - `0.5` — half visible; good for larger reveal blocks (section headings, feature cards)
+   - `1.0` — fully visible; emphasis-only, use sparingly
+
 4. After motion is added to a route's initial bundle, re-run `npm run check:bundle` and update the gate.
 
 **Bundle gate:**
