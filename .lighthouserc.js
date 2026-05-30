@@ -32,7 +32,7 @@ module.exports = {
       // stable across patch versions. Alternative: "Local:.*3000".
       startServerReadyPattern: "Ready in",
       startServerReadyTimeout: 60000,
-      numberOfRuns: 2,
+      numberOfRuns: 3,
     },
     assert: {
       assertions: {

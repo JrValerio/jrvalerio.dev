@@ -1,22 +1,26 @@
 "use client";
 
 /**
- * Defers WebGL until the browser signals idle time after first paint.
+ * IntersectionObserver-gated WebGL background loader.
  *
- * Problem: Three.js lazy chunks were triggering long tasks at t≈4930 ms and
- * t≈5844 ms on 4G throttle. Even though the import was deferred via
- * next/dynamic, the browser scheduled it during the active rendering phase,
- * causing a full page recomposition that reset Chrome's LCP timestamps to
- * those late values (see ADR-006 for the Lighthouse investigation).
+ * Problem: Three.js lazy chunks fired long tasks at t≈5 s on 4G throttle
+ * (even with requestIdleCallback), because the rIC timeout of 2 s expired
+ * inside Chrome's LCP measurement window. The full-page recomposition at 5 s
+ * reset Chrome's LCP timestamps to those late values (see ADR-006).
  *
- * Fix: gate the dynamic import behind requestIdleCallback so the chunk only
- * executes after the browser has finished first paint + LCP measurement.
- * On browsers without rIC (Safari ≤ 16), fall back to a 1500 ms timeout —
- * generous enough to clear the LCP window on throttled connections.
+ * Fix: use IntersectionObserver on a fixed sentinel so the dynamic import
+ * only begins when the browser detects the sentinel is in the viewport.
+ * Because the sentinel is full-screen and fixed, it's immediately intersecting
+ * on load — but the IO callback fires asynchronously (next task boundary),
+ * giving the main thread a chance to complete first paint and close the LCP
+ * measurement window before Three.js starts downloading.
+ *
+ * Fallback: 5 s setTimeout ensures the background eventually loads for users
+ * who never trigger IO (e.g. bfcache restores, rare edge cases).
  */
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const WebGLBackground = dynamic(() => import("./WebGLBackground"), {
   ssr: false,
@@ -26,17 +30,51 @@ const WebGLBackground = dynamic(() => import("./WebGLBackground"), {
 type Props = { framed?: boolean };
 
 export default function WebGLBackgroundDynamic({ framed = false }: Props) {
-  const [idle, setIdle] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
-    if ("requestIdleCallback" in window) {
-      const id = requestIdleCallback(() => setIdle(true), { timeout: 2000 });
-      return () => cancelIdleCallback(id);
+    const timer = setTimeout(() => setShouldLoad(true), 5000);
+
+    if (!("IntersectionObserver" in window) || !sentinelRef.current) {
+      return () => clearTimeout(timer);
     }
-    const id = setTimeout(() => setIdle(true), 1500);
-    return () => clearTimeout(id);
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setShouldLoad(true);
+          io.disconnect();
+          clearTimeout(timer);
+        }
+      },
+      { rootMargin: "0px" },
+    );
+
+    io.observe(sentinelRef.current);
+    return () => {
+      io.disconnect();
+      clearTimeout(timer);
+    };
   }, []);
 
-  if (!idle) return null;
-  return <WebGLBackground framed={framed} />;
+  return (
+    <>
+      {/* Sentinel is fixed/full-screen so IO fires at the next task boundary
+          after first paint — after LCP, not before. aria-hidden so it's
+          invisible to assistive technology and pointer-events:none so it
+          doesn't block interaction. */}
+      <div
+        ref={sentinelRef}
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          inset: 0,
+          pointerEvents: "none",
+          zIndex: -1,
+        }}
+      />
+      {shouldLoad && <WebGLBackground framed={framed} />}
+    </>
+  );
 }
