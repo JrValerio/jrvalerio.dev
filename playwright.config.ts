@@ -26,5 +26,10 @@ export default defineConfig({
     timeout: 60000,
     // Reuse an already-running server in local dev; always start fresh in CI
     reuseExistingServer: !process.env.CI,
+    env: {
+      // Signals the contact Server Action to skip Resend and return success.
+      // Keeps E2E tests independent of domain verification / API availability.
+      PLAYWRIGHT_E2E: "1",
+    },
   },
 });

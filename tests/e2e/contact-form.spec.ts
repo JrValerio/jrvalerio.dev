@@ -13,7 +13,7 @@ test.describe("Contact form", () => {
   });
 
   test("honeypot field is present but hidden", async ({ page }) => {
-    const honeypot = page.locator('input[name="company"]');
+    const honeypot = page.locator('input[name="website_url_secondary"]');
     await expect(honeypot).toBeAttached();
     // Must not be interactable / visible to the user
     await expect(honeypot).not.toBeVisible();
@@ -56,7 +56,7 @@ test.describe("Contact form", () => {
     await page.locator("#cf-message").fill("Esta é uma mensagem de spam longa o suficiente.");
     // Fill honeypot directly via JS (a real user would never do this)
     await page.evaluate(() => {
-      const hp = document.querySelector<HTMLInputElement>('input[name="company"]');
+      const hp = document.querySelector<HTMLInputElement>('input[name="website_url_secondary"]');
       if (hp) hp.value = "acme corp";
     });
     await page.getByRole("button", { name: /enviar mensagem/i }).click();

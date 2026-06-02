@@ -26,10 +26,11 @@ export default function ContactForm() {
 
   return (
     <form ref={formRef} action={action} noValidate className="flex flex-col gap-5">
-      {/* Honeypot — hidden from real users, bots fill it */}
+      {/* Honeypot — hidden from real users, bots fill it.
+          Name uses a non-semantic string to avoid browser/password-manager auto-fill. */}
       <input
         type="text"
-        name="company"
+        name="website_url_secondary"
         tabIndex={-1}
         autoComplete="off"
         aria-hidden="true"
