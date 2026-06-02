@@ -13,7 +13,9 @@
         "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",
         "test": "vitest run",
         "test:watch": "vitest",
-        "test:coverage": "vitest run --coverage"
+        "test:coverage": "vitest run --coverage",
+        "test:e2e": "playwright test",
+        "test:e2e:ui": "playwright test --ui"
     },
     "dependencies": {
         "@emailjs/browser": "^4.4.1",
@@ -35,6 +37,7 @@
         "three": "^0.183.2"
     },
     "devDependencies": {
+        "@axe-core/playwright": "^4.11.3",
         "@lhci/cli": "^0.15.1",
         "@next/bundle-analyzer": "^15.5.12",
         "@playwright/test": "^1.60.0",
