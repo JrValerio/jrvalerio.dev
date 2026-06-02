@@ -488,6 +488,28 @@ html[data-theme="dark"] .frame_line {
   padding-bottom: 88px;
 }
 
+.jr-input {
+  width: 100%;
+  background: var(--jr-surface);
+  border: 1px solid var(--jr-border);
+  border-radius: 6px;
+  color: var(--jr-text);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding: 0.625rem 0.75rem;
+  transition: border-color 0.15s ease;
+  outline: none;
+}
+
+.jr-input:focus {
+  border-color: var(--jr-accent);
+}
+
+.jr-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .jr-home-main {
   display: flex;
   align-items: center;
