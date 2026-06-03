@@ -49,11 +49,6 @@ test.describe("Page transitions (AnimatePresence)", () => {
       .getByRole("link", { name: /projetos/i })
       .first();
 
-    // Before click: note the main DOM
-    const motionBefore = await page.evaluate(
-      () => document.querySelectorAll("main [style*='opacity']").length,
-    );
-
     await projLink.click();
     await page.waitForTimeout(300);
 

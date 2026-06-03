@@ -27,6 +27,7 @@ const CASE_SESSION_STORAGE_PREFIX = "jr-case-session";
 
 type PostHogClient = typeof import("posthog-js")["default"];
 let posthogClient: PostHogClient | null = null;
+let sessionFallbackCounter = 0;
 const pendingPosthogEvents: Array<{
   action: string;
   payload: Record<string, string | number | boolean>;
@@ -162,11 +163,20 @@ function normalizeAdrPayload(
 }
 
 function createSessionId() {
-  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
-    return crypto.randomUUID();
+  if (typeof globalThis.crypto?.randomUUID === "function") {
+    return globalThis.crypto.randomUUID();
   }
 
-  return `${Date.now()}-${Math.random().toString(16).slice(2, 10)}`;
+  if (typeof globalThis.crypto?.getRandomValues === "function") {
+    const bytes = new Uint8Array(8);
+    globalThis.crypto.getRandomValues(bytes);
+    const randomSuffix = Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+
+    return `${Date.now()}-${randomSuffix}`;
+  }
+
+  sessionFallbackCounter += 1;
+  return `${Date.now()}-${sessionFallbackCounter}`;
 }
 
 export function getOrCreateCaseSessionId(projectSlug: string) {

@@ -7,13 +7,6 @@ const LOCALE_LABELS = {
   "pt-BR": "PT-BR",
 } as const;
 
-// URL segments for each locale
-const LOCALE_SEGMENTS = {
-  "en-GB": "/en-gb",
-  es: "/es-intl",
-  "pt-BR": "",
-} as const;
-
 test.describe("Locale switching", () => {
   test("switching to EN-GB navigates to /en-gb/v2", async ({ page }) => {
     await page.goto("/v2", { waitUntil: "networkidle" });
