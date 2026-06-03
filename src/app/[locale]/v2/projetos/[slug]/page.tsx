@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import JsonLd from "../../../../../components/JsonLd";
 import ProjectDetailContent from "../../../../../features/v2/project-detail-content";
 import { projects } from "../../../../../data/projects";
 import {
   V2_LOCALE_SEGMENTS,
   getLocaleFromSegment,
+  getSegmentFromLocale,
   type V2LocaleSegment,
 } from "../../../../../i18n/v2";
 import {
   getProjectBySlug,
 } from "../../../../../data/projects";
+import { getProjectJsonLd } from "../../../../../lib/structured-data";
 import { getProjectDetailMetadata } from "../../../../v2/projetos/[slug]/page";
 
 type LocalizedProjectDetailPageProps = {
@@ -43,5 +46,12 @@ export default async function LocalizedProjectDetailPage({
   const project = getProjectBySlug(slug);
   if (!locale || !project) notFound();
 
-  return <ProjectDetailContent project={project} locale={locale} prefixed />;
+  const pagePath = `/${getSegmentFromLocale(locale)}/v2/projetos/${project.slug}`;
+
+  return (
+    <>
+      <JsonLd data={getProjectJsonLd(project, pagePath, locale)} />
+      <ProjectDetailContent project={project} locale={locale} prefixed />
+    </>
+  );
 }

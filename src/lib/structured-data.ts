@@ -1,3 +1,5 @@
+import type { Project } from "../data/projects";
+
 const DEFAULT_SITE_URL = "https://jrvalerio.dev";
 
 export function getSiteUrl() {
@@ -34,5 +36,43 @@ export function getPersonJsonLd(siteUrl = getSiteUrl()): Record<string, unknown>
       "TypeScript",
       "Web Performance",
     ],
+  };
+}
+
+export function getProjectJsonLd(
+  project: Project,
+  pagePath: string,
+  inLanguage = "pt-BR",
+  siteUrl = getSiteUrl()
+): Record<string, unknown> {
+  const pageUrl = toAbsoluteUrl(pagePath, siteUrl);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${pageUrl}#creativework`,
+    name: project.title,
+    headline: project.title,
+    description: project.summary,
+    abstract: project.summary,
+    url: pageUrl,
+    image: toAbsoluteUrl(project.cover, siteUrl),
+    dateCreated: project.year,
+    dateModified: project.updatedAt.toISOString().slice(0, 10),
+    genre: project.category,
+    keywords: [project.category, ...project.stack].join(", "),
+    inLanguage,
+    creator: {
+      "@id": `${siteUrl}/#person`,
+    },
+    author: {
+      "@id": `${siteUrl}/#person`,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": pageUrl,
+    },
+    codeRepository: project.repo,
+    sameAs: project.url ? [project.url] : undefined,
   };
 }
