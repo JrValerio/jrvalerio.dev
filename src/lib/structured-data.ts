@@ -1,4 +1,5 @@
 import type { Project } from "../data/projects";
+import type { AdrDocument } from "./adr";
 
 const DEFAULT_SITE_URL = "https://jrvalerio.dev";
 
@@ -74,5 +75,44 @@ export function getProjectJsonLd(
     },
     codeRepository: project.repo,
     sameAs: project.url ? [project.url] : undefined,
+  };
+}
+
+export function getAdrTechArticleJsonLd(
+  adr: AdrDocument,
+  pagePath: string,
+  inLanguage = "pt-BR",
+  siteUrl = getSiteUrl()
+): Record<string, unknown> {
+  const pageUrl = toAbsoluteUrl(pagePath, siteUrl);
+  const headline = `${adr.id}: ${adr.title}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "@id": `${pageUrl}#techarticle`,
+    name: headline,
+    headline,
+    description: adr.summary,
+    articleSection: "Architecture Decision Record",
+    datePublished: adr.date,
+    dateModified: adr.date,
+    keywords: adr.tags.join(", "),
+    inLanguage,
+    url: pageUrl,
+    author: {
+      "@id": `${siteUrl}/#person`,
+    },
+    creator: {
+      "@id": `${siteUrl}/#person`,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": pageUrl,
+    },
+    about: adr.tags.map((tag) => ({
+      "@type": "Thing",
+      name: tag,
+    })),
   };
 }
