@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import AppAnalyticsTracker from "../components/AppAnalyticsTracker";
 import AppThemeProvider from "../components/AppThemeProvider";
+import JsonLd from "../components/JsonLd";
+import { getPersonJsonLd } from "../lib/structured-data";
 // NOTE: reactflow/dist/style.css was moved to the architecture page only.
 // It was previously imported here (global), loading ~40 KB of CSS on every route.
 import "../styles/globals.css";
@@ -64,6 +66,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body>
+        <JsonLd data={getPersonJsonLd(siteUrl)} />
         <AppThemeProvider>
           <AppAnalyticsTracker />
           {children}
