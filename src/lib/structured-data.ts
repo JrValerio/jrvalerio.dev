@@ -1,10 +1,10 @@
 import type { Project } from "../data/projects";
 import type { AdrDocument } from "./adr";
 
-const DEFAULT_SITE_URL = "https://jrvalerio.dev";
+const DEFAULT_STRUCTURED_DATA_SITE_URL = "https://jrvalerio-dev.vercel.app";
 
 export function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL;
+  return process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_STRUCTURED_DATA_SITE_URL;
 }
 
 export function toAbsoluteUrl(pathOrUrl: string, siteUrl = getSiteUrl()) {

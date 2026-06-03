@@ -66,7 +66,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body>
-        <JsonLd data={getPersonJsonLd(siteUrl)} />
+        <JsonLd data={getPersonJsonLd()} />
         <AppThemeProvider>
           <AppAnalyticsTracker />
           {children}
