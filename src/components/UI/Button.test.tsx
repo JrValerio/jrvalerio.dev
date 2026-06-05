@@ -10,6 +10,11 @@ describe("Button — native button variant", () => {
     expect(screen.getByRole("button", { name: "Click me" })).toBeInTheDocument();
   });
 
+  it("does not leak an explicit button variant prop to the DOM", () => {
+    render(<Button as="button">Click me</Button>);
+    expect(screen.getByRole("button", { name: "Click me" })).not.toHaveAttribute("as");
+  });
+
   it("defaults to type=button to prevent accidental form submission", () => {
     render(<Button>Click me</Button>);
     expect(screen.getByRole("button")).toHaveAttribute("type", "button");

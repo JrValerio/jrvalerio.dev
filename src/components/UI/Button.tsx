@@ -36,7 +36,9 @@ export default function Button(props: Props) {
     );
   }
 
-  const { className, children, type, ...rest } = props;
+  const { as: variant, className, children, type, ...rest } = props;
+  void variant;
+
   return (
     <button type={type ?? "button"} className={`${baseClass} ${className ?? ""}`} {...rest}>
       {children}
