@@ -27,7 +27,6 @@ const CASE_SESSION_STORAGE_PREFIX = "jr-case-session";
 
 type PostHogClient = typeof import("posthog-js")["default"];
 let posthogClient: PostHogClient | null = null;
-let sessionFallbackCounter = 0;
 const pendingPosthogEvents: Array<{
   action: string;
   payload: Record<string, string | number | boolean>;
@@ -175,8 +174,7 @@ function createSessionId() {
     return `${Date.now()}-${randomSuffix}`;
   }
 
-  sessionFallbackCounter += 1;
-  return `${Date.now()}-${sessionFallbackCounter}`;
+  throw new Error("Web Crypto is required to create analytics session IDs.");
 }
 
 export function getOrCreateCaseSessionId(projectSlug: string) {
