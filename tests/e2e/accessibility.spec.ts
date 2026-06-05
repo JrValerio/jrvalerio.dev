@@ -9,6 +9,31 @@ import { expect, test } from "@playwright/test";
 const DISABLED_RULES = ["color-contrast", "landmark-unique"];
 
 test.describe("Accessibility (axe-core)", () => {
+  test("every page has exactly one h1", async ({ page }) => {
+    const routes = [
+      "/v2",
+      "/v2/projetos",
+      "/v2/architecture",
+      "/v2/engineering",
+      "/v2/metrics",
+      "/v2/principles",
+      "/v2/sobre",
+      "/v2/contato",
+      "/v2/archive",
+      "/en-gb/v2",
+      "/en-gb/v2/projetos",
+      "/en-gb/v2/architecture",
+      "/es-intl/v2/projetos",
+    ];
+
+    for (const route of routes) {
+      await page.goto(route, { waitUntil: "networkidle" });
+      const h1Count = await page.locator("h1").count();
+
+      expect(h1Count, `Route ${route} should have exactly one h1`).toBe(1);
+    }
+  });
+
   test("home page has no critical a11y violations", async ({ page }) => {
     await page.goto("/v2", { waitUntil: "networkidle" });
 
