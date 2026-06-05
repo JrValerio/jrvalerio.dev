@@ -8,6 +8,7 @@ type WorkProps = {
   limit?: number;
   title?: string;
   subtitle?: string;
+  headingAs?: "h1" | "h2";
   locale?: V2Locale;
   prefixed?: boolean;
 };
@@ -16,6 +17,7 @@ export default function Work({
   limit,
   title,
   subtitle,
+  headingAs = "h2",
   locale = "pt-BR",
   prefixed = false,
 }: WorkProps) {
@@ -27,7 +29,7 @@ export default function Work({
     subtitle ?? (limit ? messages.work.selectedSubtitle : messages.work.allSubtitle);
 
   return (
-    <Section id="work" title={sectionTitle} subtitle={sectionSubtitle}>
+    <Section id="work" title={sectionTitle} subtitle={sectionSubtitle} headingAs={headingAs}>
       <div>
         {items.map((project) => (
           <ProjectCard

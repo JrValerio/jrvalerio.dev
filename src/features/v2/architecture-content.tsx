@@ -16,6 +16,7 @@ export default function ArchitectureContent({ locale, prefixed }: ArchitectureCo
       <Section
         title={messages.architecture.title}
         subtitle={messages.architecture.subtitle}
+        headingAs="h1"
       >
         <div className="grid gap-4">
           {messages.architecture.layers.map((layer) => (

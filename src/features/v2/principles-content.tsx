@@ -15,6 +15,7 @@ export default function PrinciplesContent({ locale, prefixed }: PrinciplesConten
       <Section
         title={messages.principles.title}
         subtitle={messages.principles.subtitle}
+        headingAs="h1"
       >
         <div className="grid gap-4 md:grid-cols-2">
           {messages.principles.items.map((principle) => (

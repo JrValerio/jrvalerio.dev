@@ -64,7 +64,11 @@ export default function MetricsContent({ locale, prefixed }: MetricsContentProps
 
   return (
     <>
-      <Section title={messages.metrics.title} subtitle={messages.metrics.subtitle}>
+      <Section
+        title={messages.metrics.title}
+        subtitle={messages.metrics.subtitle}
+        headingAs="h1"
+      >
         <p className="jr-meta">
           {messages.metrics.lastVerifiedLabel}: {messages.metrics.lastVerifiedValue}
         </p>

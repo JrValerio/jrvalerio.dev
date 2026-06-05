@@ -42,6 +42,7 @@ export default async function LocalizedProjectsPage({ params }: LocalizedProject
       <Work
         title={messages.work.allTitle}
         subtitle={messages.work.allSubtitle}
+        headingAs="h1"
         locale={locale}
         prefixed
       />

@@ -13,6 +13,7 @@ export default function About({ locale = "pt-BR" }: AboutProps) {
       id="about"
       title={messages.about.title}
       subtitle={messages.about.subtitle}
+      headingAs="h1"
     >
       <div className="jr-prose space-y-4">
         {messages.about.paragraphs.map((paragraph) => (

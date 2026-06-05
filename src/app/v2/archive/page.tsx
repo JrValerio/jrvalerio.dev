@@ -23,6 +23,7 @@ export default function V2ArchivePage() {
     <Section
       title={messages.archive.title}
       subtitle={messages.archive.subtitle}
+      headingAs="h1"
     >
       <div className="grid gap-4 md:grid-cols-2">
         {archivedProjects.map((project) => (

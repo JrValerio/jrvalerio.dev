@@ -34,7 +34,11 @@ export default function EngineeringContent({ locale, prefixed }: EngineeringCont
 
   return (
     <>
-      <Section title={messages.engineering.title} subtitle={messages.engineering.subtitle}>
+      <Section
+        title={messages.engineering.title}
+        subtitle={messages.engineering.subtitle}
+        headingAs="h1"
+      >
         <div className="grid gap-4">
           {adrs.map((adr) => (
             <article key={adr.id} className="jr-surface-card jr-adr-card p-6">

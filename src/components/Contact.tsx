@@ -16,6 +16,7 @@ export default function Contact({ locale = "pt-BR" }: ContactProps) {
       id="contact"
       title={messages.contact.title}
       subtitle={messages.contact.subtitle}
+      headingAs="h1"
     >
       <div className="grid gap-6 lg:grid-cols-[2fr,1fr]">
         <Card>
