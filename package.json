@@ -1,6 +1,9 @@
 {
     "name": "jrvalerio-dev",
     "version": "1.0.0",
+    "engines": {
+        "node": ">=24 <25"
+    },
     "scripts": {
         "dev": "next dev",
         "build": "next build",
@@ -27,7 +30,7 @@
         "gray-matter": "^4.0.3",
         "lucide-react": "^0.525.0",
         "motion": "^12.40.0",
-        "next": "^15.3.5",
+        "next": "^15.5.29",
         "next-themes": "^0.4.6",
         "posthog-js": "^1.359.0",
         "react": "^19.1.0",
@@ -35,12 +38,12 @@
         "reactflow": "^11.11.4",
         "resend": "^6.12.4",
         "three": "^0.183.2",
-        "zod": "^4.4.3"
+        "zod": "^4.6.7"
     },
     "devDependencies": {
         "@axe-core/playwright": "^4.11.3",
         "@lhci/cli": "^0.15.1",
-        "@next/bundle-analyzer": "^15.5.12",
+        "@next/bundle-analyzer": "^15.5.29",
         "@playwright/test": "^1.60.0",
         "@tailwindcss/postcss": "^4.1.11",
         "@testing-library/jest-dom": "^6.9.1",
@@ -52,9 +55,9 @@
         "autoprefixer": "^10.4.21",
         "cross-env": "^10.1.0",
         "eslint": "^9.39.2",
-        "eslint-config-next": "^15.4.1",
+        "eslint-config-next": "^15.5.29",
         "happy-dom": "^20.9.0",
-        "postcss": "^8.5.6",
+        "postcss": "^8.5.33",
         "tailwindcss": "^4.1.11",
         "typescript": "5.8.3",
         "vitest": "^4.0.18"
