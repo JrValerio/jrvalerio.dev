@@ -1,9 +1,10 @@
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  esbuild: {
-    // Use React 18 automatic JSX runtime — no need to import React in every file.
-    jsx: "automatic",
+  // Vite 8 transforms TS/JSX with Oxc (the `esbuild` option is ignored).
+  // tsconfig keeps `jsx: preserve` for Next, so force the automatic runtime here.
+  oxc: {
+    jsx: { runtime: "automatic" },
   },
   test: {
     // Default: node for pure TS domain tests.
