@@ -7,7 +7,8 @@ vi.mock("resend", () => ({
   },
 }));
 
-import { sendContact, UNAVAILABLE_MESSAGE } from "./send-contact";
+import { UNAVAILABLE_MESSAGE } from "./contact-messages";
+import { sendContact } from "./send-contact";
 
 function form(overrides: Record<string, string> = {}) {
   const fd = new FormData();

@@ -2,11 +2,9 @@
 
 import { z } from "zod";
 import { Resend } from "resend";
+import { UNAVAILABLE_MESSAGE } from "./contact-messages";
 
 const HONEYPOT_FIELD = "website_url_secondary";
-
-export const UNAVAILABLE_MESSAGE =
-  "O envio pelo formulário está indisponível no momento. Escreva para amarovsjr81@gmail.com.";
 
 const schema = z.object({
   name: z.string().min(1, "Nome obrigatório").max(100, "Nome muito longo"),
