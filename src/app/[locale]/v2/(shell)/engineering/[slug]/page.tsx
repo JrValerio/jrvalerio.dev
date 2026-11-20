@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import JsonLd from "../../../../../components/JsonLd";
-import AdrDetailContent from "../../../../../features/v2/adr-detail-content";
+import JsonLd from "../../../../../../components/JsonLd";
+import AdrDetailContent from "../../../../../../features/v2/adr-detail-content";
 import {
   V2_LOCALE_SEGMENTS,
   getLocaleFromSegment,
   getSegmentFromLocale,
   type V2LocaleSegment,
-} from "../../../../../i18n/v2";
-import { getAdrBySlug, getAllAdrs } from "../../../../../lib/adr";
-import { getAdrTechArticleJsonLd } from "../../../../../lib/structured-data";
+} from "../../../../../../i18n/v2";
+import { getAdrBySlug, getAllAdrs } from "../../../../../../lib/adr";
+import { getAdrTechArticleJsonLd } from "../../../../../../lib/structured-data";
 
 type LocalizedAdrPageProps = {
   params: Promise<{ locale: string; slug: string }>;

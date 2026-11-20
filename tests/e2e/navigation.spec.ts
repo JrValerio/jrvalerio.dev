@@ -1,13 +1,31 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Navigation", () => {
-  test("nav links route to correct pages", async ({ page }) => {
+  test("home nav links jump to their sections", async ({ page }) => {
     await page.goto("/v2");
 
+    const sections = [
+      { label: /projetos/i, id: "projetos" },
+      { label: /sobre/i, id: "sobre" },
+      { label: /trajetória/i, id: "trajetoria" },
+      { label: /contato/i, id: "contato" },
+    ];
+
+    const nav = page.getByRole("navigation", { name: "Seções" });
+    for (const { label, id } of sections) {
+      await nav.getByRole("link", { name: label }).click();
+      await page.waitForURL(`**#${id}`);
+      await expect(page.locator(`#${id}`)).toBeInViewport();
+    }
+  });
+
+  test("shell nav links route to correct pages", async ({ page }) => {
+    await page.goto("/v2/projetos");
+
     const routes = [
-      { label: /projetos/i, expectedPath: "/projetos" },
       { label: /sobre/i, expectedPath: "/sobre" },
       { label: /contato/i, expectedPath: "/contato" },
+      { label: /projetos/i, expectedPath: "/projetos" },
     ];
 
     for (const { label, expectedPath } of routes) {

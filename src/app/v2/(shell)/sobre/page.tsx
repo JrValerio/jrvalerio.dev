@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import About from "../../../components/About";
-import Stack from "../../../components/Stack";
+import About from "../../../../components/About";
+import Stack from "../../../../components/Stack";
 
 export const dynamic = "force-static";
 

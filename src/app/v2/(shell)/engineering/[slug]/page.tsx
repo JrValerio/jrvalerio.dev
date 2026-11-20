@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import JsonLd from "../../../../components/JsonLd";
-import AdrDetailContent from "../../../../features/v2/adr-detail-content";
-import { getAdrBySlug, getAllAdrs } from "../../../../lib/adr";
-import { getAdrTechArticleJsonLd } from "../../../../lib/structured-data";
+import JsonLd from "../../../../../components/JsonLd";
+import AdrDetailContent from "../../../../../features/v2/adr-detail-content";
+import { getAdrBySlug, getAllAdrs } from "../../../../../lib/adr";
+import { getAdrTechArticleJsonLd } from "../../../../../lib/structured-data";
 
 type AdrPageProps = {
   params: Promise<{ slug: string }>;

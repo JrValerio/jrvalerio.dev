@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import MetricsContent from "../../../features/v2/metrics-content";
+import MetricsContent from "../../../../features/v2/metrics-content";
 
 export const dynamic = "force-static";
 

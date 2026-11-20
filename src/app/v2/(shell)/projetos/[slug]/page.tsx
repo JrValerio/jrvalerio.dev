@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import JsonLd from "../../../../components/JsonLd";
-import ProjectDetailContent from "../../../../features/v2/project-detail-content";
-import { getProjectBySlug, projects } from "../../../../data/projects";
-import { getV2Messages, toLocalePath, type V2Locale } from "../../../../i18n/v2";
-import { getProjectJsonLd } from "../../../../lib/structured-data";
+import JsonLd from "../../../../../components/JsonLd";
+import ProjectDetailContent from "../../../../../features/v2/project-detail-content";
+import { getProjectBySlug, projects } from "../../../../../data/projects";
+import { getV2Messages, toLocalePath, type V2Locale } from "../../../../../i18n/v2";
+import { getProjectJsonLd } from "../../../../../lib/structured-data";
 
 type PageProps = {
   params: Promise<{ slug: string }>;

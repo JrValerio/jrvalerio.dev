@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Section from "../../../../components/UI/Section";
-import { archivedProjects } from "../../../../data/projects";
+import Section from "../../../../../components/UI/Section";
+import { archivedProjects } from "../../../../../data/projects";
 import {
   getLocaleFromSegment,
   getV2Messages,
   toLocalePath,
   type V2LocaleSegment,
-} from "../../../../i18n/v2";
+} from "../../../../../i18n/v2";
 
 export const dynamic = "force-static";
 

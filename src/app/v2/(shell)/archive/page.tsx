@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Section from "../../../components/UI/Section";
-import { archivedProjects } from "../../../data/projects";
-import { getV2Messages, toLocalePath } from "../../../i18n/v2";
+import Section from "../../../../components/UI/Section";
+import { archivedProjects } from "../../../../data/projects";
+import { getV2Messages, toLocalePath } from "../../../../i18n/v2";
 
 export const dynamic = "force-static";
 

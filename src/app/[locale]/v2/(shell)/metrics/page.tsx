@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import MetricsContent from "../../../../features/v2/metrics-content";
-import { getLocaleFromSegment, type V2LocaleSegment } from "../../../../i18n/v2";
+import MetricsContent from "../../../../../features/v2/metrics-content";
+import { getLocaleFromSegment, type V2LocaleSegment } from "../../../../../i18n/v2";
 
 export const dynamic = "force-static";
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import EngineeringContent from "../../../../features/v2/engineering-content";
-import { getLocaleFromSegment, type V2LocaleSegment } from "../../../../i18n/v2";
+import EngineeringContent from "../../../../../features/v2/engineering-content";
+import { getLocaleFromSegment, type V2LocaleSegment } from "../../../../../i18n/v2";
 
 export const dynamic = "force-static";
 

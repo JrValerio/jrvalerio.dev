@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import JsonLd from "../../../../../components/JsonLd";
-import ProjectDetailContent from "../../../../../features/v2/project-detail-content";
-import { projects } from "../../../../../data/projects";
+import JsonLd from "../../../../../../components/JsonLd";
+import ProjectDetailContent from "../../../../../../features/v2/project-detail-content";
+import { projects } from "../../../../../../data/projects";
 import {
   V2_LOCALE_SEGMENTS,
   getLocaleFromSegment,
   getSegmentFromLocale,
   type V2LocaleSegment,
-} from "../../../../../i18n/v2";
+} from "../../../../../../i18n/v2";
 import {
   getProjectBySlug,
-} from "../../../../../data/projects";
-import { getProjectJsonLd } from "../../../../../lib/structured-data";
-import { getProjectDetailMetadata } from "../../../../v2/projetos/[slug]/page";
+} from "../../../../../../data/projects";
+import { getProjectJsonLd } from "../../../../../../lib/structured-data";
+import { getProjectDetailMetadata } from "../../../../../v2/(shell)/projetos/[slug]/page";
 
 type LocalizedProjectDetailPageProps = {
   params: Promise<{ locale: string; slug: string }>;

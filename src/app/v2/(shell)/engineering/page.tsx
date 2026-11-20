@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import EngineeringContent from "../../../features/v2/engineering-content";
+import EngineeringContent from "../../../../features/v2/engineering-content";
 
 export const dynamic = "force-static";
 
