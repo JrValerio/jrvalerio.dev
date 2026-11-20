@@ -14,7 +14,8 @@ const DEFAULT_ROUTE = "/v2";
 // 229.2 kB, /v2/projetos/ecovoz 234.7 kB. The same method on Next 15.5
 // gave 197.2 / 200.1 / 205.4 kB: about +30 kB is the Next 16 runtime
 // (webpack build measured the same). Limits keep roughly 5 kB of headroom.
-const DEFAULT_LIMIT_KB = 233;
+// The redesigned home (no legacy shell, no three.js) measured 160.5 kB.
+const DEFAULT_LIMIT_KB = 165;
 
 function routeHtmlPath(route) {
   const clean = route.replace(/\/+$/, "") || "/index";

@@ -95,10 +95,11 @@ function Showcase({ theme }: { theme: ThemeName }) {
       <div className="grid gap-10 lg:grid-cols-[1fr_260px]">
         <div className="flex flex-col gap-4">
           <p className="font-[family-name:var(--jv-font-script)] text-4xl text-[var(--jv-accent)]">Olá, eu sou</p>
-          <p className="font-[family-name:var(--jv-font-display)] text-[clamp(4rem,9vw,7rem)] leading-[0.92] uppercase">
-            Amaro
-            <br />
-            Júnior<span className="text-[var(--jv-accent)]">.</span>
+          <p className="font-[family-name:var(--jv-font-display)] text-[clamp(4rem,9vw,7rem)] leading-[0.9] uppercase">
+            <span className="block">Amaro</span>
+            <span className="block pt-[0.2em]">
+              Júnior<span className="text-[var(--jv-accent)]">.</span>
+            </span>
           </p>
           <p className="text-[15px] font-extrabold tracking-[0.1em] text-[var(--jv-accent)]">
             DESENVOLVEDOR FULL-STACK &amp; AGENTES DE IA

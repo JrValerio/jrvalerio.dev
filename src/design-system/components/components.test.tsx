@@ -32,6 +32,22 @@ describe("ProjectCard", () => {
   });
 });
 
+describe("ProjectCard without a link", () => {
+  it("renders the title as text and shows the note", () => {
+    render(<ProjectCard index={5} title="Agente OBS" summary="Resumo" tags={[]} note="Código privado" />);
+    expect(screen.queryByRole("link")).toBeNull();
+    expect(screen.getByRole("heading", { name: "Agente OBS" })).toBeTruthy();
+    expect(screen.getByText("Código privado")).toBeTruthy();
+  });
+
+  it("opens external links in a new tab safely", () => {
+    render(<ProjectCard index={4} title="Site" summary="Resumo" tags={[]} href="https://example.com" external />);
+    const link = screen.getByRole("link");
+    expect(link.getAttribute("target")).toBe("_blank");
+    expect(link.getAttribute("rel")).toBe("noopener noreferrer");
+  });
+});
+
 describe("SectionTitle", () => {
   it("renders the heading level asked for, with a decorative dot", () => {
     render(<SectionTitle as="h3" eyebrow="Projetos">Trabalho</SectionTitle>);

@@ -6,7 +6,7 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Command palette", () => {
   test("opens via jr:open-command-palette custom event", async ({ page }) => {
-    await page.goto("/v2", { waitUntil: "networkidle" });
+    await page.goto("/v2/projetos", { waitUntil: "networkidle" });
 
     await page.evaluate(() => {
       window.dispatchEvent(new CustomEvent("jr:open-command-palette"));
@@ -18,7 +18,7 @@ test.describe("Command palette", () => {
   });
 
   test("Escape closes the palette", async ({ page }) => {
-    await page.goto("/v2", { waitUntil: "networkidle" });
+    await page.goto("/v2/projetos", { waitUntil: "networkidle" });
 
     await page.evaluate(() => {
       window.dispatchEvent(new CustomEvent("jr:open-command-palette"));
@@ -31,7 +31,7 @@ test.describe("Command palette", () => {
   });
 
   test("typing a query produces results", async ({ page }) => {
-    await page.goto("/v2", { waitUntil: "networkidle" });
+    await page.goto("/v2/projetos", { waitUntil: "networkidle" });
 
     await page.evaluate(() => {
       window.dispatchEvent(new CustomEvent("jr:open-command-palette"));
@@ -49,7 +49,7 @@ test.describe("Command palette", () => {
   test("mobile: search button opens palette on small viewport", async ({ page }) => {
     // Use a viewport below lg breakpoint (1024 px) so the mobile nav is visible
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto("/v2", { waitUntil: "networkidle" });
+    await page.goto("/v2/projetos", { waitUntil: "networkidle" });
 
     // Open mobile menu
     const menuButton = page.getByRole("button", { name: /abrir menu|open menu/i });

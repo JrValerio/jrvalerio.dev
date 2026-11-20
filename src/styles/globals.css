@@ -63,6 +63,15 @@ body {
   overflow-x: hidden;
 }
 
+/* Redesign pages scroll the document itself: no fixed-height body (the
+   legacy shell scrolls an inner container) and `clip` instead of `hidden`
+   so position: sticky keeps working. */
+html:has(.jv-page),
+html:has(.jv-page) body {
+  height: auto;
+  overflow-x: clip;
+}
+
 html {
   color-scheme: light;
 }
