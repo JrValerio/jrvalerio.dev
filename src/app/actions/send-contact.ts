@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { Resend } from "resend";
+import { UNAVAILABLE_MESSAGE } from "./contact-messages";
 
 const HONEYPOT_FIELD = "website_url_secondary";
 
@@ -54,11 +55,22 @@ export async function sendContact(
   // In-memory rate limiting doesn't work reliably across Vercel serverless
   // instances. Upgrade to Vercel KV if abuse becomes a problem.
 
-  // Skip actual sending in E2E test runs and dev (no API key)
-  if (process.env.PLAYWRIGHT_E2E === "1" || !process.env.RESEND_API_KEY) {
+  // E2E runs never send real e-mail.
+  if (process.env.PLAYWRIGHT_E2E === "1") {
     return { status: "success" };
   }
+
   const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    // Local development without a key: pretend it was sent.
+    if (process.env.NODE_ENV !== "production") {
+      return { status: "success" };
+    }
+    // Deployed without a key: fail closed so the visitor knows the message
+    // did not leave, instead of showing a success that drops it.
+    console.error("[contact] RESEND_API_KEY is not set; message not sent");
+    return { status: "error", message: UNAVAILABLE_MESSAGE };
+  }
 
   const resend = new Resend(apiKey);
   const toEmail = process.env.CONTACT_TO_EMAIL ?? "amarovsjr81@gmail.com";
