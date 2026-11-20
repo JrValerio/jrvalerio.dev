@@ -41,7 +41,7 @@ function getPreferredLocale(request: NextRequest): V2Locale {
   return resolveLocaleFromAcceptLanguage(request.headers.get("accept-language"));
 }
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const segments = pathname.split("/").filter(Boolean);
 

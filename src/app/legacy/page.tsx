@@ -6,7 +6,7 @@
  * Self-contained Client Component with no App Router shell (no V2LayoutShell)
  * and no external dependencies beyond next/image and the local useTypewriter hook.
  *
- * Route: /legacy (middleware bypass configured in middleware.ts line 51)
+ * Route: /legacy (bypass configured in proxy.ts)
  */
 
 import { useEffect, useState } from "react";
